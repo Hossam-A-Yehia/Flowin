@@ -1,0 +1,99 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: flowin-postgres
+    environment:
+      POSTGRES_DB: flowin
+      POSTGRES_USER: flowin
+      POSTGRES_PASSWORD: flowin_dev_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - flowin-network
+
+  # Redis for Queues & Caching
+  redis:
+    image: redis:7-alpine
+    container_name: flowin-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - flowin-network
+
+  # API Backend
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.api
+    container_name: flowin-api
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://flowin:flowin_dev_password@postgres:5432/flowin
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: your-jwt-secret-key
+      PORT: 4000
+    ports:
+      - "4000:4000"
+    volumes:
+      - ../apps/api:/app
+      - /app/node_modules
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - flowin-network
+    command: npm run dev
+
+  # Web Frontend
+  web:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.web
+    container_name: flowin-web
+    environment:
+      NODE_ENV: development
+      NEXT_PUBLIC_API_URL: http://localhost:4000
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../apps/web:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - api
+    networks:
+      - flowin-network
+    command: npm run dev
+
+  # Prisma Studio (Database GUI)
+  prisma-studio:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.prisma
+    container_name: flowin-prisma-studio
+    environment:
+      DATABASE_URL: postgresql://flowin:flowin_dev_password@postgres:5432/flowin
+    ports:
+      - "5555:5555"
+    depends_on:
+      - postgres
+    networks:
+      - flowin-network
+    profiles:
+      - tools
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  flowin-network:
+    driver: bridge

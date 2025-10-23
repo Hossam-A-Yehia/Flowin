@@ -1,0 +1,42 @@
+{
+  "name": "flowin",
+  "version": "1.0.0",
+  "description": "> **Tagline:** \"Let your work flow — effortlessly.\"",
+  "main": "index.js",
+  "packageManager": "npm@10.0.0",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "test": "turbo test",
+    "setup": "powershell -ExecutionPolicy Bypass -File ./scripts/setup.ps1",
+    "dev:start": "powershell -ExecutionPolicy Bypass -File ./scripts/dev.ps1",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:studio": "prisma studio",
+    "docker:up": "docker-compose -f docker/docker-compose.yml up -d",
+    "docker:down": "docker-compose -f docker/docker-compose.yml down",
+    "docker:logs": "docker-compose -f docker/docker-compose.yml logs -f"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hossam-A-Yehia/Flowin.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hossam-A-Yehia/Flowin/issues"
+  },
+  "homepage": "https://github.com/Hossam-A-Yehia/Flowin#readme",
+  "devDependencies": {
+    "prisma": "^6.18.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,418 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ================================
+// USER MANAGEMENT & AUTHENTICATION
+// ================================
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  image     String?
+  password  String?  // For email/password auth
+  
+  // Plan & Usage
+  plan      Plan     @default(FREE)
+  usage     Json?    // Current usage stats
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  lastLogin DateTime?
+  
+  // Email verification
+  emailVerified DateTime?
+  
+  // API Keys
+  apiKeys   ApiKey[]
+  
+  // Relations
+  flows         Flow[]
+  executions    Execution[]
+  integrations  UserIntegration[]
+  templates     Template[]
+  notifications Notification[]
+  subscription  Subscription?
+  invoices      Invoice[]
+  
+  // Statistics (computed)
+  statistics Json? // { flowsCount, executionsCount, etc. }
+  
+  @@map("users")
+}
+
+model ApiKey {
+  id        String   @id @default(cuid())
+  name      String   // User-defined name
+  key       String   @unique // The actual API key
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Permissions & Limits
+  permissions Json?  // Array of allowed operations
+  rateLimit   Int?   // Requests per hour
+  
+  // Status
+  isActive    Boolean  @default(true)
+  lastUsed    DateTime?
+  
+  createdAt   DateTime @default(now())
+  expiresAt   DateTime?
+  
+  @@map("api_keys")
+}
+
+// ================================
+// INTEGRATIONS SYSTEM
+// ================================
+
+model Integration {
+  id          String @id @default(cuid())
+  name        String @unique // "google_sheets", "notion", etc.
+  displayName String // "Google Sheets", "Notion"
+  category    String // "Productivity", "Communication"
+  
+  // Configuration
+  authType    AuthType // OAUTH2, API_KEY, WEBHOOK
+  isActive    Boolean  @default(true)
+  
+  // Metadata
+  description String?
+  iconUrl     String?
+  websiteUrl  String?
+  
+  // Relations
+  userIntegrations UserIntegration[]
+  flowNodes        FlowNode[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("integrations")
+}
+
+model UserIntegration {
+  id            String @id @default(cuid())
+  userId        String
+  integrationId String
+  
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  integration Integration @relation(fields: [integrationId], references: [id], onDelete: Cascade)
+  
+  // Auth Data (encrypted)
+  credentials Json // OAuth tokens, API keys, etc.
+  
+  // Status
+  isConnected Boolean   @default(true)
+  lastSync    DateTime?
+  
+  // Usage tracking
+  usageCount  Int @default(0)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@unique([userId, integrationId])
+  @@map("user_integrations")
+}
+
+// ================================
+// FLOW BUILDER & AUTOMATION
+// ================================
+
+model Flow {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Flow Configuration
+  isActive    Boolean @default(false)
+  triggerType String  // "webhook", "schedule", "manual"
+  
+  // Flow Structure (JSON representation)
+  nodes       Json    // Array of nodes with positions and connections
+  edges       Json    // Connections between nodes
+  
+  // Metadata
+  version     Int     @default(1)
+  tags        String[] // For categorization
+  
+  // Statistics
+  totalRuns     Int @default(0)
+  successfulRuns Int @default(0)
+  failedRuns    Int @default(0)
+  lastRun       DateTime?
+  
+  // Relations
+  executions Execution[]
+  flowNodes  FlowNode[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("flows")
+}
+
+model FlowNode {
+  id     String @id @default(cuid())
+  flowId String
+  flow   Flow   @relation(fields: [flowId], references: [id], onDelete: Cascade)
+  
+  // Node Configuration
+  type           NodeType // TRIGGER, ACTION, CONDITION, DELAY, AI, WEBHOOK
+  integrationId  String?
+  integration    Integration? @relation(fields: [integrationId], references: [id])
+  
+  // Node Data
+  name        String
+  description String?
+  config      Json   // Node-specific configuration
+  position    Json   // { x, y } coordinates in flow builder
+  
+  // Execution
+  isEnabled Boolean @default(true)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("flow_nodes")
+}
+
+// ================================
+// EXECUTION & LOGGING
+// ================================
+
+model Execution {
+  id     String @id @default(cuid())
+  flowId String
+  flow   Flow   @relation(fields: [flowId], references: [id], onDelete: Cascade)
+  
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Execution Details
+  status      ExecutionStatus @default(RUNNING)
+  triggerData Json?           // Input data that triggered the flow
+  
+  // Timing
+  startedAt   DateTime @default(now())
+  completedAt DateTime?
+  duration    Int?     // Duration in milliseconds
+  
+  // Results
+  output      Json?    // Final output data
+  errorMessage String? // Error details if failed
+  
+  // Step-by-step logs
+  steps ExecutionStep[]
+  
+  @@map("executions")
+}
+
+model ExecutionStep {
+  id          String @id @default(cuid())
+  executionId String
+  execution   Execution @relation(fields: [executionId], references: [id], onDelete: Cascade)
+  
+  // Step Details
+  nodeId      String
+  stepNumber  Int
+  name        String
+  
+  // Execution
+  status      ExecutionStatus @default(RUNNING)
+  input       Json?
+  output      Json?
+  errorMessage String?
+  
+  // Timing
+  startedAt   DateTime @default(now())
+  completedAt DateTime?
+  duration    Int?
+  
+  @@map("execution_steps")
+}
+
+// ================================
+// TEMPLATES & COMMUNITY
+// ================================
+
+model Template {
+  id          String @id @default(cuid())
+  name        String
+  description String
+  category    String // "Marketing", "E-commerce", "Freelancing"
+  
+  // Template Data
+  flowStructure Json   // Complete flow configuration
+  tags          String[]
+  
+  // Metadata
+  isPublic    Boolean @default(false)
+  isOfficial  Boolean @default(false) // Created by Flowin team
+  usageCount  Int     @default(0)
+  rating      Float?  // Average user rating
+  
+  // Relations
+  authorId String?
+  author   User?   @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("templates")
+}
+
+// ================================
+// NOTIFICATIONS & ALERTS
+// ================================
+
+model Notification {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Notification Content
+  type    NotificationType
+  title   String
+  message String
+  data    Json? // Additional context data
+  
+  // Status
+  isRead Boolean @default(false)
+  
+  // Delivery
+  channels String[] // ["email", "telegram", "whatsapp", "in_app"]
+  sentAt   DateTime?
+  
+  createdAt DateTime @default(now())
+  
+  @@map("notifications")
+}
+
+// ================================
+// BILLING & SUBSCRIPTIONS
+// ================================
+
+model Subscription {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Subscription Details
+  plan           Plan
+  status         SubscriptionStatus @default(ACTIVE)
+  
+  // Billing
+  stripeCustomerId     String? @unique
+  stripeSubscriptionId String? @unique
+  
+  // Periods
+  currentPeriodStart DateTime
+  currentPeriodEnd   DateTime
+  
+  // Usage Limits
+  flowsLimit      Int
+  executionsLimit Int
+  
+  // Usage Tracking
+  flowsUsed       Int @default(0)
+  executionsUsed  Int @default(0)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("subscriptions")
+}
+
+model Invoice {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Invoice Details
+  stripeInvoiceId String? @unique
+  amount          Int     // Amount in cents
+  currency        String  @default("usd")
+  status          InvoiceStatus
+  
+  // Dates
+  issuedAt DateTime
+  dueAt    DateTime?
+  paidAt   DateTime?
+  
+  createdAt DateTime @default(now())
+  
+  @@map("invoices")
+}
+
+// ================================
+// ENUMS
+// ================================
+
+enum Plan {
+  FREE
+  STARTER
+  PRO
+  BUSINESS
+}
+
+enum AuthType {
+  OAUTH2
+  API_KEY
+  WEBHOOK
+  BASIC_AUTH
+}
+
+enum NodeType {
+  TRIGGER
+  ACTION
+  CONDITION
+  DELAY
+  AI
+  WEBHOOK
+}
+
+enum ExecutionStatus {
+  PENDING
+  RUNNING
+  SUCCESS
+  FAILED
+  CANCELLED
+  TIMEOUT
+}
+
+enum NotificationType {
+  FLOW_SUCCESS
+  FLOW_FAILED
+  FLOW_WARNING
+  BILLING_UPDATE
+  SYSTEM_ALERT
+  AI_SUGGESTION
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELLED
+  PAST_DUE
+  UNPAID
+  INCOMPLETE
+}
+
+enum InvoiceStatus {
+  DRAFT
+  OPEN
+  PAID
+  VOID
+  UNCOLLECTIBLE
+}
