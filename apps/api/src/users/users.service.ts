@@ -42,6 +42,20 @@ export class UsersService {
     });
   }
 
+  async findByIdWithPassword(id: string) {
+    return this.prisma.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        password: true,
+        plan: true,
+        createdAt: true,
+      },
+    });
+  }
+
   async update(id: string, data: Prisma.UserUpdateInput) {
     return this.prisma.user.update({
       where: { id },

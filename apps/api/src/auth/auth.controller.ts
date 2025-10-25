@@ -1,8 +1,9 @@
-import { Controller, Post, Body, UseGuards, Request } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Controller, Post, Body, UseGuards, Request, Get, HttpCode, HttpStatus } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiBody } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
-import { RegisterDto, LoginDto } from './dto/auth.dto';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { RegisterDto, LoginDto, AuthResponseDto, ChangePasswordDto, ForgotPasswordDto, ResetPasswordDto } from './dto/auth.dto';
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -10,9 +11,15 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('register')
-  @ApiOperation({ summary: 'Register a new user' })
-  @ApiResponse({ status: 201, description: 'User successfully registered' })
-  async register(@Body() registerDto: RegisterDto) {
+  @ApiOperation({ summary: 'Register a new user account' })
+  @ApiResponse({ 
+    status: 201, 
+    description: 'User successfully registered and logged in',
+    type: AuthResponseDto
+  })
+  @ApiResponse({ status: 400, description: 'Invalid input data' })
+  @ApiResponse({ status: 409, description: 'User already exists' })
+  async register(@Body() registerDto: RegisterDto): Promise<AuthResponseDto> {
     return this.authService.register(
       registerDto.email,
       registerDto.password,
@@ -22,9 +29,121 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  @ApiOperation({ summary: 'Login user' })
-  @ApiResponse({ status: 200, description: 'User successfully logged in' })
-  async login(@Request() req, @Body() loginDto: LoginDto) {
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Login with email and password' })
+  @ApiBody({ type: LoginDto })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'User successfully logged in',
+    type: AuthResponseDto
+  })
+  @ApiResponse({ status: 401, description: 'Invalid credentials' })
+  async login(@Request() req): Promise<AuthResponseDto> {
     return this.authService.login(req.user);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('me')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Get current user profile' })
+  @ApiResponse({ status: 200, description: 'Current user information' })
+  @ApiResponse({ status: 401, description: 'Unauthorized - Invalid token' })
+  async getProfile(@Request() req) {
+    return {
+      id: req.user.id,
+      email: req.user.email,
+      name: req.user.name,
+      plan: req.user.plan,
+      createdAt: req.user.createdAt,
+      lastLogin: req.user.lastLogin,
+    };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('change-password')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Change user password' })
+  @ApiBody({ type: ChangePasswordDto })
+  @ApiResponse({ status: 200, description: 'Password changed successfully' })
+  @ApiResponse({ status: 401, description: 'Current password is incorrect' })
+  async changePassword(
+    @Request() req,
+    @Body() changePasswordDto: ChangePasswordDto
+  ) {
+    return this.authService.changePassword(
+      req.user.id,
+      changePasswordDto.currentPassword,
+      changePasswordDto.newPassword
+    );
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('logout')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Logout user (client-side token removal)' })
+  @ApiResponse({ status: 200, description: 'Logout successful' })
+  async logout() {
+    // JWT is stateless, so logout is handled client-side
+    // This endpoint exists for consistency and future token blacklisting
+    return { message: 'Logout successful' };
+  }
+
+  @Post('forgot-password')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Request password reset email' })
+  @ApiBody({ type: ForgotPasswordDto })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Password reset email sent (if account exists)',
+    schema: {
+      type: 'object',
+      properties: {
+        message: { type: 'string', example: 'If an account with that email exists, we have sent a password reset link.' }
+      }
+    }
+  })
+  async forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
+    return this.authService.forgotPassword(forgotPasswordDto.email);
+  }
+
+  @Post('reset-password')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Reset password using token' })
+  @ApiBody({ type: ResetPasswordDto })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Password reset successfully',
+    schema: {
+      type: 'object',
+      properties: {
+        message: { type: 'string', example: 'Password reset successfully' }
+      }
+    }
+  })
+  @ApiResponse({ status: 400, description: 'Invalid or expired reset token' })
+  async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
+    return this.authService.resetPassword(
+      resetPasswordDto.token,
+      resetPasswordDto.newPassword
+    );
+  }
+
+  @Get('validate-reset-token')
+  @ApiOperation({ summary: 'Validate password reset token' })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Token is valid',
+    schema: {
+      type: 'object',
+      properties: {
+        valid: { type: 'boolean', example: true },
+        email: { type: 'string', example: 'user@example.com' },
+        expiresAt: { type: 'string', format: 'date-time' }
+      }
+    }
+  })
+  @ApiResponse({ status: 400, description: 'Invalid or expired token' })
+  async validateResetToken(@Body('token') token: string) {
+    return this.authService.validateResetToken(token);
   }
 }

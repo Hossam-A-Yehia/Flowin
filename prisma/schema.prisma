@@ -28,7 +28,19 @@ model User {
   lastLogin DateTime?
   
   // Email verification
-  emailVerified DateTime?
+  emailVerified      DateTime?
+  emailVerifyToken   String?   // Token for email verification
+  emailVerifyExp     DateTime? // Email verification token expiration
+  
+  // Phone verification
+  phone              String?   // Phone number
+  phoneVerified      DateTime? // When phone was verified
+  phoneVerifyCode    String?   // SMS verification code
+  phoneVerifyExp     DateTime? // SMS code expiration
+  
+  // Password reset
+  resetToken         String?   // Secure token for password reset
+  resetTokenExp      DateTime? // Token expiration time
   
   // API Keys
   apiKeys   ApiKey[]
