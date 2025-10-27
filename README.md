@@ -214,8 +214,11 @@ This section outlines the strategic phases for developing Flowin from concept to
 
 #### Current Focus (Stage 1):
 - [x] Project documentation completion
-- [ ] Database schema design
-- [ ] Development environment setup
+- [x] Database schema design (Prisma complete)
+- [x] Development environment setup
+- [x] Authentication system (100% complete)
+- [x] Email & SMS services implementation
+- [x] API documentation (Swagger)
 - [ ] UI/UX wireframe creation
 - [ ] Integration API research
 
@@ -292,14 +295,80 @@ Each stage has specific exit criteria that must be met before proceeding:
 
 ### 🔐 7.1 Authentication & User System
 
-#### Features:
+#### Core Features:
 - Sign-up / Sign-in (Email, Google, GitHub)
-- Password recovery
-- Email verification (secure onboarding)
-- Profile settings (avatar, plan, usage)
-- API Key generation per user
-- Session management with JWT & refresh tokens
-- Account deletion (GDPR compliance)
+- Password recovery with secure token system
+- Email verification (secure onboarding with 24-hour expiration)
+- Phone verification with SMS (6-digit code, 10-minute expiration)
+- Profile settings (avatar, plan, usage, verification status)
+- API Key management (create, delete, toggle, list)
+- Change password functionality
+- Session management with JWT & configurable expiration
+- Account deletion (GDPR compliance with cascading cleanup)
+- Two-Factor Authentication (2FA) with email/SMS support
+
+#### Advanced Security Features:
+- **Password Security**: bcrypt hashing with configurable salt rounds
+- **Password Reset**: Secure token generation with 1-hour expiration
+- **Email Verification**: 24-hour token expiration for secure onboarding
+- **Phone Verification**: 10-minute code expiration via SMS
+- **API Key Security**: Key masking in responses, configurable limits per user
+- **Token Validation**: Endpoint to validate reset tokens before use
+- **Resend Verification**: Capability to resend email/SMS verification codes
+- **Verification Status**: Comprehensive endpoint showing email/phone verification status
+- **Email Enumeration Prevention**: Security through consistent success messaging
+- **Development Mode**: Email/SMS logging in development environment
+
+#### API Endpoints:
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| POST | `/auth/register` | Register new user | No |
+| POST | `/auth/login` | Login with email/password | No |
+| GET | `/auth/me` | Get current user profile | Yes (JWT) |
+| POST | `/auth/logout` | Logout user | Yes (JWT) |
+| POST | `/auth/change-password` | Change user password | Yes (JWT) |
+| POST | `/auth/forgot-password` | Request password reset email | No |
+| POST | `/auth/reset-password` | Reset password with token | No |
+| GET | `/auth/validate-reset-token` | Validate reset token | No |
+| POST | `/auth/delete-account` | Delete user account | Yes (JWT) |
+| GET | `/auth/google` | Initiate Google OAuth | No |
+| GET | `/auth/google/callback` | Google OAuth callback | No |
+| GET | `/auth/github` | Initiate GitHub OAuth | No |
+| GET | `/auth/github/callback` | GitHub OAuth callback | No |
+
+#### Verification Endpoints:
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| POST | `/auth/verify/email/send` | Send email verification link | No |
+| POST | `/auth/verify/email/confirm` | Verify email with token | No |
+| POST | `/auth/verify/phone/send` | Send SMS verification code | No |
+| POST | `/auth/verify/phone/confirm` | Verify phone with code | No |
+| POST | `/auth/verify/phone/add-and-send` | Add phone and send code | Yes (JWT) |
+| POST | `/auth/verify/phone/verify-mine` | Verify own phone number | Yes (JWT) |
+| POST | `/auth/verify/resend` | Resend verification (email/phone) | Yes (JWT) |
+| GET | `/auth/verify/status` | Get verification status | Yes (JWT) |
+
+#### API Key Management Endpoints:
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| GET | `/auth/api-keys` | List all user API keys | Yes (JWT) |
+| POST | `/auth/api-keys` | Create new API key | Yes (JWT) |
+| DELETE | `/auth/api-keys/:id` | Delete API key | Yes (JWT) |
+| POST | `/auth/api-keys/:id/toggle` | Toggle API key active status | Yes (JWT) |
+
+#### Two-Factor Authentication Endpoints:
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| GET | `/auth/2fa/status` | Get 2FA status | Yes (JWT) |
+| POST | `/auth/2fa/enable` | Enable 2FA (email/SMS) | Yes (JWT) |
+| POST | `/auth/2fa/verify` | Verify 2FA code during login | No |
+| POST | `/auth/2fa/send-code` | Send 2FA code | No |
+| POST | `/auth/2fa/disable` | Disable 2FA | Yes (JWT) |
+| POST | `/auth/2fa/regenerate-backup-codes` | Regenerate backup codes | Yes (JWT) |
 
 #### Stored Data:
 ```json
@@ -312,13 +381,63 @@ Each stage has specific exit criteria that must be met before proceeding:
   "usage": "current_usage_stats",
   "createdAt": "timestamp",
   "lastLogin": "timestamp",
-  "apiKeys": ["key1", "key2"],
+  "emailVerified": "timestamp|null",
+  "phone": "+1234567890",
+  "phoneVerified": "timestamp|null",
+  "twoFactorEnabled": "boolean",
+  "apiKeys": [
+    {
+      "id": "key_id",
+      "name": "My Integration",
+      "isActive": true,
+      "lastUsed": "timestamp"
+    }
+  ],
   "statistics": {
     "flowsCount": 0,
     "executionsCount": 0
   }
 }
 ```
+
+#### Communication Services:
+
+**Email Service:**
+- Beautiful HTML email templates for all communications
+- Email verification with branded templates
+- Password reset emails with secure links
+- Welcome emails for new users
+- 2FA code delivery via email
+- SMTP configuration support (Gmail, SendGrid, etc.)
+- Development mode with email logging
+- Token extraction in development for testing
+
+**SMS Service:**
+- Twilio integration for SMS delivery
+- Phone verification via 6-digit codes
+- 2FA code delivery via SMS
+- Phone number validation
+- Development mode with console logging
+- Configurable code expiration (10 minutes)
+
+#### Key Implementation Details:
+
+1. **Password Security**: All passwords are hashed using bcrypt with configurable salt rounds (default: 12)
+2. **Token Management**: Secure token generation using crypto.randomBytes() for all verification flows
+3. **Token Expiration**: 
+   - Password reset tokens: 1 hour
+   - Email verification tokens: 24 hours
+   - Phone verification codes: 10 minutes
+   - 2FA codes: 5 minutes
+4. **API Key Features**:
+   - Automatic key masking in responses (shows first 8 and last 4 characters)
+   - Configurable limits per user (default: 5 keys)
+   - Optional expiration dates
+   - Toggle active/inactive status
+   - Last used timestamp tracking
+5. **GDPR Compliance**: Complete account deletion with cascading cleanup of all related data
+6. **OAuth Integration**: Seamless Google and GitHub OAuth with automatic account creation/linking
+7. **JWT Configuration**: Configurable expiration times, secret key management
 
 ### 🔌 7.2 Integrations Manager
 
@@ -400,19 +519,48 @@ The core experience — where users visually design their automations.
 ### 💬 7.6 Notifications System
 
 #### Channels:
-- Email
-- Telegram Bot
-- WhatsApp (Pro plans only)
-- In-app notifications
+- **Email** - Beautiful HTML templates with branded design
+- **SMS** - Twilio integration for phone notifications
+- **Telegram Bot** - Real-time bot notifications
+- **WhatsApp** (Pro plans only) - WhatsApp Business integration
+- **In-app notifications** - Real-time WebSocket notifications
+
+#### Email & SMS Infrastructure:
+
+**Email Service Features:**
+- Professional HTML email templates with branded design
+- Email verification templates (24-hour expiration)
+- Password reset emails (1-hour expiration)
+- Welcome emails for new users
+- Flow error notifications
+- Flow success summaries
+- Billing and subscription updates
+- 2FA code delivery
+- SMTP support (Gmail, SendGrid, AWS SES)
+- Development mode with console logging
+- Token extraction in development for testing
+
+**SMS Service Features:**
+- Twilio integration for reliable SMS delivery
+- Phone verification via 6-digit codes (10-minute expiration)
+- 2FA code delivery via SMS (5-minute expiration)
+- International phone number validation
+- Flow error SMS notifications
+- Billing alerts via SMS
+- Development mode with console logging
+- Configurable code generation and expiration
 
 #### Notification Types:
 
-| Type | Example Message |
-|------|-----------------|
-| **Flow Error** | "Flow #22 failed: Expired token." |
-| **Flow Completed** | "Flow executed successfully 12 times today." |
-| **Payment Update** | "Your subscription has been renewed." |
-| **AI Suggestion** | "We found a way to optimize this flow." |
+| Type | Channels | Example Message |
+|------|----------|-----------------|
+| **Flow Error** | Email, SMS, In-app | "Flow #22 failed: Expired token." |
+| **Flow Completed** | Email, In-app | "Flow executed successfully 12 times today." |
+| **Payment Update** | Email, SMS | "Your subscription has been renewed." |
+| **AI Suggestion** | Email, In-app | "We found a way to optimize this flow." |
+| **Verification** | Email, SMS | "Your verification code is 123456" |
+| **2FA Code** | Email, SMS | "Your 2FA code is 654321" |
+| **Welcome** | Email | "Welcome to Flowin! Start automating today." |
 
 ### 💸 7.7 Billing & Subscription
 
@@ -683,13 +831,41 @@ The core experience — where users visually design their automations.
 
 ## 🔐 13. Security & Compliance
 
-- Full HTTPS / TLS encryption
-- Encrypted API tokens (AES-256)
-- Role-based access control (RBAC)
-- Rate limiting for APIs
-- 2FA optional for all users
-- GDPR & Privacy compliance ready
-- Secure logging for all executions
+### Security Features:
+- **Full HTTPS / TLS encryption** - All communications encrypted in transit
+- **Password Security** - bcrypt hashing with configurable salt rounds (default: 12)
+- **JWT Tokens** - Secure token-based authentication with configurable expiration
+- **Password Reset** - Secure token generation with 1-hour expiration
+- **Email Verification** - 24-hour token expiration for secure onboarding
+- **Phone Verification** - 10-minute SMS code expiration
+- **API Key Management** - Encrypted API keys with masking in responses
+- **API Key Limits** - Configurable maximum keys per user (default: 5)
+- **Token Validation** - Pre-validation of reset tokens before use
+- **Email Enumeration Prevention** - Consistent messaging to prevent user discovery
+- **Session Management** - JWT with automatic last login tracking
+- **Account Deletion** - GDPR-compliant cascading data cleanup
+- **Role-based access control (RBAC)** - User, admin, viewer roles
+- **Rate limiting** - API throttling and abuse prevention
+- **Input Validation** - Comprehensive DTO validation with Zod
+- **SQL Injection Protection** - Prisma ORM with parameterized queries
+- **XSS Protection** - Input sanitization and HTML escaping
+- **CSRF Protection** - Stateless JWT tokens
+- **Secure Logging** - All executions logged with timestamps
+- **Two-Factor Authentication** - Optional 2FA with email/SMS and backup codes
+- **OAuth Security** - Secure Google and GitHub OAuth integration
+- **Development Security** - Email/SMS logging in development environment
+- **Token Expiration** - Time-based expiration for all security tokens
+- **API Key Toggle** - Enable/disable API keys without deletion
+- **Verification Resend** - Secure resending of verification codes
+
+### Compliance:
+- **GDPR Compliant** - Complete data deletion on request
+- **Privacy Ready** - Email enumeration prevention
+- **Data Encryption** - AES-256 for sensitive data
+- **Secure Storage** - Encrypted API tokens and credentials
+- **Audit Logging** - Comprehensive logging for security audits
+- **Cookie Security** - Secure, httpOnly cookies for sessions
+- **HTTPS Enforced** - TLS encryption for all API communications
 
 ---
 
@@ -762,13 +938,36 @@ Mobile management interface (not a builder)
 
 ## 📦 18. Launch Deliverables (MVP Scope)
 
-- ✅ Flow Builder (core logic + UI)
-- ✅ Authentication system
-- ✅ Integrations: Google Sheets, Gmail, WhatsApp
-- ✅ Logs & Notification system
-- ✅ Simple Templates
-- ✅ Billing (Free + Paid tiers)
-- ✅ Marketing Landing Page
+### ✅ Completed (Stage 1):
+- ✅ **Complete Authentication System** - Full implementation with 22 endpoints
+  - ✅ Email/password registration and login
+  - ✅ Google and GitHub OAuth integration
+  - ✅ Email verification with HTML templates
+  - ✅ Phone verification with SMS
+  - ✅ Password reset with secure tokens
+  - ✅ Change password functionality
+  - ✅ API key management (CRUD + toggle)
+  - ✅ Two-factor authentication (2FA)
+  - ✅ Account deletion (GDPR compliance)
+- ✅ **Email & SMS Services** - Production-ready infrastructure
+  - ✅ Beautiful HTML email templates
+  - ✅ SMTP configuration support
+  - ✅ Twilio SMS integration
+  - ✅ Development mode logging
+- ✅ **Database Schema** - Complete Prisma schema
+  - ✅ User management with verification
+  - ✅ API key table
+  - ✅ Integration support
+  - ✅ Flow and execution tracking
+- ✅ **API Documentation** - Complete Swagger/OpenAPI docs
+
+### 🔄 Planned (Stage 2+):
+- 🔄 Flow Builder (core logic + UI)
+- 🔄 Integrations: Google Sheets, Gmail, WhatsApp
+- 🔄 Logs & Monitoring system
+- 🔄 Templates Library
+- 🔄 Billing (Free + Paid tiers)
+- 🔄 Marketing Landing Page
 
 ---
 
@@ -814,6 +1013,12 @@ Flowin's UX focuses on:
 - **AI Layer:** OpenAI (GPT-4.5 / local Ollama fallback)
 - **Webhooks System:** Express adapter
 - **API Documentation:** Swagger
+- **Authentication:** Passport.js with JWT, Local, Google OAuth, GitHub OAuth strategies
+- **Email Service:** Nodemailer with SMTP support
+- **SMS Service:** Twilio integration
+- **Password Hashing:** bcrypt with configurable salt rounds
+- **API Key Management:** Custom key generation and masking
+- **Validation:** Zod schemas with comprehensive DTOs
 
 ### 🗄️ Database
 - **Main:** PostgreSQL
@@ -821,11 +1026,16 @@ Flowin's UX focuses on:
 - **Migrations:** Prisma Migrate
 
 **Data Structure Highlights:**
-- `users` — user accounts and plans
+- `users` — user accounts, plans, verification status, 2FA settings
+- `apiKeys` — API key management with permissions and expiration
 - `flows` — structure of automation flows
 - `executions` — logs of each run
 - `integrations` — connected external apps
+- `user_integrations` — user's connected integration credentials
 - `templates` — reusable flow blueprints
+- `notifications` — in-app notifications
+- `subscriptions` — user subscription and billing
+- `invoices` — payment invoices
 
 ### 🧰 Dev Tools
 - ESLint + Prettier
