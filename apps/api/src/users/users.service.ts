@@ -41,6 +41,9 @@ export class UsersService {
         password: true,
         plan: true,
         createdAt: true,
+        twoFactorEnabled: true,
+        twoFactorMethod: true,
+        twoFactorBackupCodes: true,
       },
     });
   }

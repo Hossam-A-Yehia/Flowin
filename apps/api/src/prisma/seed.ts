@@ -71,7 +71,7 @@ async function main() {
       name: 'New Order WhatsApp Notification',
       description: 'Send WhatsApp message when new order is received',
       category: 'E-commerce',
-      tags: ['whatsapp', 'orders', 'notifications'],
+      tags: JSON.stringify(['whatsapp', 'orders', 'notifications']),
       isOfficial: true,
       isPublic: true,
       flowStructure: {
@@ -109,7 +109,7 @@ async function main() {
       name: 'Gmail to Notion Database',
       description: 'Add new Gmail contacts to Notion database',
       category: 'Productivity',
-      tags: ['gmail', 'notion', 'contacts'],
+      tags: JSON.stringify(['gmail', 'notion', 'contacts']),
       isOfficial: true,
       isPublic: true,
       flowStructure: {
