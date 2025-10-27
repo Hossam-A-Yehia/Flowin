@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -41,6 +41,13 @@ model User {
   // Password reset
   resetToken         String?   // Secure token for password reset
   resetTokenExp      DateTime? // Token expiration time
+  
+  // Two-Factor Authentication
+  twoFactorEnabled     Boolean?  @default(false) // Whether 2FA is enabled
+  twoFactorMethod      String?   // "email" or "sms"
+  twoFactorCode        String?   // Current 2FA code
+  twoFactorCodeExp     DateTime? // 2FA code expiration
+  twoFactorBackupCodes Json?     // Array of backup codes
   
   // API Keys
   apiKeys   ApiKey[]
@@ -157,7 +164,7 @@ model Flow {
   
   // Metadata
   version     Int     @default(1)
-  tags        String[] // For categorization
+  tags        String? // JSON string for categorization
   
   // Statistics
   totalRuns     Int @default(0)
@@ -267,7 +274,7 @@ model Template {
   
   // Template Data
   flowStructure Json   // Complete flow configuration
-  tags          String[]
+  tags          String? // JSON string for tags
   
   // Metadata
   isPublic    Boolean @default(false)
@@ -304,7 +311,7 @@ model Notification {
   isRead Boolean @default(false)
   
   // Delivery
-  channels String[] // ["email", "telegram", "whatsapp", "in_app"]
+  channels String? // JSON string: ["email", "telegram", "whatsapp", "in_app"]
   sentAt   DateTime?
   
   createdAt DateTime @default(now())

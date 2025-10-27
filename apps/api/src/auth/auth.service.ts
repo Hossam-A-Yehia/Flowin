@@ -1,18 +1,22 @@
-import { Injectable, UnauthorizedException, ConflictException, BadRequestException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, ConflictException, BadRequestException, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
 import { UsersService } from '../users/users.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { EmailService } from '../services/email.service';
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
+
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
     private config: ConfigService,
     private prisma: PrismaService,
+    private emailService: EmailService,
   ) {}
 
   async validateUser(email: string, password: string): Promise<any> {
@@ -176,12 +180,8 @@ export class AuthService {
         },
       });
 
-      // TODO: Send email with reset link
-      // For now, we'll log it (in production, use email service)
-      if (process.env.NODE_ENV === 'development') {
-        console.log(`🔑 Password reset token for ${email}: ${resetToken}`);
-        console.log(`🔗 Reset link: ${this.config.get('FRONTEND_URL', 'http://localhost:3000')}/reset-password?token=${resetToken}`);
-      }
+      // Send password reset email
+      await this.emailService.sendPasswordResetEmail(email, resetToken);
 
       return successMessage;
     } catch (error) {
@@ -352,6 +352,30 @@ export class AuthService {
     } catch (error) {
       console.error('Error during OAuth login:', error);
       throw new UnauthorizedException('OAuth login failed');
+    }
+  }
+
+  async deleteAccount(userId: string) {
+    try {
+      const user = await this.usersService.findById(userId);
+      if (!user) {
+        throw new UnauthorizedException('User not found');
+      }
+
+      // Delete user account (Prisma will handle cascading deletes based on schema)
+      await this.prisma.user.delete({
+        where: { id: userId },
+      });
+
+      this.logger.log(`User account deleted: ${user.email}`);
+      
+      return { message: 'Account deleted successfully' };
+    } catch (error) {
+      if (error instanceof UnauthorizedException) {
+        throw error;
+      }
+      console.error('Error deleting account:', error);
+      throw new BadRequestException('Failed to delete account');
     }
   }
 }

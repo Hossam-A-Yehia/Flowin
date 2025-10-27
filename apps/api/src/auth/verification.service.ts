@@ -3,6 +3,8 @@ import { ConfigService } from '@nestjs/config';
 import * as crypto from 'crypto';
 import { PrismaService } from '../prisma/prisma.service';
 import { UsersService } from '../users/users.service';
+import { EmailService } from '../services/email.service';
+import { SmsService } from '../services/sms.service';
 
 @Injectable()
 export class VerificationService {
@@ -10,6 +12,8 @@ export class VerificationService {
     private prisma: PrismaService,
     private usersService: UsersService,
     private config: ConfigService,
+    private emailService: EmailService,
+    private smsService: SmsService,
   ) {}
 
   // ================================
@@ -41,12 +45,8 @@ export class VerificationService {
         },
       });
 
-      // TODO: Send verification email
-      // For now, log the verification link in development
-      if (process.env.NODE_ENV === 'development') {
-        const verifyLink = `${this.config.get('FRONTEND_URL', 'http://localhost:3000')}/verify-email?token=${verifyToken}`;
-        console.log(`📧 Email verification link for ${email}: ${verifyLink}`);
-      }
+      // Send verification email
+      await this.emailService.sendVerificationEmail(email, verifyToken);
 
       return { 
         message: 'Verification email sent. Please check your inbox and click the verification link.' 
@@ -128,7 +128,7 @@ export class VerificationService {
       }
 
       // Generate 6-digit verification code
-      const verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
+      const verifyCode = this.smsService.generateVerificationCode();
       const verifyExp = new Date();
       verifyExp.setMinutes(verifyExp.getMinutes() + 10); // 10 minute expiration
 
@@ -142,11 +142,8 @@ export class VerificationService {
         },
       });
 
-      // TODO: Send SMS with verification code
-      // For now, log the code in development
-      if (process.env.NODE_ENV === 'development') {
-        console.log(`📱 SMS verification code for ${phone}: ${verifyCode}`);
-      }
+      // Send SMS with verification code
+      await this.smsService.sendVerificationCode(phone, verifyCode);
 
       return { 
         message: 'Verification code sent to your phone. Please enter the 6-digit code.' 

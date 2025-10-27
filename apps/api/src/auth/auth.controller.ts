@@ -146,4 +146,23 @@ export class AuthController {
   async validateResetToken(@Body('token') token: string) {
     return this.authService.validateResetToken(token);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('delete-account')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Delete user account permanently' })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Account deleted successfully',
+    schema: {
+      type: 'object',
+      properties: {
+        message: { type: 'string', example: 'Account deleted successfully' }
+      }
+    }
+  })
+  @ApiResponse({ status: 401, description: 'Unauthorized - Invalid token' })
+  async deleteAccount(@Request() req) {
+    return this.authService.deleteAccount(req.user.id);
+  }
 }
