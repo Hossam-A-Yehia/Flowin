@@ -263,4 +263,95 @@ export class AuthService {
       throw new BadRequestException('Failed to validate reset token');
     }
   }
+
+  async findOrCreateOAuthUser(oauthData: {
+    email: string;
+    name: string;
+    image?: string;
+    provider: string;
+    providerId: string;
+    accessToken: string;
+    refreshToken?: string;
+  }) {
+    try {
+      // First, try to find existing user by email
+      let user = await this.usersService.findByEmail(oauthData.email);
+
+      if (user) {
+        // User exists, update their OAuth info and last login
+        user = await this.prisma.user.update({
+          where: { id: user.id },
+          data: {
+            lastLogin: new Date(),
+            // Update image if provided and user doesn't have one
+            image: user.image || oauthData.image,
+            // Update name if user doesn't have one
+            name: user.name || oauthData.name,
+          },
+        });
+      } else {
+        // Create new user with OAuth data
+        const newUser = await this.usersService.create({
+          email: oauthData.email.toLowerCase().trim(),
+          name: oauthData.name?.trim(),
+          image: oauthData.image,
+          // No password for OAuth users
+          password: null,
+        });
+        
+        // Get the full user data after creation
+        user = await this.usersService.findById(newUser.id);
+        if (!user) {
+          throw new BadRequestException('Failed to create user');
+        }
+      }
+
+      // Return user data without sensitive fields
+      return {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        image: user.image,
+        plan: user.plan,
+        createdAt: user.createdAt,
+        lastLogin: user.lastLogin,
+      };
+    } catch (error) {
+      console.error('Error in findOrCreateOAuthUser:', error);
+      throw new BadRequestException('Failed to process OAuth authentication');
+    }
+  }
+
+  async oauthLogin(user: any) {
+    try {
+      const payload = { 
+        email: user.email, 
+        sub: user.id,
+        plan: user.plan 
+      };
+      
+      // Update last login timestamp
+      await this.prisma.user.update({
+        where: { id: user.id },
+        data: { lastLogin: new Date() },
+      });
+
+      const access_token = this.jwtService.sign(payload);
+
+      return {
+        access_token,
+        user: {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          image: user.image,
+          plan: user.plan,
+          createdAt: user.createdAt,
+        },
+      };
+    } catch (error) {
+      console.error('Error during OAuth login:', error);
+      throw new UnauthorizedException('OAuth login failed');
+    }
+  }
 }

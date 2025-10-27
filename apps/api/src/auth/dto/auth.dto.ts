@@ -69,6 +69,25 @@ export class AuthResponseDto {
   };
 }
 
+export class OAuthResponseDto extends AuthResponseDto {
+  @ApiProperty({
+    example: {
+      id: 'clxxx123',
+      email: 'user@example.com',
+      name: 'John Doe',
+      image: 'https://example.com/avatar.jpg',
+      plan: 'FREE'
+    }
+  })
+  user: {
+    id: string;
+    email: string;
+    name: string;
+    image?: string;
+    plan: string;
+  };
+}
+
 export class ChangePasswordDto {
   @ApiProperty({ 
     example: 'CurrentPass123!',
