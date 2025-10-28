@@ -156,14 +156,8 @@ export class AuthService {
     try {
       const user = await this.usersService.findByEmail(email);
       
-      // Always return success message for security (don't reveal if email exists)
-      const successMessage = { 
-        message: 'If an account with that email exists, we have sent a password reset link.' 
-      };
-
       if (!user) {
-        // Still return success to prevent email enumeration
-        return successMessage;
+        throw new BadRequestException('No account found with this email address');
       }
 
       // Generate secure reset token
@@ -183,9 +177,18 @@ export class AuthService {
       // Send password reset email
       await this.emailService.sendPasswordResetEmail(email, resetToken);
 
-      return successMessage;
+      return { 
+        message: 'Password reset email sent successfully. Please check your inbox.' 
+      };
     } catch (error) {
       console.error('Error in forgot password:', error);
+      
+      // Re-throw validation errors as-is
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+      
+      // Only catch unexpected errors
       throw new BadRequestException('Failed to process password reset request');
     }
   }
