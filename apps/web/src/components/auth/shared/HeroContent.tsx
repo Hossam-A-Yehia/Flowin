@@ -21,7 +21,7 @@ export function HeroContent({ title, subtitle, features }: HeroContentProps) {
           <Sparkles className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-4xl font-bold mb-4">{title}</h1>
-        <p className="text-xl text-blue-100 leading-relaxed">{subtitle}</p>
+        <p className="text-lg text-blue-100 leading-relaxed">{subtitle}</p>
       </div>
 
       {features && (

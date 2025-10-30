@@ -18,7 +18,11 @@ export function LoginForm() {
   const loginMutation = useLogin();
 
   const handleSubmit = useCallback(async (values: LoginFormData) => {
-    loginMutation.mutate(values);
+    try {
+      loginMutation.mutate(values);
+    } catch (error) {
+      console.error('Login form submission error:', error);
+    }
   }, [loginMutation]);
 
   const togglePasswordVisibility = useCallback(() => {
@@ -28,12 +32,14 @@ export function LoginForm() {
   return (
     <>
       {loginMutation.error && (
-        <Alert className="border-red-200 bg-red-50">
-          <AlertCircle className="h-4 w-4 text-red-600" />
-          <AlertDescription className="text-red-700">
-            {loginMutation.error.message}
-          </AlertDescription>
-        </Alert>
+        <>
+          <Alert className="border-red-200 bg-red-50">
+            <AlertCircle className="h-4 w-4 text-red-600" />
+            <AlertDescription className="text-red-700">
+              {loginMutation.error?.message || 'Login failed. Please try again.'}
+            </AlertDescription>
+          </Alert>
+        </>
       )}
 
       <Formik
