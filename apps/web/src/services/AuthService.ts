@@ -1,23 +1,25 @@
 import { apiRequest } from "./apiClient";
 import { RegisterFormData, LoginFormData, AuthResponse } from "@/types/auth";
+import { authCookies } from "@/utils/cookies";
+import Cookies from 'js-cookie';
 
 // Auth token management utilities
 export const authTokens = {
   get: (): string | null => {
     if (typeof window === "undefined") return null;
-    return localStorage.getItem("auth_token");
+    return authCookies.getToken() || null;
   },
 
   set: (token: string): void => {
     if (typeof window !== "undefined") {
-      localStorage.setItem("auth_token", token);
+      authCookies.setToken(token);
     }
   },
 
   remove: (): void => {
     if (typeof window !== "undefined") {
-      localStorage.removeItem("auth_token");
-      localStorage.removeItem("auth_user");
+      authCookies.clear();
+      Cookies.remove("auth_user", { path: "/" });
     }
   },
 
@@ -31,7 +33,7 @@ export const userData = {
   get: (): AuthResponse["user"] | null => {
     if (typeof window === "undefined") return null;
     try {
-      const data = localStorage.getItem("auth_user");
+      const data = Cookies.get("auth_user");
       return data ? JSON.parse(data) : null;
     } catch {
       return null;
@@ -40,13 +42,18 @@ export const userData = {
 
   set: (user: AuthResponse["user"]): void => {
     if (typeof window !== "undefined") {
-      localStorage.setItem("auth_user", JSON.stringify(user));
+      Cookies.set("auth_user", JSON.stringify(user), {
+        expires: 7, // 7 days
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        path: '/',
+      });
     }
   },
 
   remove: (): void => {
     if (typeof window !== "undefined") {
-      localStorage.removeItem("auth_user");
+      Cookies.remove("auth_user", { path: "/" });
     }
   },
 };

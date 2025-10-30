@@ -6,6 +6,7 @@ import { Loader2, CheckCircle, XCircle, Sparkles, Shield } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { authCookies } from "@/utils/cookies";
 
 type CallbackStatus = "loading" | "success" | "error";
 
@@ -60,9 +61,9 @@ export function AuthCallbackClient() {
           return;
         }
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        localStorage.setItem("auth_token", token);
+        authCookies.setToken(token);
         if (authProvider) {
-          localStorage.setItem("auth_provider", authProvider);
+          authCookies.setProvider(authProvider);
         }
 
         clearInterval(progressInterval);

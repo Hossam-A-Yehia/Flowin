@@ -1,9 +1,12 @@
 import axios, { AxiosResponse } from 'axios';
+import Cookies from 'js-cookie';
 import { ApiError } from '@/types/auth';
 
 // Create axios instance with base configuration
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+
 export const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api',
+  baseURL: `${API_BASE_URL}`,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -14,7 +17,7 @@ export const apiClient = axios.create({
 apiClient.interceptors.request.use(
   (config) => {
     if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('auth_token');
+      const token = Cookies.get('auth_token');
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
@@ -36,9 +39,10 @@ apiClient.interceptors.response.use(
       const isAuthPage = currentPath === '/auth/login' || currentPath === '/auth/register';
       
       if (!isAuthPage) {
-        // Clear token and redirect to login for protected routes
-        localStorage.removeItem('auth_token');
-        localStorage.removeItem('auth_user');
+        // Clear cookies and redirect to login for protected routes
+        Cookies.remove('auth_token', { path: '/' });
+        Cookies.remove('auth_user', { path: '/' });
+        Cookies.remove('auth_provider', { path: '/' });
         window.location.href = '/auth/login';
       }
       // For auth pages, let the error bubble up to be handled by the form
