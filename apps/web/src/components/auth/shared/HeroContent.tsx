@@ -16,7 +16,7 @@ interface HeroContentProps {
 export function HeroContent({ title, subtitle, features }: HeroContentProps) {
   return (
     <>
-      <div className="mb-12">
+      <div className="mb-12 text-center">
         <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl mb-6">
           <Sparkles className="w-8 h-8 text-white" />
         </div>
