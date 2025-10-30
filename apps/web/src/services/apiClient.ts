@@ -33,13 +33,13 @@ apiClient.interceptors.response.use(
     if (error.response?.status === 401 && typeof window !== 'undefined') {
       // Only redirect if we're not already on login/register pages
       const currentPath = window.location.pathname;
-      const isAuthPage = currentPath === '/login' || currentPath === '/register';
+      const isAuthPage = currentPath === '/auth/login' || currentPath === '/auth/register';
       
       if (!isAuthPage) {
         // Clear token and redirect to login for protected routes
         localStorage.removeItem('auth_token');
         localStorage.removeItem('auth_user');
-        window.location.href = '/login';
+        window.location.href = '/auth/login';
       }
       // For auth pages, let the error bubble up to be handled by the form
     }

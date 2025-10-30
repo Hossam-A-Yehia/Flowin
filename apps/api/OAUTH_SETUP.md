@@ -20,15 +20,15 @@ cp .env.example .env
 4. Go to "Credentials" → "Create Credentials" → "OAuth 2.0 Client IDs"
 5. Choose "Web application"
 6. Add authorized redirect URIs:
-   - Development: `http://localhost:4000/auth/google/callback`
-   - Production: `https://your-domain.com/auth/google/callback`
+   - Development: `http://localhost:4000/api/auth/google/callback`
+   - Production: `https://your-domain.com/api/auth/google/callback`
 
 ### 2. Configure Environment Variables
 
 ```env
 GOOGLE_CLIENT_ID="your-google-client-id.apps.googleusercontent.com"
 GOOGLE_CLIENT_SECRET="your-google-client-secret"
-GOOGLE_CALLBACK_URL="http://localhost:4000/auth/google/callback"
+GOOGLE_CALLBACK_URL="http://localhost:4000/api/auth/google/callback"
 ```
 
 ## 🐙 GitHub OAuth Setup
@@ -39,24 +39,24 @@ GOOGLE_CALLBACK_URL="http://localhost:4000/auth/google/callback"
 2. Fill in the application details:
    - Application name: "Flowin"
    - Homepage URL: `http://localhost:3000` (your frontend URL)
-   - Authorization callback URL: `http://localhost:4000/auth/github/callback`
+   - Authorization callback URL: `http://localhost:4000/api/auth/github/callback`
 
 ### 2. Configure Environment Variables
 
 ```env
 GITHUB_CLIENT_ID="your-github-client-id"
 GITHUB_CLIENT_SECRET="your-github-client-secret"
-GITHUB_CALLBACK_URL="http://localhost:4000/auth/github/callback"
+GITHUB_CALLBACK_URL="http://localhost:4000/api/auth/github/callback"
 ```
 
 ## 🚀 OAuth Flow
 
 ### Google OAuth Flow
 
-1. **Initiate**: `GET /auth/google`
+1. **Initiate**: `GET /api/auth/google`
    - Redirects user to Google consent screen
    
-2. **Callback**: `GET /auth/google/callback`
+2. **Callback**: `GET /api/auth/google/callback`
    - Google redirects back with authorization code
    - Server exchanges code for user profile
    - Creates or finds user in database
@@ -64,10 +64,10 @@ GITHUB_CALLBACK_URL="http://localhost:4000/auth/github/callback"
 
 ### GitHub OAuth Flow
 
-1. **Initiate**: `GET /auth/github`
+1. **Initiate**: `GET /api/auth/github`
    - Redirects user to GitHub consent screen
    
-2. **Callback**: `GET /auth/github/callback`
+2. **Callback**: `GET /api/auth/github/callback`
    - GitHub redirects back with authorization code
    - Server exchanges code for user profile
    - Creates or finds user in database
@@ -120,7 +120,7 @@ if (token) {
 ### Development Testing
 
 1. Start the API server: `npm run dev`
-2. Navigate to: `http://localhost:4000/auth/google`
+2. Navigate to: `http://localhost:4000/api/auth/google`
 3. Complete OAuth flow
 4. Check redirect to frontend with token
 
@@ -134,10 +134,10 @@ if (token) {
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | `/auth/google` | Initiate Google OAuth |
-| GET | `/auth/google/callback` | Google OAuth callback |
-| GET | `/auth/github` | Initiate GitHub OAuth |
-| GET | `/auth/github/callback` | GitHub OAuth callback |
+| GET | `/api/auth/google` | Initiate Google OAuth |
+| GET | `/api/auth/google/callback` | Google OAuth callback |
+| GET | `/api/auth/github` | Initiate GitHub OAuth |
+| GET | `/api/auth/github/callback` | GitHub OAuth callback |
 
 ## 🐛 Troubleshooting
 

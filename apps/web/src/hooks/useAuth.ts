@@ -117,7 +117,7 @@ export function useLogout() {
       queryClient.clear();
       
       // Redirect to login
-      router.push('/login');
+      router.push('/auth/login');
     },
     onError: (error) => {
       // Still clear data and redirect even if API call fails
@@ -125,7 +125,7 @@ export function useLogout() {
       userData.remove();
       queryClient.removeQueries({ queryKey: authKeys.all });
       queryClient.clear();
-      router.push('/login');
+      router.push('/auth/login');
     },
   });
 }
@@ -152,7 +152,7 @@ export function useAuthGuard() {
   const { isAuthenticated, isLoading } = useAuth();
 
   if (!isLoading && !isAuthenticated) {
-    router.push('/login');
+    router.push('/auth/login');
   }
 
   return { isAuthenticated, isLoading };
