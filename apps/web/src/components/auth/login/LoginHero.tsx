@@ -1,30 +1,34 @@
+'use client';
+
 import { Shield, ArrowRight, KeyRound } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { HeroContent } from '../shared/HeroContent';
 
 export function LoginHero() {
+  const { t } = useTranslation();
+  
   const features = [
     {
       icon: <Shield className="w-4 h-4" />,
-      title: "Enterprise Security",
-      description: "Your data is protected with bank-level encryption"
+      title: t('auth.login.hero.feature1Title'),
+      description: t('auth.login.hero.feature1Description')
     },
     {
       icon: <ArrowRight className="w-4 h-4" />,
-      title: "Instant Automation", 
-      description: "Connect your tools and automate workflows in minutes"
+      title: t('auth.login.hero.feature2Title'), 
+      description: t('auth.login.hero.feature2Description')
     },
     {
       icon: <KeyRound className="w-4 h-4" />,
-      title: "AI-Powered",
-      description: "Smart suggestions to optimize your workflows"
+      title: t('auth.login.hero.feature3Title'),
+      description: t('auth.login.hero.feature3Description')
     }
   ];
 
-
   return (
     <HeroContent
-      title="Welcome back to Flowin"
-      subtitle="Continue building powerful automations that save you hours every day."
+      title={t('auth.login.hero.title')}
+      subtitle={t('auth.login.hero.subtitle')}
       features={features}
     />
   );

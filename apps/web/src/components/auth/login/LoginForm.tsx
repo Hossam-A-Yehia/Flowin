@@ -4,6 +4,7 @@ import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Eye, EyeOff, Loader2, AlertCircle, Mail, Lock, ArrowRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -13,6 +14,7 @@ import { LoginFormData } from '@/types/auth';
 import { loginValidationSchema, loginInitialValues } from './loginUtils';
 
 export function LoginForm() {
+  const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const loginMutation = useLogin();
@@ -36,7 +38,7 @@ export function LoginForm() {
           <Alert className="border-red-200 bg-red-50">
             <AlertCircle className="h-4 w-4 text-red-600" />
             <AlertDescription className="text-red-700">
-              {loginMutation.error?.message || 'Login failed. Please try again.'}
+              {loginMutation.error?.message || t('auth.login.loginFailed')}
             </AlertDescription>
           </Alert>
         </>
@@ -51,7 +53,7 @@ export function LoginForm() {
           <Form className="space-y-4">
             <div className="space-y-1">
               <Label htmlFor="email" className="text-sm font-medium text-gray-700">
-                Email Address
+                {t('auth.login.emailLabel')}
               </Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -60,7 +62,7 @@ export function LoginForm() {
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="Enter your email address"
+                  placeholder={t('auth.login.emailPlaceholder')}
                   disabled={loginMutation.isPending}
                   onFocus={() => setFocusedField('email')}
                   onBlur={() => setFocusedField(null)}
@@ -82,13 +84,13 @@ export function LoginForm() {
             <div className="space-y-1">
               <div className="flex items-center justify-between">
                 <Label htmlFor="password" className="text-sm font-medium text-gray-700">
-                  Password
+                  {t('auth.login.passwordLabel')}
                 </Label>
                 <Link 
                   href="/forgot-password" 
                   className="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors"
                 >
-                  Forgot password?
+                  {t('auth.login.forgotPassword')}
                 </Link>
               </div>
               <div className="relative">
@@ -98,7 +100,7 @@ export function LoginForm() {
                   id="password"
                   name="password"
                   type={showPassword ? 'text' : 'password'}
-                  placeholder="Enter your password"
+                  placeholder={t('auth.login.passwordPlaceholder')}
                   disabled={loginMutation.isPending}
                   onFocus={() => setFocusedField('password')}
                   onBlur={() => setFocusedField(null)}
@@ -137,11 +139,11 @@ export function LoginForm() {
               {loginMutation.isPending ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Signing you in...
+                  {t('auth.login.signingIn')}
                 </>
               ) : (
                 <>
-                  Sign In
+                  {t('auth.login.signInButton')}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </>
               )}

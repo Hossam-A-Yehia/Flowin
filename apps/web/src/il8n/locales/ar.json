@@ -6,11 +6,70 @@
   },
   "auth": {
     "logout": "تسجيل خروج",
-    "login": "تسجيل الدخول",
-    "register": "التسجيل",
-    "title": "المصادقة",
-    "email": "البريد الإلكتروني",
-    "password": "كلمة المرور"
+    "login": {
+      "title": "تسجيل الدخول إلى حسابك",
+      "subtitle": "مرحباً بعودتك! الرجاء إدخال بياناتك.",
+      "mobileTitle": "مرحباً بعودتك",
+      "mobileSubtitle": "تسجيل الدخول إلى حسابك",
+      "emailLabel": "عنوان البريد الإلكتروني",
+      "emailPlaceholder": "أدخل عنوان بريدك الإلكتروني",
+      "passwordLabel": "كلمة المرور",
+      "passwordPlaceholder": "أدخل كلمة المرور",
+      "forgotPassword": "هل نسيت كلمة المرور؟",
+      "signInButton": "تسجيل الدخول",
+      "signingIn": "جاري تسجيل الدخول...",
+      "noAccount": "ليس لديك حساب؟",
+      "createAccount": "أنشئ حساباً الآن",
+      "securityNote": "محمي بتشفير وبروتوكولات أمان على مستوى المؤسسات",
+      "loginFailed": "فشل تسجيل الدخول. يرجى المحاولة مرة أخرى.",
+      "orSignInWith": "أو سجل الدخول بالبريد الإلكتروني",
+      "hero": {
+        "title": "مرحباً بعودتك إلى Flowin",
+        "subtitle": "واصل بناء أتمتة قوية توفر لك ساعات كل يوم.",
+        "feature1Title": "أمان على مستوى المؤسسات",
+        "feature1Description": "بياناتك محمية بتشفير على مستوى البنوك",
+        "feature2Title": "أتمتة فورية",
+        "feature2Description": "اربط أدواتك وأتمت سير العمل في دقائق",
+        "feature3Title": "مدعوم بالذكاء الاصطناعي",
+        "feature3Description": "اقتراحات ذكية لتحسين سير عملك"
+      }
+    },
+    "register": {
+      "title": "إنشاء حسابك",
+      "subtitle": "ابدأ في أتمتة سير عملك في دقائق.",
+      "mobileTitle": "انضم إلى Flowin",
+      "mobileSubtitle": "أنشئ حسابك للبدء",
+      "nameLabel": "الاسم الكامل (اختياري)",
+      "namePlaceholder": "أدخل اسمك الكامل",
+      "emailLabel": "عنوان البريد الإلكتروني *",
+      "emailPlaceholder": "أدخل عنوان بريدك الإلكتروني",
+      "passwordLabel": "كلمة المرور *",
+      "passwordPlaceholder": "أنشئ كلمة مرور قوية",
+      "passwordStrength": "قوة كلمة المرور",
+      "createButton": "إنشاء حساب",
+      "creating": "جاري إنشاء حسابك...",
+      "haveAccount": "هل لديك حساب بالفعل؟",
+      "signInInstead": "سجل الدخول بدلاً من ذلك",
+      "termsPrefix": "بإنشاء حساب، فإنك توافق على",
+      "termsOfService": "شروط الخدمة",
+      "and": "و",
+      "privacyPolicy": "سياسة الخصوصية",
+      "orCreateWith": "أو أنشئ حساباً بالبريد الإلكتروني",
+      "hero": {
+        "title": "ابدأ رحلة الأتمتة الخاصة بك",
+        "subtitle": "انضم إلى آلاف المحترفين الذين يوفرون ساعات كل يوم بأتمتة سير العمل الذكية.",
+        "feature1Title": "أتمتة بدون كود",
+        "feature1Description": "بناء سير عمل قوي دون كتابة سطر واحد من الكود",
+        "feature2Title": "التعاون الجماعي",
+        "feature2Description": "شارك وتعاون على الأتمتة مع فريقك",
+        "feature3Title": "التحليلات والرؤى",
+        "feature3Description": "تتبع الأداء وحسّن سير عملك"
+      }
+    },
+    "oauth": {
+      "continueWithGoogle": "المتابعة مع Google",
+      "continueWithGithub": "المتابعة مع GitHub"
+    }
   },
   "navigation": {
     "home": "الرئيسية",

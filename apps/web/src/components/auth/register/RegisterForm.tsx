@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Loader2, AlertCircle, User, Mail, ArrowRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,6 +17,7 @@ import {
 import { PasswordField } from "./PasswordField";
 
 export function RegisterForm() {
+  const { t } = useTranslation();
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const registerMutation = useRegister();
 
@@ -53,7 +55,7 @@ export function RegisterForm() {
                 htmlFor="name"
                 className="text-sm font-medium text-gray-700"
               >
-                Full Name (Optional)
+                {t('auth.register.nameLabel')}
               </Label>
               <div className="relative">
                 <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -62,7 +64,7 @@ export function RegisterForm() {
                   id="name"
                   name="name"
                   type="text"
-                  placeholder="Enter your full name"
+                  placeholder={t('auth.register.namePlaceholder')}
                   disabled={registerMutation.isPending}
                   onFocus={() => setFocusedField("name")}
                   onBlur={() => setFocusedField(null)}
@@ -88,7 +90,7 @@ export function RegisterForm() {
                 htmlFor="email"
                 className="text-sm font-medium text-gray-700"
               >
-                Email Address *
+                {t('auth.register.emailLabel')}
               </Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -97,7 +99,7 @@ export function RegisterForm() {
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="Enter your email address"
+                  placeholder={t('auth.register.emailPlaceholder')}
                   disabled={registerMutation.isPending}
                   onFocus={() => setFocusedField("email")}
                   onBlur={() => setFocusedField(null)}
@@ -136,11 +138,11 @@ export function RegisterForm() {
               {registerMutation.isPending ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Creating your account...
+                  {t('auth.register.creating')}
                 </>
               ) : (
                 <>
-                  Create Account
+                  {t('auth.register.createButton')}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </>
               )}

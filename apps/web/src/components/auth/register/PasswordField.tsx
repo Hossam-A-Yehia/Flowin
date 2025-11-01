@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Field, ErrorMessage } from "formik";
 import { Eye, EyeOff, Lock, AlertCircle } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
@@ -28,12 +29,13 @@ export function PasswordField({
   onFocus,
   onBlur,
 }: PasswordFieldProps) {
+  const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="space-y-1">
       <Label htmlFor="password" className="text-sm font-medium text-gray-700">
-        Password *
+        {t('auth.register.passwordLabel')}
       </Label>
       <div className="relative">
         <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -42,7 +44,7 @@ export function PasswordField({
           id="password"
           name="password"
           type={showPassword ? "text" : "password"}
-          placeholder="Create a strong password"
+          placeholder={t('auth.register.passwordPlaceholder')}
           disabled={disabled}
           onFocus={() => onFocus("password")}
           onBlur={onBlur}
@@ -77,7 +79,7 @@ export function PasswordField({
       {value && (
         <div className="space-y-2 pt-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-gray-600">Password strength</span>
+            <span className="text-xs text-gray-600">{t('auth.register.passwordStrength')}</span>
             <Badge
               variant={
                 getPasswordStrength(value).score >= 4
