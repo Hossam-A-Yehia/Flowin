@@ -1,0 +1,20 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "language": "Language",
+    "changeLanguage": "Change Language"
+  },
+  "auth": {
+    "logout": "Logout",
+    "login": "Login",
+    "register": "Register",
+    "title": "Authentication",
+    "email": "Email",
+    "password": "Password"
+  },
+  "navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "settings": "Settings"
+  }
+}

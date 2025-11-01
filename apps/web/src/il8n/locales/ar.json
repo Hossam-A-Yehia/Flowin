@@ -1,0 +1,20 @@
+{
+  "common": {
+    "welcome": "مرحباً",
+    "language": "اللغة",
+    "changeLanguage": "تغيير اللغة"
+  },
+  "auth": {
+    "logout": "تسجيل خروج",
+    "login": "تسجيل الدخول",
+    "register": "التسجيل",
+    "title": "المصادقة",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور"
+  },
+  "navigation": {
+    "home": "الرئيسية",
+    "dashboard": "لوحة التحكم",
+    "settings": "الإعدادات"
+  }
+}
