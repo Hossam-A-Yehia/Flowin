@@ -88,7 +88,7 @@ export function LoginForm() {
                   {t('auth.login.passwordLabel')}
                 </Label>
                 <Link 
-                  href="/forgot-password" 
+                  href="/auth/forgot-password" 
                   className="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors"
                 >
                   {t('auth.login.forgotPassword')}

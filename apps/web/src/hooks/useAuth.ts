@@ -3,7 +3,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { authApi, authTokens, userData } from '@/services/AuthService';
-import {  AuthResponse } from '@/types/auth';
+import { AuthResponse } from '@/types/auth';
 
 export const authKeys = {
   all: ['auth'] as const,
@@ -156,4 +156,43 @@ export function useAuthGuard() {
   }
 
   return { isAuthenticated, isLoading };
+}
+
+/**
+ * Hook for forgot password
+ */
+export function useForgotPassword() {
+  return useMutation({
+    mutationFn: authApi.forgotPassword,
+  });
+}
+
+/**
+ * Hook for reset password
+ */
+export function useResetPassword() {
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: authApi.resetPassword,
+    onSuccess: () => {
+      // Redirect to login after successful password reset
+      setTimeout(() => {
+        router.push('/auth/login');
+      }, 2000);
+    },
+  });
+}
+
+/**
+ * Hook to validate reset token
+ */
+export function useValidateResetToken(token: string) {
+  return useQuery({
+    queryKey: ['validateResetToken', token],
+    queryFn: () => authApi.validateResetToken(token),
+    enabled: !!token,
+    retry: false,
+    staleTime: 0,
+  });
 }

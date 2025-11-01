@@ -22,6 +22,22 @@ export interface AuthResponse {
   user: AuthUser;
 }
 
+export interface ForgotPasswordFormData {
+  email: string;
+}
+
+export interface ResetPasswordFormData {
+  token: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
+export interface ValidateResetTokenResponse {
+  valid: boolean;
+  email: string;
+  expiresAt: string;
+}
+
 export interface ApiError {
   message: string;
   statusCode: number;

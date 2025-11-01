@@ -51,7 +51,7 @@ export class EmailService {
 
   async sendPasswordResetEmail(email: string, resetToken: string): Promise<boolean> {
     const frontendUrl = this.configService.get('FRONTEND_URL', 'http://localhost:3000');
-    const resetLink = `${frontendUrl}/reset-password?token=${resetToken}`;
+    const resetLink = `${frontendUrl}/auth/reset-password?token=${resetToken}`;
     
     const mailOptions = {
       from: this.configService.get('SMTP_FROM', 'Flowin <noreply@flowin.com>'),

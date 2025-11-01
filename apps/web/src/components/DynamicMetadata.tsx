@@ -5,9 +5,11 @@ import { useTranslation } from 'react-i18next';
 import { registerMetadata } from '@/metadata/RegisterMetadata';
 import { loginMetadata } from '@/metadata/LoginMetadata';
 import { dashboardMetadata } from '@/metadata/DashboardMetadata';
+import { forgotPasswordMetadata } from '@/metadata/ForgotPasswordMetadata';
+import { resetPasswordMetadata } from '@/metadata/ResetPasswordMetadata';
 
 interface DynamicMetadataProps {
-  page: 'register' | 'login' | 'dashboard';
+  page: 'register' | 'login' | 'dashboard' | 'forgot-password' | 'reset-password';
 }
 
 /**
@@ -24,6 +26,8 @@ export function DynamicMetadata({ page }: DynamicMetadataProps) {
       register: registerMetadata,
       login: loginMetadata,
       dashboard: dashboardMetadata,
+      'forgot-password': forgotPasswordMetadata,
+      'reset-password': resetPasswordMetadata,
     };
 
     const metadata = metadataMap[page][locale];

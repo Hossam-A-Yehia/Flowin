@@ -66,6 +66,61 @@
         "feature3Description": "Track performance and optimize your workflows"
       }
     },
+    "forgotPassword": {
+      "title": "Reset your password",
+      "subtitle": "Enter your email and we'll send you a reset link.",
+      "mobileTitle": "Forgot Password",
+      "mobileSubtitle": "We'll help you reset it",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "Enter your email address",
+      "sendButton": "Send Reset Link",
+      "sending": "Sending...",
+      "backToLogin": "Back to login",
+      "successMessage": "If an account with that email exists, we've sent a password reset link.",
+      "checkEmail": "Check your email",
+      "emailSentDescription": "We've sent password reset instructions to your email address. The link will expire in 1 hour.",
+      "didntReceive": "Didn't receive the email?",
+      "resendLink": "Resend link",
+      "hero": {
+        "title": "Password recovery made easy",
+        "subtitle": "We'll send you a secure link to reset your password and get you back to automating.",
+        "feature1Title": "Secure Process",
+        "feature1Description": "Reset links are encrypted and expire after 1 hour",
+        "feature2Title": "Quick Recovery",
+        "feature2Description": "Get back to your account in just a few clicks",
+        "feature3Title": "24/7 Support",
+        "feature3Description": "Need help? Our support team is always here"
+      }
+    },
+    "resetPassword": {
+      "title": "Create new password",
+      "subtitle": "Enter your new password below.",
+      "mobileTitle": "Reset Password",
+      "mobileSubtitle": "Create a new secure password",
+      "newPasswordLabel": "New Password",
+      "newPasswordPlaceholder": "Enter your new password",
+      "confirmPasswordLabel": "Confirm Password",
+      "confirmPasswordPlaceholder": "Confirm your new password",
+      "passwordStrength": "Password strength",
+      "resetButton": "Reset Password",
+      "resetting": "Resetting...",
+      "backToLogin": "Back to login",
+      "successMessage": "Your password has been reset successfully!",
+      "redirecting": "Redirecting to login...",
+      "invalidToken": "Invalid or expired reset link",
+      "invalidTokenDescription": "This password reset link is invalid or has expired. Please request a new one.",
+      "requestNewLink": "Request new link",
+      "hero": {
+        "title": "Almost there!",
+        "subtitle": "Choose a strong password to secure your account and continue automating.",
+        "feature1Title": "Strong Security",
+        "feature1Description": "Your password is encrypted and never stored in plain text",
+        "feature2Title": "Password Requirements",
+        "feature2Description": "At least 8 characters with uppercase, lowercase, number and special character",
+        "feature3Title": "Instant Access",
+        "feature3Description": "Sign in immediately after resetting your password"
+      }
+    },
     "oauth": {
       "continueWithGoogle": "Continue with Google",
       "continueWithGithub": "Continue with GitHub"
@@ -77,6 +132,8 @@
       "passwordRequired": "Password is required",
       "passwordMinLength": "Password must be at least 8 characters long",
       "passwordPattern": "Password must contain uppercase, lowercase, number and special character",
+      "confirmPasswordRequired": "Please confirm your password",
+      "passwordsMustMatch": "Passwords must match",
       "nameMaxLength": "Name cannot be longer than 100 characters",
       "passwordStrengthVeryWeak": "Very Weak",
       "passwordStrengthWeak": "Weak",

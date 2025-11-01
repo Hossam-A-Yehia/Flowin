@@ -11,6 +11,8 @@ export { BASE_URL, commonMetadata, publicRobots, privateRobots } from './config'
 export { registerMetadata } from './RegisterMetadata';
 export { loginMetadata } from './LoginMetadata';
 export { dashboardMetadata } from './DashboardMetadata';
+export { forgotPasswordMetadata } from './ForgotPasswordMetadata';
+export { resetPasswordMetadata } from './ResetPasswordMetadata';
 
 // Export utility functions
 export {

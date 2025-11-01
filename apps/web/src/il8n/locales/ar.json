@@ -66,6 +66,61 @@
         "feature3Description": "تتبع الأداء وحسّن سير عملك"
       }
     },
+    "forgotPassword": {
+      "title": "استعادة كلمة المرور",
+      "subtitle": "أدخل بريدك الإلكتروني وسنرسل لك رابط الاستعادة.",
+      "mobileTitle": "نسيت كلمة المرور",
+      "mobileSubtitle": "سنساعدك في استعادتها",
+      "emailLabel": "عنوان البريد الإلكتروني",
+      "emailPlaceholder": "أدخل عنوان بريدك الإلكتروني",
+      "sendButton": "إرسال رابط الاستعادة",
+      "sending": "جاري الإرسال...",
+      "backToLogin": "العودة لتسجيل الدخول",
+      "successMessage": "إذا كان هناك حساب بهذا البريد، فقد أرسلنا رابط استعادة كلمة المرور.",
+      "checkEmail": "تحقق من بريدك الإلكتروني",
+      "emailSentDescription": "لقد أرسلنا تعليمات استعادة كلمة المرور إلى بريدك الإلكتروني. الرابط صالح لمدة ساعة واحدة.",
+      "didntReceive": "لم تستلم البريد؟",
+      "resendLink": "إعادة إرسال الرابط",
+      "hero": {
+        "title": "استعادة سهلة لكلمة المرور",
+        "subtitle": "سنرسل لك رابطاً آمناً لاستعادة كلمة المرور والعودة لربط تطبيقاتك.",
+        "feature1Title": "عملية آمنة",
+        "feature1Description": "روابط الاستعادة مشفرة وتنتهي صلاحيتها بعد ساعة واحدة",
+        "feature2Title": "استعادة سريعة",
+        "feature2Description": "عد إلى حسابك في بضع نقرات فقط",
+        "feature3Title": "دعم على مدار الساعة",
+        "feature3Description": "تحتاج مساعدة؟ فريق الدعم متواجد دائماً"
+      }
+    },
+    "resetPassword": {
+      "title": "إنشاء كلمة مرور جديدة",
+      "subtitle": "أدخل كلمة المرور الجديدة أدناه.",
+      "mobileTitle": "إعادة تعيين كلمة المرور",
+      "mobileSubtitle": "أنشئ كلمة مرور آمنة جديدة",
+      "newPasswordLabel": "كلمة المرور الجديدة",
+      "newPasswordPlaceholder": "أدخل كلمة المرور الجديدة",
+      "confirmPasswordLabel": "تأكيد كلمة المرور",
+      "confirmPasswordPlaceholder": "أكد كلمة المرور الجديدة",
+      "passwordStrength": "قوة كلمة المرور",
+      "resetButton": "إعادة تعيين كلمة المرور",
+      "resetting": "جاري إعادة التعيين...",
+      "backToLogin": "العودة لتسجيل الدخول",
+      "successMessage": "تم إعادة تعيين كلمة المرور بنجاح!",
+      "redirecting": "جاري التوجيه لتسجيل الدخول...",
+      "invalidToken": "رابط استعادة غير صالح أو منتهي الصلاحية",
+      "invalidTokenDescription": "رابط استعادة كلمة المرور هذا غير صالح أو انتهت صلاحيته. يرجى طلب رابط جديد.",
+      "requestNewLink": "طلب رابط جديد",
+      "hero": {
+        "title": "أوشكت على الانتهاء!",
+        "subtitle": "اختر كلمة مرور قوية لتأمين حسابك ومواصلة ربط تطبيقاتك.",
+        "feature1Title": "أمان قوي",
+        "feature1Description": "كلمة المرور مشفرة ولا يتم تخزينها بشكل نصي أبداً",
+        "feature2Title": "متطلبات كلمة المرور",
+        "feature2Description": "8 أحرف على الأقل مع أحرف كبيرة وصغيرة ورقم وحرف خاص",
+        "feature3Title": "وصول فوري",
+        "feature3Description": "سجل الدخول فوراً بعد إعادة تعيين كلمة المرور"
+      }
+    },
     "oauth": {
       "continueWithGoogle": "المتابعة مع Google",
       "continueWithGithub": "المتابعة مع GitHub"
@@ -77,6 +132,8 @@
       "passwordRequired": "كلمة المرور مطلوبة",
       "passwordMinLength": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل",
       "passwordPattern": "يجب أن تحتوي كلمة المرور على أحرف كبيرة وصغيرة ورقم وحرف خاص",
+      "confirmPasswordRequired": "يرجى تأكيد كلمة المرور",
+      "passwordsMustMatch": "كلمتا المرور يجب أن تتطابقا",
       "nameMaxLength": "لا يمكن أن يتجاوز الاسم 100 حرف",
       "passwordStrengthVeryWeak": "ضعيفة جداً",
       "passwordStrengthWeak": "ضعيفة",

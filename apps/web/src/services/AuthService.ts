@@ -1,5 +1,12 @@
 import { apiRequest } from "./apiClient";
-import { RegisterFormData, LoginFormData, AuthResponse } from "@/types/auth";
+import { 
+  RegisterFormData, 
+  LoginFormData, 
+  AuthResponse, 
+  ForgotPasswordFormData,
+  ResetPasswordFormData,
+  ValidateResetTokenResponse 
+} from "@/types/auth";
 import { authCookies } from "@/utils/cookies";
 import Cookies from 'js-cookie';
 
@@ -90,5 +97,29 @@ export const authApi = {
     } catch (error) {
       console.log(error);
     }
+  },
+
+  /**
+   * Request password reset email
+   */
+  forgotPassword: async (data: ForgotPasswordFormData): Promise<{ message: string }> => {
+    return apiRequest.post<{ message: string }>("/auth/forgot-password", data);
+  },
+
+  /**
+   * Reset password with token
+   */
+  resetPassword: async (data: ResetPasswordFormData): Promise<{ message: string }> => {
+    return apiRequest.post<{ message: string }>("/auth/reset-password", {
+      token: data.token,
+      newPassword: data.newPassword,
+    });
+  },
+
+  /**
+   * Validate password reset token
+   */
+  validateResetToken: async (token: string): Promise<ValidateResetTokenResponse> => {
+    return apiRequest.get<ValidateResetTokenResponse>(`/auth/validate-reset-token?token=${token}`);
   },
 };
