@@ -1,0 +1,111 @@
+import { PageMetadata, BASE_URL, commonMetadata, publicRobots } from './config';
+export const registerMetadata: PageMetadata = {
+  en: {
+    ...commonMetadata,
+    title: 'Create Account - Flowin | Start Automating Your Workflows',
+    description: 'Join Flowin and start automating your workflows in minutes. Connect your favorite apps like Google Sheets, WhatsApp, Notion, and Shopify without writing code. Free account with no credit card required.',
+    keywords: [
+      'workflow automation',
+      'no-code automation',
+      'app integration',
+      'business automation',
+      'productivity tools',
+      'zapier alternative',
+      'workflow builder',
+      'automation platform',
+      'connect apps',
+      'automate tasks',
+      'Google Sheets automation',
+      'WhatsApp automation',
+      'Notion integration',
+      'Shopify automation',
+      'free automation tool',
+      'Arabic automation platform'
+    ],
+    robots: publicRobots,
+    openGraph: {
+      type: 'website',
+      locale: 'en_US',
+      alternateLocale: ['ar_SA'],
+      url: `${BASE_URL}/auth/register`,
+      title: 'Create Your Free Flowin Account - Start Automating Today',
+      description: 'Join thousands of professionals who save hours every day with intelligent workflow automation. Connect apps, automate tasks, and boost productivity without coding.',
+      siteName: 'Flowin',
+      images: [
+        {
+          url: '/og-register.png',
+          width: 1200,
+          height: 630,
+          alt: 'Flowin - Workflow Automation Platform',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'Create Your Free Flowin Account - Start Automating Today',
+      description: 'Join thousands of professionals who save hours every day with intelligent workflow automation. No coding required.',
+      images: ['/og-register.png'],
+      creator: '@flowinapp',
+    },
+    alternates: {
+      canonical: `${BASE_URL}/auth/register`,
+      languages: {
+        'en-US': `${BASE_URL}/auth/register`,
+        'ar-SA': `${BASE_URL}/ar/auth/register`,
+      },
+    },
+  },
+  ar: {
+    ...commonMetadata,
+    title: 'إنشاء حساب - Flowin | ابدأ في ربط تطبيقاتك',
+    description: 'انضم إلى Flowin وابدأ في ربط تطبيقاتك وتشغيلها تلقائياً في دقائق. اربط تطبيقاتك المفضلة مثل Google Sheets وWhatsApp وNotion وShopify بدون برمجة. حساب مجاني بدون بطاقة ائتمان.',
+    keywords: [
+      'ربط التطبيقات',
+      'تشغيل تلقائي',
+      'ربط الأدوات',
+      'أتمتة الأعمال',
+      'أدوات الإنتاجية',
+      'بديل زابير',
+      'منصة ربط التطبيقات',
+      'بدون برمجة',
+      'ربط جوجل شيتس',
+      'ربط واتساب',
+      'ربط نوشن',
+      'ربط شوبيفاي',
+      'أداة مجانية',
+      'منصة عربية'
+    ],
+    robots: publicRobots,
+    openGraph: {
+      type: 'website',
+      locale: 'ar_SA',
+      alternateLocale: ['en_US'],
+      url: `${BASE_URL}/ar/auth/register`,
+      title: 'أنشئ حسابك المجاني في Flowin - ابدأ اليوم',
+      description: 'انضم إلى آلاف المحترفين الذين يوفرون ساعات كل يوم بربط تطبيقاتهم وتشغيلها تلقائياً. بدون برمجة.',
+      siteName: 'Flowin',
+      images: [
+        {
+          url: '/og-register-ar.png',
+          width: 1200,
+          height: 630,
+          alt: 'Flowin - منصة ربط التطبيقات',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'أنشئ حسابك المجاني في Flowin - ابدأ اليوم',
+      description: 'انضم إلى آلاف المحترفين الذين يوفرون ساعات كل يوم بربط تطبيقاتهم. بدون برمجة.',
+      images: ['/og-register-ar.png'],
+      creator: '@flowinapp',
+    },
+    alternates: {
+      canonical: `${BASE_URL}/ar/auth/register`,
+      languages: {
+        'en-US': `${BASE_URL}/auth/register`,
+        'ar-SA': `${BASE_URL}/ar/auth/register`,
+      },
+    },
+  },
+};

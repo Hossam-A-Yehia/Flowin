@@ -27,11 +27,11 @@ export default function LanguageSwitcher() {
   const changeLanguage = (languageCode: string) => {
     i18n.changeLanguage(languageCode);
     localStorage.setItem("appLanguage", languageCode);
-    
+
     if (typeof document !== "undefined") {
       document.documentElement.dir = languageCode === "ar" ? "rtl" : "ltr";
       document.documentElement.lang = languageCode;
-      
+
       if (languageCode === "ar") {
         document.body.classList.add("font-cairo");
         document.body.classList.remove("font-geist");
@@ -39,10 +39,21 @@ export default function LanguageSwitcher() {
         document.body.classList.add("font-geist");
         document.body.classList.remove("font-cairo");
       }
+
+      // Force a small delay to ensure i18n state is updated before DynamicMetadata reacts
+      setTimeout(() => {
+        // Trigger a custom event that DynamicMetadata can listen to
+        window.dispatchEvent(
+          new CustomEvent("languageChanged", {
+            detail: { language: languageCode },
+          })
+        );
+      }, 100);
     }
   };
 
-  const currentLanguage = languages.find((lang) => lang.code === i18n.language) || languages[0];
+  const currentLanguage =
+    languages.find((lang) => lang.code === i18n.language) || languages[0];
 
   if (!mounted) {
     return (
