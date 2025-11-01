@@ -3,7 +3,7 @@ import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiBody } from '@nes
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { RegisterDto, LoginDto, AuthResponseDto, ChangePasswordDto, ForgotPasswordDto, ResetPasswordDto } from './dto/auth.dto';
+import { RegisterDto, LoginDto, AuthResponseDto, RegisterResponseDto, ChangePasswordDto, ForgotPasswordDto, ResetPasswordDto } from './dto/auth.dto';
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -14,12 +14,12 @@ export class AuthController {
   @ApiOperation({ summary: 'Register a new user account' })
   @ApiResponse({ 
     status: 201, 
-    description: 'User successfully registered and logged in',
-    type: AuthResponseDto
+    description: 'User successfully registered. Email verification required.',
+    type: RegisterResponseDto
   })
   @ApiResponse({ status: 400, description: 'Invalid input data' })
   @ApiResponse({ status: 409, description: 'User already exists' })
-  async register(@Body() registerDto: RegisterDto): Promise<AuthResponseDto> {
+  async register(@Body() registerDto: RegisterDto): Promise<RegisterResponseDto> {
     return this.authService.register(
       registerDto.email,
       registerDto.password,

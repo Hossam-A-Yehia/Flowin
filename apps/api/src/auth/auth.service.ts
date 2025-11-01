@@ -41,6 +41,11 @@ export class AuthService {
 
   async login(user: any) {
     try {
+      // Check if email is verified
+      if (!user.emailVerified) {
+        throw new UnauthorizedException('Please verify your email address before logging in. Check your inbox for the verification link.');
+      }
+
       const payload = { 
         email: user.email, 
         sub: user.id,
@@ -66,6 +71,9 @@ export class AuthService {
         },
       };
     } catch (error) {
+      if (error instanceof UnauthorizedException) {
+        throw error;
+      }
       console.error('Error during login:', error);
       throw new UnauthorizedException('Login failed');
     }
@@ -89,15 +97,29 @@ export class AuthService {
       const saltRounds = parseInt(this.config.get('BCRYPT_SALT_ROUNDS', '12'));
       const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-      // Create user
+      // Generate email verification token
+      const verifyToken = crypto.randomBytes(32).toString('hex');
+      const verifyExp = new Date();
+      verifyExp.setHours(verifyExp.getHours() + 24); // 24 hour expiration
+
+      // Create user with verification token
       const user = await this.usersService.create({
         email: email.toLowerCase().trim(),
         password: hashedPassword,
         name: name?.trim(),
+        emailVerifyToken: verifyToken,
+        emailVerifyExp: verifyExp,
       });
 
-      // Return login response
-      return this.login(user);
+      // Send verification email
+      await this.emailService.sendVerificationEmail(email, verifyToken);
+
+      // Return success message with email (don't auto-login)
+      return {
+        message: 'Registration successful. Please check your email to verify your account.',
+        email: user.email,
+        requiresVerification: true,
+      };
     } catch (error) {
       if (error instanceof ConflictException || error instanceof BadRequestException) {
         throw error;

@@ -22,6 +22,12 @@ export interface AuthResponse {
   user: AuthUser;
 }
 
+export interface RegisterResponse {
+  message: string;
+  email: string;
+  requiresVerification: boolean;
+}
+
 export interface ForgotPasswordFormData {
   email: string;
 }
@@ -42,4 +48,39 @@ export interface ApiError {
   message: string;
   statusCode: number;
   error?: string;
+}
+
+// Verification types
+export interface SendEmailVerificationData {
+  email: string;
+}
+
+export interface VerifyEmailData {
+  token: string;
+}
+
+export interface SendPhoneVerificationData {
+  phone: string;
+}
+
+export interface VerifyPhoneData {
+  phone: string;
+  code: string;
+}
+
+export interface ResendVerificationData {
+  type: 'email' | 'phone';
+  contact?: string;
+}
+
+export interface VerificationStatusResponse {
+  email: {
+    verified: boolean;
+    verifiedAt: string | null;
+  };
+  phone: {
+    number: string | null;
+    verified: boolean;
+    verifiedAt: string | null;
+  };
 }

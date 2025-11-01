@@ -37,7 +37,7 @@ export class EmailService {
 
   async sendVerificationEmail(email: string, token: string): Promise<boolean> {
     const frontendUrl = this.configService.get('FRONTEND_URL', 'http://localhost:3000');
-    const verificationUrl = `${frontendUrl}/verify-email?token=${token}`;
+    const verificationUrl = `${frontendUrl}/auth/verify-email?token=${token}`;
 
     const mailOptions = {
       from: this.configService.get('SMTP_FROM', 'Flowin <noreply@flowin.com>'),

@@ -2,10 +2,17 @@ import { apiRequest } from "./apiClient";
 import { 
   RegisterFormData, 
   LoginFormData, 
-  AuthResponse, 
+  AuthResponse,
+  RegisterResponse,
   ForgotPasswordFormData,
   ResetPasswordFormData,
-  ValidateResetTokenResponse 
+  ValidateResetTokenResponse,
+  SendEmailVerificationData,
+  VerifyEmailData,
+  SendPhoneVerificationData,
+  VerifyPhoneData,
+  ResendVerificationData,
+  VerificationStatusResponse
 } from "@/types/auth";
 import { authCookies } from "@/utils/cookies";
 import Cookies from 'js-cookie';
@@ -70,8 +77,8 @@ export const authApi = {
   /**
    * Register a new user
    */
-  register: async (data: RegisterFormData): Promise<AuthResponse> => {
-    return apiRequest.post<AuthResponse>("/auth/register", data);
+  register: async (data: RegisterFormData): Promise<RegisterResponse> => {
+    return apiRequest.post<RegisterResponse>("/auth/register", data);
   },
 
   /**
@@ -121,5 +128,61 @@ export const authApi = {
    */
   validateResetToken: async (token: string): Promise<ValidateResetTokenResponse> => {
     return apiRequest.get<ValidateResetTokenResponse>(`/auth/validate-reset-token?token=${token}`);
+  },
+
+  /**
+   * Send email verification link
+   */
+  sendEmailVerification: async (data: SendEmailVerificationData): Promise<{ message: string }> => {
+    return apiRequest.post<{ message: string }>("/auth/verify/email/send", data);
+  },
+
+  /**
+   * Verify email with token
+   */
+  verifyEmail: async (data: VerifyEmailData): Promise<{ message: string }> => {
+    return apiRequest.post<{ message: string }>("/auth/verify/email/confirm", data);
+  },
+
+  /**
+   * Send phone verification code
+   */
+  sendPhoneVerification: async (data: SendPhoneVerificationData): Promise<{ message: string }> => {
+    return apiRequest.post<{ message: string }>("/auth/verify/phone/send", data);
+  },
+
+  /**
+   * Verify phone with code
+   */
+  verifyPhone: async (data: VerifyPhoneData): Promise<{ message: string }> => {
+    return apiRequest.post<{ message: string }>("/auth/verify/phone/confirm", data);
+  },
+
+  /**
+   * Add phone and send verification (authenticated)
+   */
+  addPhoneAndSendVerification: async (data: SendPhoneVerificationData): Promise<{ message: string }> => {
+    return apiRequest.post<{ message: string }>("/auth/verify/phone/add-and-send", data);
+  },
+
+  /**
+   * Verify own phone number (authenticated)
+   */
+  verifyMyPhone: async (data: VerifyPhoneData): Promise<{ message: string }> => {
+    return apiRequest.post<{ message: string }>("/auth/verify/phone/verify-mine", data);
+  },
+
+  /**
+   * Resend verification (email or phone)
+   */
+  resendVerification: async (data: ResendVerificationData): Promise<{ message: string }> => {
+    return apiRequest.post<{ message: string }>("/auth/verify/resend", data);
+  },
+
+  /**
+   * Get verification status
+   */
+  getVerificationStatus: async (): Promise<VerificationStatusResponse> => {
+    return apiRequest.get<VerificationStatusResponse>("/auth/verify/status");
   },
 };

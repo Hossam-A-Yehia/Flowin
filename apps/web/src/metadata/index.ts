@@ -13,6 +13,7 @@ export { loginMetadata } from './LoginMetadata';
 export { dashboardMetadata } from './DashboardMetadata';
 export { forgotPasswordMetadata } from './ForgotPasswordMetadata';
 export { resetPasswordMetadata } from './ResetPasswordMetadata';
+export { verifyEmailMetadata } from './VerifyEmailMetadata';
 
 // Export utility functions
 export {

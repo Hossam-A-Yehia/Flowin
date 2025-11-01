@@ -23,6 +23,9 @@
       "securityNote": "Protected by industry-standard encryption and security protocols",
       "loginFailed": "Login failed. Please try again.",
       "orSignInWith": "Or sign in with email",
+      "emailNotVerified": "Email not verified",
+      "emailNotVerifiedDescription": "Please verify your email address before logging in. Check your inbox for the verification link.",
+      "resendVerification": "Resend verification email",
       "hero": {
         "title": "Welcome back to Flowin",
         "subtitle": "Continue building powerful automations that save you hours every day.",
@@ -119,6 +122,33 @@
         "feature2Description": "At least 8 characters with uppercase, lowercase, number and special character",
         "feature3Title": "Instant Access",
         "feature3Description": "Sign in immediately after resetting your password"
+      }
+    },
+    "verifyEmail": {
+      "title": "Verify Your Email",
+      "subtitle": "We've sent a verification link to your email address.",
+      "mobileTitle": "Email Verification",
+      "mobileSubtitle": "Confirm your email to continue",
+      "verifying": "Verifying your email...",
+      "successTitle": "Email Verified!",
+      "successMessage": "Your email has been successfully verified.",
+      "redirecting": "Redirecting to login...",
+      "invalidToken": "Invalid or Expired Link",
+      "invalidTokenDescription": "This verification link is invalid or has expired. Please request a new one.",
+      "requestNewLink": "Request New Link",
+      "checkEmail": "Check your email",
+      "emailSentDescription": "We've sent a verification link to your email. Please click the link to verify your account.",
+      "didntReceive": "Didn't receive the email?",
+      "resendLink": "Resend verification email",
+      "hero": {
+        "title": "One Step Away!",
+        "subtitle": "Verify your email to unlock the full power of Flowin and start automating your workflows.",
+        "feature1Title": "Secure Verification",
+        "feature1Description": "Email verification ensures your account security and authenticity",
+        "feature2Title": "Quick Process",
+        "feature2Description": "Just click the link in your email and you're all set",
+        "feature3Title": "24-Hour Validity",
+        "feature3Description": "Verification links are valid for 24 hours for your convenience"
       }
     },
     "oauth": {

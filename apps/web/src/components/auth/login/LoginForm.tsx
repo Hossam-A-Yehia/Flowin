@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Eye, EyeOff, Loader2, AlertCircle, Mail, Lock, ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -9,19 +10,23 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { useLogin } from '@/hooks/useAuth';
+import { useLogin, useSendEmailVerification } from '@/hooks/useAuth';
 import { LoginFormData } from '@/types/auth';
 import { getLoginValidationSchema, loginInitialValues } from './loginUtils';
 
 export function LoginForm() {
   const { t } = useTranslation();
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [userEmail, setUserEmail] = useState<string>('');
   const loginMutation = useLogin();
+  const resendVerificationMutation = useSendEmailVerification();
   const validationSchema = getLoginValidationSchema();
 
   const handleSubmit = useCallback(async (values: LoginFormData) => {
     try {
+      setUserEmail(values.email);
       loginMutation.mutate(values);
     } catch (error) {
       console.error('Login form submission error:', error);
@@ -32,6 +37,16 @@ export function LoginForm() {
     setShowPassword(prev => !prev);
   }, []);
 
+  const handleResendVerification = useCallback(async () => {
+    if (userEmail) {
+      await resendVerificationMutation.mutateAsync({ email: userEmail });
+      router.push(`/auth/verify-email?email=${encodeURIComponent(userEmail)}`);
+    }
+  }, [userEmail, resendVerificationMutation, router]);
+
+  // Check if error is about email verification
+  const isEmailNotVerified = loginMutation.error?.message?.toLowerCase().includes('verify');
+
   return (
     <>
       {loginMutation.error && (
@@ -39,9 +54,32 @@ export function LoginForm() {
           <Alert className="border-red-200 bg-red-50">
             <AlertCircle className="h-4 w-4 text-red-600" />
             <AlertDescription className="text-red-700">
-              {loginMutation.error?.message || t('auth.login.loginFailed')}
+              <div className="space-y-2">
+                <p className="font-medium">
+                  {isEmailNotVerified ? t('auth.login.emailNotVerified') : t('auth.login.loginFailed')}
+                </p>
+                <p className="text-sm">
+                  {loginMutation.error?.message || t('auth.login.loginFailed')}
+                </p>
+              </div>
             </AlertDescription>
           </Alert>
+          {isEmailNotVerified && userEmail && (
+            <button
+              onClick={handleResendVerification}
+              disabled={resendVerificationMutation.isPending}
+              className="w-full mt-2 h-10 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-all duration-200 disabled:opacity-50 text-sm"
+            >
+              {resendVerificationMutation.isPending ? (
+                <>
+                  <Loader2 className="inline mr-2 h-4 w-4 animate-spin" />
+                  {t('auth.forgotPassword.sending')}
+                </>
+              ) : (
+                t('auth.login.resendVerification')
+              )}
+            </button>
+          )}
         </>
       )}
 

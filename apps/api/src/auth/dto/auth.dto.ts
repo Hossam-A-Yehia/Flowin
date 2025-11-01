@@ -140,3 +140,23 @@ export class ResetPasswordDto {
   )
   newPassword: string;
 }
+
+export class RegisterResponseDto {
+  @ApiProperty({ 
+    example: 'Registration successful. Please check your email to verify your account.',
+    description: 'Success message'
+  })
+  message: string;
+
+  @ApiProperty({ 
+    example: 'user@example.com',
+    description: 'Registered email address'
+  })
+  email: string;
+
+  @ApiProperty({ 
+    example: true,
+    description: 'Indicates that email verification is required'
+  })
+  requiresVerification: boolean;
+}

@@ -7,9 +7,10 @@ import { loginMetadata } from '@/metadata/LoginMetadata';
 import { dashboardMetadata } from '@/metadata/DashboardMetadata';
 import { forgotPasswordMetadata } from '@/metadata/ForgotPasswordMetadata';
 import { resetPasswordMetadata } from '@/metadata/ResetPasswordMetadata';
+import { verifyEmailMetadata } from '@/metadata/VerifyEmailMetadata';
 
 interface DynamicMetadataProps {
-  page: 'register' | 'login' | 'dashboard' | 'forgot-password' | 'reset-password';
+  page: 'register' | 'login' | 'dashboard' | 'forgot-password' | 'reset-password' | 'verify-email';
 }
 
 /**
@@ -28,6 +29,7 @@ export function DynamicMetadata({ page }: DynamicMetadataProps) {
       dashboard: dashboardMetadata,
       'forgot-password': forgotPasswordMetadata,
       'reset-password': resetPasswordMetadata,
+      'verify-email': verifyEmailMetadata,
     };
 
     const metadata = metadataMap[page][locale];
