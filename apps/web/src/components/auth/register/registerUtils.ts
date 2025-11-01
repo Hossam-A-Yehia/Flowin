@@ -1,28 +1,33 @@
 import * as Yup from "yup";
 import { RegisterFormData } from "@/types/auth";
+import i18n from "@/il8n";
 
 const passwordRegex =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/;
 
-export const registerValidationSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Please provide a valid email address")
-    .required("Email is required")
-    .max(255, "Email cannot be longer than 255 characters"),
+export const getRegisterValidationSchema = () => {
+  return Yup.object().shape({
+    email: Yup.string()
+      .email(i18n.t('auth.validation.emailInvalid'))
+      .required(i18n.t('auth.validation.emailRequired'))
+      .max(255, i18n.t('auth.validation.emailMaxLength')),
 
-  password: Yup.string()
-    .required("Password is required")
-    .min(8, "Password must be at least 8 characters long")
-    .matches(
-      passwordRegex,
-      "Password must contain uppercase, lowercase, number and special character"
-    ),
+    password: Yup.string()
+      .required(i18n.t('auth.validation.passwordRequired'))
+      .min(8, i18n.t('auth.validation.passwordMinLength'))
+      .matches(
+        passwordRegex,
+        i18n.t('auth.validation.passwordPattern')
+      ),
 
-  name: Yup.string()
-    .optional()
-    .max(100, "Name cannot be longer than 100 characters")
-    .nullable(),
-});
+    name: Yup.string()
+      .optional()
+      .max(100, i18n.t('auth.validation.nameMaxLength'))
+      .nullable(),
+  });
+};
+
+export const registerValidationSchema = getRegisterValidationSchema();
 
 export const registerInitialValues: RegisterFormData = {
   email: "",
@@ -46,12 +51,12 @@ export const getPasswordStrength = (
   if (/[@$!%*?&]/.test(password)) score++;
 
   const strengthMap = {
-    0: { label: "Very Weak", color: "bg-red-500" },
-    1: { label: "Weak", color: "bg-red-400" },
-    2: { label: "Fair", color: "bg-yellow-500" },
-    3: { label: "Good", color: "bg-yellow-400" },
-    4: { label: "Strong", color: "bg-green-500" },
-    5: { label: "Very Strong", color: "bg-green-600" },
+    0: { label: i18n.t('auth.validation.passwordStrengthVeryWeak'), color: "bg-red-500" },
+    1: { label: i18n.t('auth.validation.passwordStrengthWeak'), color: "bg-red-400" },
+    2: { label: i18n.t('auth.validation.passwordStrengthFair'), color: "bg-yellow-500" },
+    3: { label: i18n.t('auth.validation.passwordStrengthGood'), color: "bg-yellow-400" },
+    4: { label: i18n.t('auth.validation.passwordStrengthStrong'), color: "bg-green-500" },
+    5: { label: i18n.t('auth.validation.passwordStrengthVeryStrong'), color: "bg-green-600" },
   };
 
   return {

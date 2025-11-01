@@ -69,6 +69,21 @@
     "oauth": {
       "continueWithGoogle": "Continue with Google",
       "continueWithGithub": "Continue with GitHub"
+    },
+    "validation": {
+      "emailInvalid": "Please provide a valid email address",
+      "emailRequired": "Email is required",
+      "emailMaxLength": "Email cannot be longer than 255 characters",
+      "passwordRequired": "Password is required",
+      "passwordMinLength": "Password must be at least 8 characters long",
+      "passwordPattern": "Password must contain uppercase, lowercase, number and special character",
+      "nameMaxLength": "Name cannot be longer than 100 characters",
+      "passwordStrengthVeryWeak": "Very Weak",
+      "passwordStrengthWeak": "Weak",
+      "passwordStrengthFair": "Fair",
+      "passwordStrengthGood": "Good",
+      "passwordStrengthStrong": "Strong",
+      "passwordStrengthVeryStrong": "Very Strong"
     }
   },
   "navigation": {

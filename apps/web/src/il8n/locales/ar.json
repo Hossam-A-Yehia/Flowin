@@ -25,18 +25,18 @@
       "orSignInWith": "أو سجل الدخول بالبريد الإلكتروني",
       "hero": {
         "title": "مرحباً بعودتك إلى Flowin",
-        "subtitle": "واصل بناء أتمتة قوية توفر لك ساعات كل يوم.",
+        "subtitle": "واصل بناء سير عمل ذكي يوفر لك ساعات كل يوم.",
         "feature1Title": "أمان على مستوى المؤسسات",
         "feature1Description": "بياناتك محمية بتشفير على مستوى البنوك",
-        "feature2Title": "أتمتة فورية",
-        "feature2Description": "اربط أدواتك وأتمت سير العمل في دقائق",
+        "feature2Title": "ربط فوري بين التطبيقات",
+        "feature2Description": "اربط أدواتك واجعلها تعمل معاً في دقائق",
         "feature3Title": "مدعوم بالذكاء الاصطناعي",
         "feature3Description": "اقتراحات ذكية لتحسين سير عملك"
       }
     },
     "register": {
       "title": "إنشاء حسابك",
-      "subtitle": "ابدأ في أتمتة سير عملك في دقائق.",
+      "subtitle": "ابدأ في ربط تطبيقاتك وتشغيلها تلقائياً في دقائق.",
       "mobileTitle": "انضم إلى Flowin",
       "mobileSubtitle": "أنشئ حسابك للبدء",
       "nameLabel": "الاسم الكامل (اختياري)",
@@ -56,12 +56,12 @@
       "privacyPolicy": "سياسة الخصوصية",
       "orCreateWith": "أو أنشئ حساباً بالبريد الإلكتروني",
       "hero": {
-        "title": "ابدأ رحلة الأتمتة الخاصة بك",
-        "subtitle": "انضم إلى آلاف المحترفين الذين يوفرون ساعات كل يوم بأتمتة سير العمل الذكية.",
-        "feature1Title": "أتمتة بدون كود",
-        "feature1Description": "بناء سير عمل قوي دون كتابة سطر واحد من الكود",
+        "title": "ابدأ رحلتك في ربط التطبيقات",
+        "subtitle": "انضم إلى آلاف المحترفين الذين يوفرون ساعات كل يوم بربط تطبيقاتهم وتشغيلها تلقائياً.",
+        "feature1Title": "بدون برمجة",
+        "feature1Description": "اربط تطبيقاتك واجعلها تعمل معاً دون كتابة سطر واحد من الكود",
         "feature2Title": "التعاون الجماعي",
-        "feature2Description": "شارك وتعاون على الأتمتة مع فريقك",
+        "feature2Description": "شارك وتعاون مع فريقك على ربط التطبيقات",
         "feature3Title": "التحليلات والرؤى",
         "feature3Description": "تتبع الأداء وحسّن سير عملك"
       }
@@ -69,6 +69,21 @@
     "oauth": {
       "continueWithGoogle": "المتابعة مع Google",
       "continueWithGithub": "المتابعة مع GitHub"
+    },
+    "validation": {
+      "emailInvalid": "يرجى تقديم عنوان بريد إلكتروني صالح",
+      "emailRequired": "البريد الإلكتروني مطلوب",
+      "emailMaxLength": "لا يمكن أن يتجاوز البريد الإلكتروني 255 حرفًا",
+      "passwordRequired": "كلمة المرور مطلوبة",
+      "passwordMinLength": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل",
+      "passwordPattern": "يجب أن تحتوي كلمة المرور على أحرف كبيرة وصغيرة ورقم وحرف خاص",
+      "nameMaxLength": "لا يمكن أن يتجاوز الاسم 100 حرف",
+      "passwordStrengthVeryWeak": "ضعيفة جداً",
+      "passwordStrengthWeak": "ضعيفة",
+      "passwordStrengthFair": "مقبولة",
+      "passwordStrengthGood": "جيدة",
+      "passwordStrengthStrong": "قوية",
+      "passwordStrengthVeryStrong": "قوية جداً"
     }
   },
   "navigation": {

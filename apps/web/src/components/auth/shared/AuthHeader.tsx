@@ -36,7 +36,7 @@ export function AuthHeader({
       </div>
       <div className="hidden lg:block mb-8">
         <div className="space-y-3">
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center  gap-3">
             <div className="w-2 h-8 bg-gradient-to-b from-blue-500 to-blue-600 rounded-full"></div>
             <h2 className="text-3xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 bg-clip-text text-transparent">
               {title}

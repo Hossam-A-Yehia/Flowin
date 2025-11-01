@@ -11,7 +11,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useRegister } from "@/hooks/useAuth";
 import { RegisterFormData } from "@/types/auth";
 import {
-  registerValidationSchema,
+  getRegisterValidationSchema,
   registerInitialValues,
 } from "@/components/auth/register/registerUtils";
 import { PasswordField } from "./PasswordField";
@@ -20,6 +20,7 @@ export function RegisterForm() {
   const { t } = useTranslation();
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const registerMutation = useRegister();
+  const validationSchema = getRegisterValidationSchema();
 
   const handleSubmit = useCallback(
     async (values: RegisterFormData) => {
@@ -45,7 +46,7 @@ export function RegisterForm() {
 
       <Formik
         initialValues={registerInitialValues}
-        validationSchema={registerValidationSchema}
+        validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
         {({ values, errors, touched, isValid }) => (

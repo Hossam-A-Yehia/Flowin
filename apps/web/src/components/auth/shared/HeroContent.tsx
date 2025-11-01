@@ -27,7 +27,7 @@ export function HeroContent({ title, subtitle, features }: HeroContentProps) {
       {features && (
         <div className="space-y-6 mb-12">
           {features.map((feature, index) => (
-            <div key={index} className="flex items-start space-x-4">
+            <div key={index} className="flex items-start gap-4">
               <div className="flex-shrink-0 w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
                 {feature.icon}
               </div>

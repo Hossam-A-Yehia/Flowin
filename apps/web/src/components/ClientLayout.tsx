@@ -10,6 +10,14 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     const currentLang = i18n.language;
     document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
     document.documentElement.lang = currentLang;
+    
+    if (currentLang === "ar") {
+      document.body.classList.add("font-cairo");
+      document.body.classList.remove("font-geist");
+    } else {
+      document.body.classList.add("font-geist");
+      document.body.classList.remove("font-cairo");
+    }
   }, []);
 
   return (

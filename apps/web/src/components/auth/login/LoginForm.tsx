@@ -11,13 +11,14 @@ import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useLogin } from '@/hooks/useAuth';
 import { LoginFormData } from '@/types/auth';
-import { loginValidationSchema, loginInitialValues } from './loginUtils';
+import { getLoginValidationSchema, loginInitialValues } from './loginUtils';
 
 export function LoginForm() {
   const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const loginMutation = useLogin();
+  const validationSchema = getLoginValidationSchema();
 
   const handleSubmit = useCallback(async (values: LoginFormData) => {
     try {
@@ -46,7 +47,7 @@ export function LoginForm() {
 
       <Formik
         initialValues={loginInitialValues}
-        validationSchema={loginValidationSchema}
+        validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
         {({ errors, touched, isValid }) => (

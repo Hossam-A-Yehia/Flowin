@@ -31,6 +31,14 @@ export default function LanguageSwitcher() {
     if (typeof document !== "undefined") {
       document.documentElement.dir = languageCode === "ar" ? "rtl" : "ltr";
       document.documentElement.lang = languageCode;
+      
+      if (languageCode === "ar") {
+        document.body.classList.add("font-cairo");
+        document.body.classList.remove("font-geist");
+      } else {
+        document.body.classList.add("font-geist");
+        document.body.classList.remove("font-cairo");
+      }
     }
   };
 
