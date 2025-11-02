@@ -55,9 +55,6 @@ export function LoginForm() {
             <AlertCircle className="h-4 w-4 text-red-600" />
             <AlertDescription className="text-red-700">
               <div className="space-y-2">
-                <p className="font-medium">
-                  {isEmailNotVerified ? t('auth.login.emailNotVerified') : t('auth.login.loginFailed')}
-                </p>
                 <p className="text-sm">
                   {loginMutation.error?.message || t('auth.login.loginFailed')}
                 </p>

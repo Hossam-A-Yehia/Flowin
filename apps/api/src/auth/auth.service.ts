@@ -1,6 +1,7 @@
 import { Injectable, UnauthorizedException, ConflictException, BadRequestException, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { I18nService } from 'nestjs-i18n';
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
 import { UsersService } from '../users/users.service';
@@ -17,6 +18,7 @@ export class AuthService {
     private config: ConfigService,
     private prisma: PrismaService,
     private emailService: EmailService,
+    private i18n: I18nService,
   ) {}
 
   async validateUser(email: string, password: string): Promise<any> {
@@ -43,7 +45,9 @@ export class AuthService {
     try {
       // Check if email is verified
       if (!user.emailVerified) {
-        throw new UnauthorizedException('Please verify your email address before logging in. Check your inbox for the verification link.');
+        throw new UnauthorizedException(
+          await this.i18n.translate('auth.EMAIL_NOT_VERIFIED')
+        );
       }
 
       const payload = { 
@@ -75,7 +79,9 @@ export class AuthService {
         throw error;
       }
       console.error('Error during login:', error);
-      throw new UnauthorizedException('Login failed');
+      throw new UnauthorizedException(
+        await this.i18n.translate('auth.LOGIN_FAILED')
+      );
     }
   }
 
@@ -84,13 +90,17 @@ export class AuthService {
       // Check if user already exists
       const existingUser = await this.usersService.findByEmail(email);
       if (existingUser) {
-        throw new ConflictException('User with this email already exists');
+        throw new ConflictException(
+          await this.i18n.translate('auth.USER_ALREADY_EXISTS')
+        );
       }
 
       // Validate email format (additional check)
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
-        throw new BadRequestException('Invalid email format');
+        throw new BadRequestException(
+          await this.i18n.translate('auth.INVALID_EMAIL')
+        );
       }
 
       // Hash password
@@ -116,7 +126,7 @@ export class AuthService {
 
       // Return success message with email (don't auto-login)
       return {
-        message: 'Registration successful. Please check your email to verify your account.',
+        message: await this.i18n.translate('auth.REGISTRATION_SUCCESS'),
         email: user.email,
         requiresVerification: true,
       };
@@ -125,7 +135,9 @@ export class AuthService {
         throw error;
       }
       console.error('Error during registration:', error);
-      throw new BadRequestException('Registration failed');
+      throw new BadRequestException(
+        await this.i18n.translate('auth.REGISTRATION_FAILED')
+      );
     }
   }
 
@@ -135,12 +147,16 @@ export class AuthService {
       const user = await this.usersService.findById(payload.sub);
       
       if (!user) {
-        throw new UnauthorizedException('User not found');
+        throw new UnauthorizedException(
+          await this.i18n.translate('auth.USER_NOT_FOUND')
+        );
       }
 
       return user;
     } catch (error) {
-      throw new UnauthorizedException('Invalid token');
+      throw new UnauthorizedException(
+        await this.i18n.translate('auth.INVALID_TOKEN')
+      );
     }
   }
 
@@ -148,12 +164,16 @@ export class AuthService {
     try {
       const user = await this.usersService.findByIdWithPassword(userId);
       if (!user) {
-        throw new UnauthorizedException('User not found');
+        throw new UnauthorizedException(
+          await this.i18n.translate('auth.USER_NOT_FOUND')
+        );
       }
 
       const isCurrentPasswordValid = await bcrypt.compare(currentPassword, user.password);
       if (!isCurrentPasswordValid) {
-        throw new UnauthorizedException('Current password is incorrect');
+        throw new UnauthorizedException(
+          await this.i18n.translate('auth.CURRENT_PASSWORD_INCORRECT')
+        );
       }
 
       const saltRounds = parseInt(this.config.get('BCRYPT_SALT_ROUNDS', '12'));
@@ -164,7 +184,7 @@ export class AuthService {
         data: { password: hashedNewPassword },
       });
 
-      return { message: 'Password changed successfully' };
+      return { message: await this.i18n.translate('auth.PASSWORD_CHANGED') };
     } catch (error) {
       if (error instanceof UnauthorizedException) {
         throw error;
@@ -200,7 +220,7 @@ export class AuthService {
       await this.emailService.sendPasswordResetEmail(email, resetToken);
 
       return { 
-        message: 'Password reset email sent successfully. Please check your inbox.' 
+        message: await this.i18n.translate('auth.PASSWORD_RESET_SENT')
       };
     } catch (error) {
       console.error('Error in forgot password:', error);
@@ -228,7 +248,9 @@ export class AuthService {
       });
 
       if (!user) {
-        throw new BadRequestException('Invalid or expired reset token');
+        throw new BadRequestException(
+          await this.i18n.translate('auth.INVALID_RESET_TOKEN')
+        );
       }
 
       // Hash new password
@@ -245,7 +267,7 @@ export class AuthService {
         },
       });
 
-      return { message: 'Password reset successfully' };
+      return { message: await this.i18n.translate('auth.PASSWORD_RESET_SUCCESS') };
     } catch (error) {
       if (error instanceof BadRequestException) {
         throw error;
@@ -272,7 +294,9 @@ export class AuthService {
       });
 
       if (!user) {
-        throw new BadRequestException('Invalid or expired reset token');
+        throw new BadRequestException(
+          await this.i18n.translate('auth.INVALID_RESET_TOKEN')
+        );
       }
 
       return {

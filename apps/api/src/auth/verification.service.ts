@@ -1,5 +1,6 @@
 import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { I18nService } from 'nestjs-i18n';
 import * as crypto from 'crypto';
 import { PrismaService } from '../prisma/prisma.service';
 import { UsersService } from '../users/users.service';
@@ -14,6 +15,7 @@ export class VerificationService {
     private config: ConfigService,
     private emailService: EmailService,
     private smsService: SmsService,
+    private i18n: I18nService,
   ) {}
 
   // ================================
@@ -24,11 +26,13 @@ export class VerificationService {
     try {
       const user = await this.usersService.findByEmail(email);
       if (!user) {
-        throw new NotFoundException('User not found');
+        throw new NotFoundException(
+          await this.i18n.translate('auth.USER_NOT_FOUND')
+        );
       }
 
       if (user.emailVerified) {
-        return { message: 'Email is already verified' };
+        return { message: await this.i18n.translate('auth.EMAIL_ALREADY_VERIFIED') };
       }
 
       // Generate verification token
@@ -49,14 +53,16 @@ export class VerificationService {
       await this.emailService.sendVerificationEmail(email, verifyToken);
 
       return { 
-        message: 'Verification email sent. Please check your inbox and click the verification link.' 
+        message: await this.i18n.translate('auth.VERIFICATION_EMAIL_SENT')
       };
     } catch (error) {
       if (error instanceof NotFoundException) {
         throw error;
       }
       console.error('Error sending email verification:', error);
-      throw new BadRequestException('Failed to send verification email');
+      throw new BadRequestException(
+        await this.i18n.translate('auth.FAILED_TO_SEND_VERIFICATION')
+      );
     }
   }
 
@@ -72,11 +78,13 @@ export class VerificationService {
       });
 
       if (!user) {
-        throw new BadRequestException('Invalid or expired verification token');
+        throw new BadRequestException(
+          await this.i18n.translate('auth.INVALID_VERIFICATION_TOKEN')
+        );
       }
 
       if (user.emailVerified) {
-        return { message: 'Email is already verified' };
+        return { message: await this.i18n.translate('auth.EMAIL_ALREADY_VERIFIED') };
       }
 
       // Mark email as verified and clear token
@@ -89,7 +97,7 @@ export class VerificationService {
         },
       });
 
-      return { message: 'Email verified successfully' };
+      return { message: await this.i18n.translate('auth.EMAIL_VERIFIED') };
     } catch (error) {
       if (error instanceof BadRequestException) {
         throw error;

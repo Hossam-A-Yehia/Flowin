@@ -1,0 +1,13 @@
+{
+  "EMAIL_REQUIRED": "Email is required",
+  "EMAIL_INVALID": "Please provide a valid email address",
+  "PASSWORD_REQUIRED": "Password is required",
+  "PASSWORD_MIN_LENGTH": "Password must be at least 8 characters long",
+  "PASSWORD_PATTERN": "Password must contain uppercase, lowercase, number and special character",
+  "NAME_MAX_LENGTH": "Name cannot be longer than 100 characters",
+  "TOKEN_REQUIRED": "Token is required",
+  "PHONE_INVALID": "Please provide a valid phone number",
+  "CODE_REQUIRED": "Verification code is required",
+  "CODE_LENGTH": "Verification code must be exactly 6 digits",
+  "CODE_PATTERN": "Verification code must contain only digits"
+}

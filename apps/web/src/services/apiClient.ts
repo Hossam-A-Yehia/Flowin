@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import Cookies from 'js-cookie';
 import { ApiError } from '@/types/auth';
+import i18n from '@/il8n';
 
 // Create axios instance with base configuration
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
@@ -13,7 +14,7 @@ export const apiClient = axios.create({
   timeout: 10000,
 });
 
-// Request interceptor to add auth token
+// Request interceptor to add auth token and language header
 apiClient.interceptors.request.use(
   (config) => {
     if (typeof window !== 'undefined') {
@@ -21,6 +22,9 @@ apiClient.interceptors.request.use(
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
+      
+      const currentLocale = i18n.language || 'en';
+      config.headers['Accept-Language'] = currentLocale;
     }
     return config;
   },
