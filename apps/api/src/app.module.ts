@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { FlowsModule } from './flows/flows.module';
 import { IntegrationsModule } from './integrations/integrations.module';
+import { QueueModule } from './queue/queue.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { IntegrationsModule } from './integrations/integrations.module';
     
     // Core modules
     PrismaModule,
+    QueueModule,
     AuthModule,
     UsersModule,
     FlowsModule,
