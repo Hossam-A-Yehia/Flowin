@@ -63,8 +63,10 @@ export function LoginForm() {
           </Alert>
           {isEmailNotVerified && userEmail && (
             <button
+              type="button"
               onClick={handleResendVerification}
               disabled={resendVerificationMutation.isPending}
+              aria-label={t('auth.login.resendVerification')}
               className="w-full mt-2 h-10 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-all duration-200 disabled:opacity-50 text-sm"
             >
               {resendVerificationMutation.isPending ? (
@@ -147,13 +149,14 @@ export function LoginForm() {
                 <button
                   type="button"
                   onClick={togglePasswordVisibility}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                  aria-label={showPassword ? t('auth.login.hidePassword') : t('auth.login.showPassword')}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
                   disabled={loginMutation.isPending}
                 >
                   {showPassword ? (
-                    <EyeOff className="h-4 w-4" />
+                    <EyeOff className="h-4 w-4" aria-hidden="true" />
                   ) : (
-                    <Eye className="h-4 w-4" />
+                    <Eye className="h-4 w-4" aria-hidden="true" />
                   )}
                 </button>
               </div>

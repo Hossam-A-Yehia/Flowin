@@ -57,13 +57,14 @@ export function PasswordField({
         <button
           type="button"
           onClick={() => setShowPassword(!showPassword)}
-          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+          aria-label={showPassword ? t('auth.register.hidePassword') : t('auth.register.showPassword')}
+          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
           disabled={disabled}
         >
           {showPassword ? (
-            <EyeOff className="h-4 w-4" />
+            <EyeOff className="h-4 w-4" aria-hidden="true" />
           ) : (
-            <Eye className="h-4 w-4" />
+            <Eye className="h-4 w-4" aria-hidden="true" />
           )}
         </button>
       </div>

@@ -18,7 +18,7 @@ export function RegisterClient() {
   return (
     <AuthLayout
       hero={
-        <AuthHero gradient="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800">
+        <AuthHero>
           <RegisterHero />
         </AuthHero>
       }

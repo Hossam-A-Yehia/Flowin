@@ -23,6 +23,11 @@ const cairo = Cairo({
 export const metadata: Metadata = {
   title: "Flowin - Let your work flow effortlessly",
   description: "AI-driven, no-code automation platform to connect your favorite tools and automate workflows in minutes.",
+  icons: {
+    icon: "/logo.svg",
+    shortcut: "/logo.svg",
+    apple: "/logo.svg",
+  },
 };
 
 export default function RootLayout({

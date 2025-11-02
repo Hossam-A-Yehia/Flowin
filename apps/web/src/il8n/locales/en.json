@@ -26,6 +26,8 @@
       "emailNotVerified": "Email not verified",
       "emailNotVerifiedDescription": "Please verify your email address before logging in. Check your inbox for the verification link.",
       "resendVerification": "Resend verification email",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
       "hero": {
         "title": "Welcome back to Flowin",
         "subtitle": "Continue building powerful automations that save you hours every day.",
@@ -49,6 +51,8 @@
       "passwordLabel": "Password *",
       "passwordPlaceholder": "Create a strong password",
       "passwordStrength": "Password strength",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
       "createButton": "Create Account",
       "creating": "Creating your account...",
       "haveAccount": "Already have an account?",

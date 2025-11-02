@@ -44,9 +44,9 @@ export function VerifyEmailHero() {
                 <Icon className="w-6 h-6 text-white" />
               </div>
               <div className="flex-1 space-y-1">
-                <h3 className="text-lg font-semibold text-white">
+                <h2 className="text-lg font-semibold text-white">
                   {feature.title}
-                </h3>
+                </h2>
                 <p className="text-blue-100 leading-relaxed">
                   {feature.description}
                 </p>

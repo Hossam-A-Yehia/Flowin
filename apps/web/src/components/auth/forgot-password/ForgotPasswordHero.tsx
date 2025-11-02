@@ -27,7 +27,7 @@ export function ForgotPasswordHero() {
   return (
     <div className="space-y-8">
       <div className="space-y-4">
-        <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight">
+        <h1 className="text-4xl  font-bold text-white leading-tight">
           {t('auth.forgotPassword.hero.title')}
         </h1>
         <p className="text-lg md:text-xl text-blue-100 leading-relaxed">
@@ -44,9 +44,9 @@ export function ForgotPasswordHero() {
                 <Icon className="w-6 h-6 text-white" />
               </div>
               <div className="flex-1 space-y-1">
-                <h3 className="text-lg font-semibold text-white">
+                <h2 className="text-lg font-semibold text-white">
                   {feature.title}
-                </h3>
+                </h2>
                 <p className="text-blue-100 leading-relaxed">
                   {feature.description}
                 </p>

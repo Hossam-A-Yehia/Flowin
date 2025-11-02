@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Sparkles } from "lucide-react";
+import Image from "next/image";
 
 interface Feature {
   icon: ReactNode;
@@ -17,8 +17,15 @@ export function HeroContent({ title, subtitle, features }: HeroContentProps) {
   return (
     <>
       <div className="mb-12 text-center">
-        <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl mb-6">
-          <Sparkles className="w-8 h-8 text-white" />
+        <div className="inline-flex items-center justify-center mb-6 h-[100px] w-[100px]">
+          <Image 
+            src="/logo.svg" 
+            alt="Flowin Logo" 
+            width={100} 
+            height={100}
+            className="object-contain"
+            style={{ width: 'auto', height: 'auto' }}
+          />
         </div>
         <h1 className="text-4xl font-bold mb-4">{title}</h1>
         <p className="text-lg text-blue-100 leading-relaxed">{subtitle}</p>
@@ -32,7 +39,7 @@ export function HeroContent({ title, subtitle, features }: HeroContentProps) {
                 {feature.icon}
               </div>
               <div>
-                <h3 className="font-semibold mb-1">{feature.title}</h3>
+                <h2 className="font-semibold mb-1 text-lg">{feature.title}</h2>
                 <p className="text-blue-100 text-sm">{feature.description}</p>
               </div>
             </div>
