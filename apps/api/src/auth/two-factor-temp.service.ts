@@ -110,12 +110,48 @@ export class TwoFactorService {
 
   async send2FACode(email: string) {
     try {
-      // For now, return a message that 2FA will be available after schema update
+      const user = await this.usersService.findByEmail(email);
+      if (!user) {
+        throw new BadRequestException('User not found');
+      }
+
+      if (!user.twoFactorEnabled) {
+        throw new BadRequestException('2FA is not enabled for this account');
+      }
+
+      // Generate 6-digit code
+      const code = this.generate2FACode();
+      const codeExp = new Date();
+      codeExp.setMinutes(codeExp.getMinutes() + 5); // 5 minute expiration
+
+      // Save code to database
+      await this.prisma.user.update({
+        where: { id: user.id },
+        data: {
+          twoFactorCode: code,
+          twoFactorCodeExp: codeExp,
+        },
+      });
+
+      // Send code via configured method
+      if (user.twoFactorMethod === 'email') {
+        await this.emailService.send2FAEmail(email, code);
+      } else if (user.twoFactorMethod === 'sms' && user.phone) {
+        await this.smsService.send2FACode(user.phone, code);
+      } else {
+        throw new BadRequestException('Invalid 2FA method configuration');
+      }
+
+      this.logger.log(`2FA code sent to ${email} via ${user.twoFactorMethod}`);
+
       return {
-        message: '2FA feature will be available after database schema update',
-        method: 'email',
+        message: `2FA code sent via ${user.twoFactorMethod}`,
+        method: user.twoFactorMethod,
       };
     } catch (error) {
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
       this.logger.error('Error sending 2FA code:', error);
       throw new BadRequestException('Failed to send 2FA code');
     }
@@ -123,9 +159,95 @@ export class TwoFactorService {
 
   async verify2FA(verify2FADto: Verify2FADto) {
     try {
-      // For now, return an error that 2FA is not yet available
-      throw new BadRequestException('2FA feature will be available after database schema update');
+      const user = await this.usersService.findByEmail(verify2FADto.email);
+      if (!user) {
+        throw new UnauthorizedException('Invalid credentials');
+      }
+
+      if (!user.twoFactorEnabled) {
+        throw new BadRequestException('2FA is not enabled for this account');
+      }
+
+      let isValidCode = false;
+
+      // Parse backup codes if stored as JSON string
+      let backupCodes: string[] = [];
+      if (user.twoFactorBackupCodes) {
+        if (Array.isArray(user.twoFactorBackupCodes)) {
+          backupCodes = user.twoFactorBackupCodes.map(code => String(code));
+        } else if (typeof user.twoFactorBackupCodes === 'string') {
+          const parsed = JSON.parse(user.twoFactorBackupCodes);
+          backupCodes = Array.isArray(parsed) ? parsed.map(code => String(code)) : [];
+        }
+      }
+
+      // Check if it's a backup code
+      if (backupCodes.length > 0) {
+        const codeIndex = backupCodes.indexOf(verify2FADto.code.toUpperCase());
+        
+        if (codeIndex !== -1) {
+          // Remove used backup code
+          backupCodes.splice(codeIndex, 1);
+          await this.prisma.user.update({
+            where: { id: user.id },
+            data: { twoFactorBackupCodes: backupCodes as any },
+          });
+          isValidCode = true;
+          this.logger.log(`Backup code used for user ${user.email}`);
+        }
+      }
+
+      // Check if it's a regular 2FA code
+      if (!isValidCode) {
+        if (!user.twoFactorCode || !user.twoFactorCodeExp) {
+          throw new UnauthorizedException('No valid 2FA code found. Please request a new code.');
+        }
+
+        if (new Date() > user.twoFactorCodeExp) {
+          throw new UnauthorizedException('2FA code has expired. Please request a new code.');
+        }
+
+        if (user.twoFactorCode !== verify2FADto.code) {
+          throw new UnauthorizedException('Invalid 2FA code');
+        }
+
+        // Clear the used code
+        await this.prisma.user.update({
+          where: { id: user.id },
+          data: {
+            twoFactorCode: null,
+            twoFactorCodeExp: null,
+            lastLogin: new Date(),
+          },
+        });
+        isValidCode = true;
+      }
+
+      if (!isValidCode) {
+        throw new UnauthorizedException('Invalid 2FA code');
+      }
+
+      // Generate JWT token
+      const payload = { 
+        email: user.email, 
+        sub: user.id,
+        plan: user.plan 
+      };
+      const access_token = this.jwtService.sign(payload);
+
+      return {
+        access_token,
+        user: {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          plan: user.plan,
+        },
+      };
     } catch (error) {
+      if (error instanceof UnauthorizedException || error instanceof BadRequestException) {
+        throw error;
+      }
       this.logger.error('Error verifying 2FA:', error);
       throw new UnauthorizedException('2FA verification failed');
     }

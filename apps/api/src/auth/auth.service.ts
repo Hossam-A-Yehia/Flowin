@@ -23,8 +23,26 @@ export class AuthService {
 
   async validateUser(email: string, password: string): Promise<any> {
     try {
-      const user = await this.usersService.findByEmail(email);
+      const user = await this.prisma.user.findUnique({
+        where: { email },
+        select: {
+          id: true,
+          email: true,
+          name: true,
+          password: true,
+          plan: true,
+          emailVerified: true,
+          createdAt: true,
+          twoFactorEnabled: true,
+          twoFactorMethod: true,
+        },
+      });
+
       if (!user) {
+        return null;
+      }
+
+      if (!user.password) {
         return null;
       }
 
@@ -33,6 +51,7 @@ export class AuthService {
         return null;
       }
 
+      // Return user with 2FA info included (exclude password)
       const { password: _, ...result } = user;
       return result;
     } catch (error) {
@@ -48,6 +67,30 @@ export class AuthService {
         throw new UnauthorizedException(
           await this.i18n.translate('auth.EMAIL_NOT_VERIFIED')
         );
+      }
+
+      // Check if 2FA is enabled - fetch fresh user data to ensure we have the latest 2FA status
+      const freshUser = await this.prisma.user.findUnique({
+        where: { id: user.id },
+        select: {
+          twoFactorEnabled: true,
+          twoFactorMethod: true,
+          email: true,
+        },
+      });
+
+      this.logger.debug(`Login attempt for user ${user.email}, 2FA enabled: ${freshUser?.twoFactorEnabled}`);
+
+      if (freshUser?.twoFactorEnabled === true) {
+        // Return special response indicating 2FA is required
+        // The frontend will then need to call /auth/2fa/send-code and /auth/2fa/verify
+        this.logger.log(`2FA required for user ${user.email}, method: ${freshUser.twoFactorMethod}`);
+        return {
+          requires2FA: true,
+          email: user.email,
+          method: freshUser.twoFactorMethod as 'email' | 'sms' | null,
+          message: '2FA verification required. Please enter your 2FA code.',
+        };
       }
 
       const payload = { 

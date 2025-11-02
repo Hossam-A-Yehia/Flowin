@@ -34,11 +34,39 @@ export class AuthController {
   @ApiBody({ type: LoginDto })
   @ApiResponse({ 
     status: 200, 
-    description: 'User successfully logged in',
-    type: AuthResponseDto
+    description: 'User successfully logged in or 2FA required',
+    schema: {
+      oneOf: [
+        {
+          type: 'object',
+          properties: {
+            access_token: { type: 'string' },
+            user: {
+              type: 'object',
+              properties: {
+                id: { type: 'string' },
+                email: { type: 'string' },
+                name: { type: 'string' },
+                plan: { type: 'string' },
+                createdAt: { type: 'string' },
+              },
+            },
+          },
+        },
+        {
+          type: 'object',
+          properties: {
+            requires2FA: { type: 'boolean', example: true },
+            email: { type: 'string' },
+            method: { type: 'string', enum: ['email', 'sms'] },
+            message: { type: 'string' },
+          },
+        },
+      ],
+    },
   })
   @ApiResponse({ status: 401, description: 'Invalid credentials' })
-  async login(@Request() req): Promise<AuthResponseDto> {
+  async login(@Request() req): Promise<AuthResponseDto | any> {
     return this.authService.login(req.user);
   }
 

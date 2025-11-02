@@ -11,8 +11,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useLogin, useSendEmailVerification } from '@/hooks/useAuth';
-import { LoginFormData } from '@/types/auth';
+import { LoginFormData, Auth2FAResponse } from '@/types/auth';
 import { getLoginValidationSchema, loginInitialValues } from './loginUtils';
+import { TwoFactorVerification } from './TwoFactorVerification';
 
 export function LoginForm() {
   const { t } = useTranslation();
@@ -20,6 +21,8 @@ export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string>('');
+  const [requires2FA, setRequires2FA] = useState(false);
+  const [twoFAData, setTwoFAData] = useState<Auth2FAResponse | null>(null);
   const loginMutation = useLogin();
   const resendVerificationMutation = useSendEmailVerification();
   const validationSchema = getLoginValidationSchema();
@@ -27,7 +30,14 @@ export function LoginForm() {
   const handleSubmit = useCallback(async (values: LoginFormData) => {
     try {
       setUserEmail(values.email);
-      loginMutation.mutate(values);
+      loginMutation.mutate(values, {
+        onSuccess: (data: any) => {
+          if (data.requires2FA) {
+            setTwoFAData(data);
+            setRequires2FA(true);
+          }
+        },
+      });
     } catch (error) {
       console.error('Login form submission error:', error);
     }
@@ -44,8 +54,20 @@ export function LoginForm() {
     }
   }, [userEmail, resendVerificationMutation, router]);
 
-  // Check if error is about email verification
   const isEmailNotVerified = loginMutation.error?.message?.toLowerCase().includes('verify');
+
+  if (requires2FA && twoFAData) {
+    return (
+      <TwoFactorVerification
+        email={twoFAData.email}
+        method={twoFAData.method}
+        onSuccess={() => {
+          setRequires2FA(false);
+          setTwoFAData(null);
+        }}
+      />
+    );
+  }
 
   return (
     <>

@@ -6,12 +6,12 @@ import { Enable2FADto, Verify2FADto, Disable2FADto } from './dto/two-factor.dto'
 
 @ApiTags('Two-Factor Authentication')
 @Controller('auth/2fa')
-@UseGuards(JwtAuthGuard)
-@ApiBearerAuth()
 export class TwoFactorController {
   constructor(private twoFactorService: TwoFactorService) {}
 
   @Get('status')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Get 2FA status for current user' })
   @ApiResponse({ 
     status: 200, 
@@ -30,6 +30,8 @@ export class TwoFactorController {
   }
 
   @Post('enable')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Enable 2FA for current user' })
   @ApiBody({ type: Enable2FADto })
   @ApiResponse({ 
@@ -53,7 +55,7 @@ export class TwoFactorController {
 
   @Post('verify')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Verify 2FA code during login' })
+  @ApiOperation({ summary: 'Verify 2FA code during login (no auth required)' })
   @ApiBody({ type: Verify2FADto })
   @ApiResponse({ 
     status: 200, 
@@ -81,7 +83,7 @@ export class TwoFactorController {
 
   @Post('send-code')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Send 2FA code to user (for login)' })
+  @ApiOperation({ summary: 'Send 2FA code to user (for login - no auth required)' })
   @ApiBody({ 
     schema: {
       type: 'object',
@@ -107,6 +109,8 @@ export class TwoFactorController {
   }
 
   @Post('disable')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Disable 2FA for current user' })
   @ApiBody({ type: Disable2FADto })
   @ApiResponse({ 
@@ -124,6 +128,8 @@ export class TwoFactorController {
   }
 
   @Post('regenerate-backup-codes')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Regenerate 2FA backup codes' })
   @ApiResponse({ 
     status: 200, 

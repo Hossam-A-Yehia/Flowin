@@ -3,6 +3,7 @@ import {
   RegisterFormData, 
   LoginFormData, 
   AuthResponse,
+  Auth2FAResponse,
   RegisterResponse,
   ForgotPasswordFormData,
   ResetPasswordFormData,
@@ -93,8 +94,8 @@ export const authApi = {
   /**
    * Login user
    */
-  login: async (data: LoginFormData): Promise<AuthResponse> => {
-    return apiRequest.post<AuthResponse>("/auth/login", data);
+  login: async (data: LoginFormData): Promise<AuthResponse | Auth2FAResponse> => {
+    return apiRequest.post<AuthResponse | Auth2FAResponse>("/auth/login", data);
   },
 
   /**
@@ -256,5 +257,19 @@ export const authApi = {
    */
   deleteAccount: async (): Promise<{ message: string }> => {
     return apiRequest.post<{ message: string }>("/auth/delete-account");
+  },
+
+  /**
+   * Send 2FA code (for login flow)
+   */
+  send2FACode: async (email: string): Promise<{ message: string; method: string }> => {
+    return apiRequest.post<{ message: string; method: string }>("/auth/2fa/send-code", { email });
+  },
+
+  /**
+   * Verify 2FA code (for login flow)
+   */
+  verify2FA: async (data: { email: string; code: string }): Promise<AuthResponse> => {
+    return apiRequest.post<AuthResponse>("/auth/2fa/verify", data);
   },
 };

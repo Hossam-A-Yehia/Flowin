@@ -74,6 +74,46 @@ export function useLogin() {
 
   return useMutation({
     mutationFn: authApi.login,
+    onSuccess: (data: AuthResponse | any) => {
+      if (data.requires2FA) {
+        return;
+      }
+
+      if (data.access_token && data.user) {
+        // Store auth data
+        authTokens.set(data.access_token);
+        userData.set(data.user);
+        
+        // Update React Query cache
+        queryClient.setQueryData(authKeys.user(), data.user);
+        queryClient.setQueryData(authKeys.profile(), data.user);
+        
+        // Redirect to dashboard
+        router.push('/dashboard');
+      }
+    },
+  });
+}
+
+/**
+ * Hook for sending 2FA code during login
+ */
+export function useSend2FACode() {
+  return useMutation({
+    mutationFn: (email: string) => authApi.send2FACode(email),
+  });
+}
+
+/**
+ * Hook for verifying 2FA code during login
+ */
+export function useVerify2FA() {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: { email: string; code: string }) => 
+      authApi.verify2FA({ email: data.email, code: data.code }),
     onSuccess: (data: AuthResponse) => {
       // Store auth data
       authTokens.set(data.access_token);

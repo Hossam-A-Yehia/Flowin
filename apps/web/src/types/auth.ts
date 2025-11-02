@@ -22,6 +22,13 @@ export interface AuthResponse {
   user: AuthUser;
 }
 
+export interface Auth2FAResponse {
+  requires2FA: boolean;
+  email: string;
+  method: 'email' | 'sms' | null;
+  message: string;
+}
+
 export interface RegisterResponse {
   message: string;
   email: string;
