@@ -3,7 +3,7 @@ import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiBody } from '@nes
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { RegisterDto, LoginDto, AuthResponseDto, RegisterResponseDto, ChangePasswordDto, ForgotPasswordDto, ResetPasswordDto } from './dto/auth.dto';
+import { RegisterDto, LoginDto, AuthResponseDto, RegisterResponseDto, ForgotPasswordDto, ResetPasswordDto } from './dto/auth.dto';
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -57,24 +57,6 @@ export class AuthController {
       createdAt: req.user.createdAt,
       lastLogin: req.user.lastLogin,
     };
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Post('change-password')
-  @ApiBearerAuth()
-  @ApiOperation({ summary: 'Change user password' })
-  @ApiBody({ type: ChangePasswordDto })
-  @ApiResponse({ status: 200, description: 'Password changed successfully' })
-  @ApiResponse({ status: 401, description: 'Current password is incorrect' })
-  async changePassword(
-    @Request() req,
-    @Body() changePasswordDto: ChangePasswordDto
-  ) {
-    return this.authService.changePassword(
-      req.user.id,
-      changePasswordDto.currentPassword,
-      changePasswordDto.newPassword
-    );
   }
 
   @UseGuards(JwtAuthGuard)

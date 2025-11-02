@@ -160,40 +160,6 @@ export class AuthService {
     }
   }
 
-  async changePassword(userId: string, currentPassword: string, newPassword: string) {
-    try {
-      const user = await this.usersService.findByIdWithPassword(userId);
-      if (!user) {
-        throw new UnauthorizedException(
-          await this.i18n.translate('auth.USER_NOT_FOUND')
-        );
-      }
-
-      const isCurrentPasswordValid = await bcrypt.compare(currentPassword, user.password);
-      if (!isCurrentPasswordValid) {
-        throw new UnauthorizedException(
-          await this.i18n.translate('auth.CURRENT_PASSWORD_INCORRECT')
-        );
-      }
-
-      const saltRounds = parseInt(this.config.get('BCRYPT_SALT_ROUNDS', '12'));
-      const hashedNewPassword = await bcrypt.hash(newPassword, saltRounds);
-
-      await this.prisma.user.update({
-        where: { id: userId },
-        data: { password: hashedNewPassword },
-      });
-
-      return { message: await this.i18n.translate('auth.PASSWORD_CHANGED') };
-    } catch (error) {
-      if (error instanceof UnauthorizedException) {
-        throw error;
-      }
-      console.error('Error changing password:', error);
-      throw new BadRequestException('Failed to change password');
-    }
-  }
-
   async forgotPassword(email: string) {
     try {
       const user = await this.usersService.findByEmail(email);

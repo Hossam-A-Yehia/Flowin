@@ -269,3 +269,135 @@ export function useVerificationStatus() {
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 }
+
+/**
+ * Hook to get 2FA status
+ */
+export function use2FAStatus() {
+  return useQuery({
+    queryKey: ['2fa', 'status'],
+    queryFn: authApi.get2FAStatus,
+    staleTime: 1 * 60 * 1000, // 1 minute
+    retry: false,
+  });
+}
+
+/**
+ * Hook for enabling 2FA
+ */
+export function useEnable2FA() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: authApi.enable2FA,
+    onSuccess: () => {
+      // Invalidate 2FA status
+      queryClient.invalidateQueries({ queryKey: ['2fa', 'status'] });
+      queryClient.invalidateQueries({ queryKey: authKeys.profile() });
+    },
+  });
+}
+
+/**
+ * Hook for disabling 2FA
+ */
+export function useDisable2FA() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: authApi.disable2FA,
+    onSuccess: () => {
+      // Invalidate 2FA status
+      queryClient.invalidateQueries({ queryKey: ['2fa', 'status'] });
+      queryClient.invalidateQueries({ queryKey: authKeys.profile() });
+    },
+  });
+}
+
+/**
+ * Hook for regenerating 2FA backup codes
+ */
+export function useRegenerateBackupCodes() {
+  return useMutation({
+    mutationFn: authApi.regenerateBackupCodes,
+  });
+}
+
+/**
+ * Hook to get all API keys
+ */
+export function useApiKeys() {
+  return useQuery({
+    queryKey: ['apiKeys'],
+    queryFn: authApi.getApiKeys,
+    staleTime: 30 * 1000, // 30 seconds
+    retry: false,
+  });
+}
+
+/**
+ * Hook for creating API key
+ */
+export function useCreateApiKey() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: authApi.createApiKey,
+    onSuccess: () => {
+      // Invalidate API keys list
+      queryClient.invalidateQueries({ queryKey: ['apiKeys'] });
+    },
+  });
+}
+
+/**
+ * Hook for deleting API key
+ */
+export function useDeleteApiKey() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: authApi.deleteApiKey,
+    onSuccess: () => {
+      // Invalidate API keys list
+      queryClient.invalidateQueries({ queryKey: ['apiKeys'] });
+    },
+  });
+}
+
+/**
+ * Hook for toggling API key status
+ */
+export function useToggleApiKey() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: authApi.toggleApiKey,
+    onSuccess: () => {
+      // Invalidate API keys list
+      queryClient.invalidateQueries({ queryKey: ['apiKeys'] });
+    },
+  });
+}
+
+/**
+ * Hook for deleting user account
+ */
+export function useDeleteAccount() {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: authApi.deleteAccount,
+    onSuccess: () => {
+      // Clear all auth data
+      authTokens.remove();
+      userData.remove();
+      queryClient.removeQueries({ queryKey: authKeys.all });
+      queryClient.clear();
+      
+      // Redirect to home/login
+      router.push('/auth/login');
+    },
+  });
+}

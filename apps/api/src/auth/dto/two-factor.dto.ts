@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsEmail, IsIn, MinLength, MaxLength, Matches } from 'class-validator';
+import { IsString, IsEmail, IsIn, MinLength, MaxLength, Matches, IsOptional, ValidateIf } from 'class-validator';
 
 export class Enable2FADto {
   @ApiProperty({ 
@@ -12,11 +12,21 @@ export class Enable2FADto {
   method: 'email' | 'sms';
 
   @ApiProperty({ 
-    example: '+1234567890',
-    description: 'Phone number (required if method is SMS)',
-    required: false
+    example: 'MyCurrentPassword123!',
+    description: 'Current password to confirm 2FA enable (required for security)'
   })
   @IsString()
+  @MinLength(1, { message: 'Password is required to enable 2FA' })
+  password: string;
+
+  @ApiProperty({ 
+    example: '+1234567890',
+    description: 'Phone number (required only if method is SMS)',
+    required: false
+  })
+  @IsOptional()
+  @ValidateIf((o) => o.method === 'sms')
+  @IsString({ message: 'Phone number must be a string when method is SMS' })
   phone?: string;
 }
 

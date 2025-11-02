@@ -8,7 +8,6 @@ export const resetPasswordMetadata: PageMetadata = {
     keywords: [
       'reset password',
       'new password',
-      'change password',
       'password reset',
       'flowin password',
       'secure password',

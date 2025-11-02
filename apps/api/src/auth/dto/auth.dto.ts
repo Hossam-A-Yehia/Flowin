@@ -88,28 +88,6 @@ export class OAuthResponseDto extends AuthResponseDto {
   };
 }
 
-export class ChangePasswordDto {
-  @ApiProperty({ 
-    example: 'CurrentPass123!',
-    description: 'Your current password'
-  })
-  @IsString()
-  @MinLength(1, { message: 'Current password is required' })
-  currentPassword: string;
-
-  @ApiProperty({ 
-    example: 'NewSecurePass123!',
-    description: 'New password must be at least 8 characters with uppercase, lowercase, number and special character'
-  })
-  @IsString()
-  @MinLength(8, { message: 'New password must be at least 8 characters long' })
-  @Matches(
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
-    { message: 'New password must contain uppercase, lowercase, number and special character' }
-  )
-  newPassword: string;
-}
-
 export class ForgotPasswordDto {
   @ApiProperty({ 
     example: 'user@example.com',

@@ -46,7 +46,6 @@ All authentication features from the README have been successfully implemented!
 | POST | `/auth/login` | Login with email/password |
 | GET | `/auth/me` | Get current user profile |
 | POST | `/auth/logout` | Logout user |
-| POST | `/auth/change-password` | Change user password |
 | POST | `/auth/forgot-password` | Request password reset |
 | POST | `/auth/reset-password` | Reset password with token |
 | GET | `/auth/validate-reset-token` | Validate reset token |

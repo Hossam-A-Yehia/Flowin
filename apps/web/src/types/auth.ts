@@ -84,3 +84,59 @@ export interface VerificationStatusResponse {
     verifiedAt: string | null;
   };
 }
+
+export interface Get2FAStatusResponse {
+  enabled: boolean;
+  method: 'email' | 'sms' | null;
+  backupCodesCount: number;
+}
+
+export interface Enable2FAData {
+  method: 'email' | 'sms';
+  password: string;
+}
+
+export interface Enable2FAResponse {
+  message: string;
+  backupCodes: string[];
+}
+
+export interface Disable2FAData {
+  password: string;
+}
+
+export interface RegenerateBackupCodesResponse {
+  message: string;
+  backupCodes: string[]; 
+}
+
+// API Key types
+export interface ApiKey {
+  id: string;
+  name: string;
+  key: string;
+  isActive: boolean;
+  lastUsed: string | null;
+  createdAt: string;
+  expiresAt: string | null;
+}
+
+export interface CreateApiKeyData {
+  name: string;
+}
+
+export interface CreateApiKeyResponse {
+  id: string;
+  name: string;
+  key: string;
+  isActive: boolean;
+  createdAt: string;
+  expiresAt: string | null;
+}
+
+export interface ToggleApiKeyResponse {
+  id: string;
+  name: string;
+  isActive: boolean;
+  message: string;
+}

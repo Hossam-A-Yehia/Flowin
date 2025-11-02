@@ -12,7 +12,16 @@ import {
   SendPhoneVerificationData,
   VerifyPhoneData,
   ResendVerificationData,
-  VerificationStatusResponse
+  VerificationStatusResponse,
+  Get2FAStatusResponse,
+  Enable2FAData,
+  Enable2FAResponse,
+  Disable2FAData,
+  RegenerateBackupCodesResponse,
+  ApiKey,
+  CreateApiKeyData,
+  CreateApiKeyResponse,
+  ToggleApiKeyResponse
 } from "@/types/auth";
 import { authCookies } from "@/utils/cookies";
 import Cookies from 'js-cookie';
@@ -184,5 +193,68 @@ export const authApi = {
    */
   getVerificationStatus: async (): Promise<VerificationStatusResponse> => {
     return apiRequest.get<VerificationStatusResponse>("/auth/verify/status");
+  },
+
+  /**
+   * Get 2FA status
+   */
+  get2FAStatus: async (): Promise<Get2FAStatusResponse> => {
+    return apiRequest.get<Get2FAStatusResponse>("/auth/2fa/status");
+  },
+
+  /**
+   * Enable 2FA
+   */
+  enable2FA: async (data: Enable2FAData): Promise<Enable2FAResponse> => {
+    return apiRequest.post<Enable2FAResponse>("/auth/2fa/enable", data);
+  },
+
+  /**
+   * Disable 2FA
+   */
+  disable2FA: async (data: Disable2FAData): Promise<{ message: string }> => {
+    return apiRequest.post<{ message: string }>("/auth/2fa/disable", data);
+  },
+
+  /**
+   * Regenerate 2FA backup codes
+   */
+  regenerateBackupCodes: async (): Promise<RegenerateBackupCodesResponse> => {
+    return apiRequest.post<RegenerateBackupCodesResponse>("/auth/2fa/regenerate-backup-codes");
+  },
+
+  /**
+   * Get all API keys
+   */
+  getApiKeys: async (): Promise<ApiKey[]> => {
+    return apiRequest.get<ApiKey[]>("/auth/api-keys");
+  },
+
+  /**
+   * Create new API key
+   */
+  createApiKey: async (data: CreateApiKeyData): Promise<CreateApiKeyResponse> => {
+    return apiRequest.post<CreateApiKeyResponse>("/auth/api-keys", data);
+  },
+
+  /**
+   * Delete API key
+   */
+  deleteApiKey: async (id: string): Promise<{ message: string }> => {
+    return apiRequest.delete<{ message: string }>(`/auth/api-keys/${id}`);
+  },
+
+  /**
+   * Toggle API key status
+   */
+  toggleApiKey: async (id: string): Promise<ToggleApiKeyResponse> => {
+    return apiRequest.post<ToggleApiKeyResponse>(`/auth/api-keys/${id}/toggle`);
+  },
+
+  /**
+   * Delete user account
+   */
+  deleteAccount: async (): Promise<{ message: string }> => {
+    return apiRequest.post<{ message: string }>("/auth/delete-account");
   },
 };

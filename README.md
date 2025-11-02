@@ -302,7 +302,6 @@ Each stage has specific exit criteria that must be met before proceeding:
 - Phone verification with SMS (6-digit code, 10-minute expiration)
 - Profile settings (avatar, plan, usage, verification status)
 - API Key management (create, delete, toggle, list)
-- Change password functionality
 - Session management with JWT & configurable expiration
 - Account deletion (GDPR compliance with cascading cleanup)
 - Two-Factor Authentication (2FA) with email/SMS support
@@ -327,7 +326,6 @@ Each stage has specific exit criteria that must be met before proceeding:
 | POST | `/auth/login` | Login with email/password | No |
 | GET | `/auth/me` | Get current user profile | Yes (JWT) |
 | POST | `/auth/logout` | Logout user | Yes (JWT) |
-| POST | `/auth/change-password` | Change user password | Yes (JWT) |
 | POST | `/auth/forgot-password` | Request password reset email | No |
 | POST | `/auth/reset-password` | Reset password with token | No |
 | GET | `/auth/validate-reset-token` | Validate reset token | No |
@@ -945,7 +943,6 @@ Mobile management interface (not a builder)
   - ✅ Email verification with HTML templates
   - ✅ Phone verification with SMS
   - ✅ Password reset with secure tokens
-  - ✅ Change password functionality
   - ✅ API key management (CRUD + toggle)
   - ✅ Two-factor authentication (2FA)
   - ✅ Account deletion (GDPR compliance)
