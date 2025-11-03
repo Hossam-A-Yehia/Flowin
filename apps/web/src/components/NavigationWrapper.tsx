@@ -2,6 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 import Navigation from "./Navigation";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function NavigationWrapper() {
   const { t } = useTranslation();
@@ -23,5 +24,12 @@ export default function NavigationWrapper() {
     developers: t("landing.solutions.developers"),
   };
 
-  return <Navigation translations={translations} />;
+  return (
+    <div className="relative">
+      <Navigation translations={translations} />
+      <div className="fixed bottom-6 right-6 z-50">
+        <LanguageSwitcher />
+      </div>
+    </div>
+  );
 }
