@@ -1,7 +1,6 @@
 'use client';
 
 import { useAuth } from '@/hooks/useAuth';
-import { SettingsLayout } from './SettingsLayout';
 import { TwoFactorSection } from './TwoFactorSection';
 import { ApiKeysSection } from './ApiKeysSection';
 import { VerificationStatusSection } from './VerificationStatusSection';
@@ -31,8 +30,7 @@ export function SettingsClient() {
   }
 
   return (
-    <SettingsLayout>
-      <div className="max-w-4xl mx-auto space-y-6 p-6">
+      <div className="mx-auto space-y-6">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Settings</h1>
           <p className="text-gray-600">Manage your account settings, security, and preferences</p>
@@ -42,7 +40,6 @@ export function SettingsClient() {
         <ApiKeysSection />
         <AccountDeletionSection />
       </div>
-    </SettingsLayout>
   );
 }
 

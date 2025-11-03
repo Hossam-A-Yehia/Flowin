@@ -23,17 +23,6 @@ export default function DashboardPage() {
     logoutMutation.mutate();
   };
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
-      </div>
-    );
-  }
-
-  if (!user) {
-    return null;
-  }
 
   return (
     <div className="min-h-screen bg-gray-50 p-4">
@@ -41,7 +30,13 @@ export default function DashboardPage() {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-            <p className="text-gray-600">Welcome back, {user.name || user.email}!</p>
+            <p className="text-gray-600">
+              {(!user || isLoading) ? (
+                <span className="inline-block h-5 w-40 bg-gray-200 rounded animate-pulse" />
+              ) : (
+                <>Welcome back, {user.name || user.email}!</>
+              )}
+            </p>
           </div>
           <div className="flex items-center gap-3">
             <Link href="/dashboard/settings">
@@ -50,7 +45,7 @@ export default function DashboardPage() {
                 Settings
               </Button>
             </Link>
-            <Button onClick={handleLogout} variant="outline">
+            <Button onClick={handleLogout} variant="outline" disabled={!user || isLoading}>
               Logout
             </Button>
           </div>
@@ -63,15 +58,25 @@ export default function DashboardPage() {
               <CardDescription>Your account details</CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
-              <div>
-                <span className="font-medium">Email:</span> {user.email}
-              </div>
-              <div>
-                <span className="font-medium">Name:</span> {user.name || 'Not provided'}
-              </div>
-              <div>
-                <span className="font-medium">Plan:</span> {user.plan}
-              </div>
+              {(!user || isLoading) ? (
+                <div className="space-y-2">
+                  <div className="h-4 w-48 bg-gray-200 rounded animate-pulse" />
+                  <div className="h-4 w-56 bg-gray-200 rounded animate-pulse" />
+                  <div className="h-4 w-40 bg-gray-200 rounded animate-pulse" />
+                </div>
+              ) : (
+                <>
+                  <div>
+                    <span className="font-medium">Email:</span> {user.email}
+                  </div>
+                  <div>
+                    <span className="font-medium">Name:</span> {user.name || 'Not provided'}
+                  </div>
+                  <div>
+                    <span className="font-medium">Plan:</span> {user.plan}
+                  </div>
+                </>
+              )}
             </CardContent>
           </Card>
 
@@ -82,13 +87,13 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
-                <Button className="w-full" variant="outline">
+                <Button className="w-full" variant="outline" disabled={!user || isLoading}>
                   Create Your First Flow
                 </Button>
-                <Button className="w-full" variant="outline">
+                <Button className="w-full" variant="outline" disabled={!user || isLoading}>
                   Connect Integrations
                 </Button>
-                <Button className="w-full" variant="outline">
+                <Button className="w-full" variant="outline" disabled={!user || isLoading}>
                   Browse Templates
                 </Button>
               </div>
@@ -101,15 +106,25 @@ export default function DashboardPage() {
               <CardDescription>Your current usage</CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
-              <div>
-                <span className="font-medium">Flows:</span> 0
-              </div>
-              <div>
-                <span className="font-medium">Executions:</span> 0
-              </div>
-              <div>
-                <span className="font-medium">Integrations:</span> 0
-              </div>
+              {(!user || isLoading) ? (
+                <div className="space-y-2">
+                  <div className="h-4 w-24 bg-gray-200 rounded animate-pulse" />
+                  <div className="h-4 w-28 bg-gray-200 rounded animate-pulse" />
+                  <div className="h-4 w-32 bg-gray-200 rounded animate-pulse" />
+                </div>
+              ) : (
+                <>
+                  <div>
+                    <span className="font-medium">Flows:</span> 0
+                  </div>
+                  <div>
+                    <span className="font-medium">Executions:</span> 0
+                  </div>
+                  <div>
+                    <span className="font-medium">Integrations:</span> 0
+                  </div>
+                </>
+              )}
             </CardContent>
           </Card>
         </div>
