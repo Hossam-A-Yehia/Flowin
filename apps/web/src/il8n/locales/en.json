@@ -2,7 +2,9 @@
   "common": {
     "welcome": "Welcome",
     "language": "Language",
-    "changeLanguage": "Change Language"
+    "changeLanguage": "Change Language",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   },
   "auth": {
     "logout": "Logout",
@@ -177,9 +179,253 @@
       "passwordStrengthVeryStrong": "Very Strong"
     }
   },
-  "navigation": {
-    "home": "Home",
-    "dashboard": "Dashboard",
-    "settings": "Settings"
+  "landing": {
+    "navigation": {
+      "home": "Home",
+      "dashboard": "Dashboard",
+      "settings": "Settings",
+      "solutions": "Solutions",
+      "main": "Navigation",
+      "features": "Features",
+      "pricing": "Pricing",
+      "templates": "Templates",
+      "docs": "Docs",
+      "signIn": "Sign in",
+      "getStarted": "Get Started"
+    },
+    "solutions": {
+      "freelancers": "For Freelancers",
+      "business": "For Small Business",
+      "agencies": "For Agencies",
+      "developers": "For Developers"
+    },
+    "hero": {
+      "badge": "AI-Powered Automation Platform",
+      "title": "Let your work flow — effortlessly",
+      "subtitle": "Connect your favorite tools like Google Sheets, WhatsApp, and Notion. Build powerful automations in minutes with our AI-driven, no-code platform.",
+      "benefits": {
+        "noCoding": "No coding required",
+        "bilingual": "Arabic & English support",
+        "aiPowered": "AI-powered workflows"
+      },
+      "cta": {
+        "primary": "Start Building Flows",
+        "secondary": "Watch Demo"
+      },
+      "socialProof": "Trusted by freelancers, small businesses, and agencies across the Arab world",
+      "preview": {
+        "title": "Flow Builder Preview",
+        "subtitle": "Visual workflow designer coming soon"
+      }
+    },
+    "features": {
+      "title": "Everything you need to automate your work",
+      "subtitle": "Powerful features designed to make automation accessible, intelligent, and effective for everyone.",
+      "arabicFirst": {
+        "title": "Arabic-First Interface",
+        "description": "The first automation tool with full Arabic support, designed for the Arab world.",
+        "badge": "Unique"
+      },
+      "noCode": {
+        "title": "No-Code Builder",
+        "description": "Save hours of manual work by connecting apps visually with drag-and-drop simplicity.",
+        "badge": "Easy"
+      },
+      "aiAssistant": {
+        "title": "AI Flow Assistant",
+        "description": "Build complex workflows just by describing them in plain language.",
+        "badge": "Smart"
+      },
+      "integrations": {
+        "title": "Rich Integrations",
+        "description": "Connect Google Sheets, WhatsApp, Notion, Shopify, and dozens more services seamlessly.",
+        "badge": "Powerful"
+      },
+      "pricing": {
+        "title": "Affordable Pricing",
+        "description": "Local pricing options that compete with global platforms like Zapier and Make.",
+        "badge": "Value"
+      },
+      "bilingual": {
+        "title": "Bilingual Support",
+        "description": "Target both regional and international markets with Arabic and English interfaces.",
+        "badge": "Global"
+      },
+      "additional": {
+        "title": "Plus these powerful capabilities",
+        "mobile": {
+          "title": "Mobile Companion",
+          "description": "Monitor and manage your flows on the go with our mobile app."
+        },
+        "security": {
+          "title": "Enterprise Security",
+          "description": "Bank-level security with encryption, 2FA, and compliance standards."
+        },
+        "monitoring": {
+          "title": "Real-time Monitoring",
+          "description": "Track executions, view logs, and get instant notifications for issues."
+        }
+      },
+      "valueProposition": {
+        "title": "Why choose Flowin?",
+        "description": "We're not just another automation tool. We're built specifically for Arabic speakers and small businesses who need powerful automation without the complexity.",
+        "setup": "Setup in minutes, not hours",
+        "support": "Local support & pricing",
+        "ai": "AI that understands your needs"
+      }
+    },
+    "pricing": {
+      "title": "Simple, transparent pricing",
+      "subtitle": "Choose the perfect plan for your automation needs. All plans include our core features.",
+      "free": {
+        "name": "Free",
+        "price": "$0",
+        "period": "forever",
+        "description": "Perfect for trying out Flowin",
+        "cta": "Get Started Free",
+        "features": {
+          "activeFlows": "3 Active Flows",
+          "executions": "100 Executions/month",
+          "integrations": "Basic Integrations",
+          "support": "Email Support",
+          "community": "Community Access"
+        },
+        "limitations": {
+          "whatsapp": "No WhatsApp integration",
+          "aiBuilder": "No AI Flow Builder",
+          "templates": "Basic templates only"
+        }
+      },
+      "starter": {
+        "name": "Starter",
+        "price": "$10",
+        "period": "per month",
+        "description": "Great for freelancers and small projects",
+        "cta": "Start 14-Day Trial",
+        "features": {
+          "activeFlows": "10 Active Flows",
+          "executions": "1,000 Executions/month",
+          "integrations": "All Integrations",
+          "support": "Priority Email Support",
+          "templates": "Template Library Access",
+          "analytics": "Basic Analytics"
+        },
+        "limitations": {
+          "whatsappAlerts": "No WhatsApp alerts",
+          "aiFeatures": "Limited AI features"
+        }
+      },
+      "pro": {
+        "name": "Pro",
+        "price": "$25",
+        "period": "per month",
+        "description": "Perfect for growing businesses",
+        "cta": "Start 14-Day Trial",
+        "features": {
+          "activeFlows": "30 Active Flows",
+          "executions": "5,000 Executions/month",
+          "integrations": "All Integrations + WhatsApp",
+          "aiBuilder": "AI Flow Builder",
+          "analytics": "Advanced Analytics",
+          "support": "Priority Support",
+          "templates": "Custom Templates",
+          "collaboration": "Team Collaboration"
+        }
+      },
+      "business": {
+        "name": "Business",
+        "price": "Custom",
+        "period": "contact us",
+        "description": "Enterprise-grade automation",
+        "cta": "Contact Sales",
+        "features": {
+          "unlimitedFlows": "Unlimited Flows",
+          "unlimitedExecutions": "Unlimited Executions",
+          "customIntegrations": "Custom Integrations",
+          "dedicatedSupport": "Dedicated Support",
+          "slaGuarantee": "SLA Guarantee",
+          "advancedSecurity": "Advanced Security",
+          "apiAccess": "API Access",
+          "customBranding": "Custom Branding"
+        }
+      },
+      "mostPopular": "Most Popular",
+      "notIncluded": "Not included:",
+      "allPlansInclude": "All plans include",
+      "trial": "14-day free trial",
+      "cancel": "Cancel anytime",
+      "payment": "Local payment methods",
+      "customSolution": "Need a custom solution? Our Business plan can be tailored to your specific requirements.",
+      "contactSales": "Contact our sales team",
+      "discussNeeds": "to discuss your needs."
+    },
+    "cta": {
+      "title": "Ready to automate your workflow?",
+      "subtitle": "Join thousands of users who have already transformed their productivity with Flowin. Start building your first automation in minutes.",
+      "stats": {
+        "users": "Active Users",
+        "automations": "Automations Created",
+        "integrations": "Integrations Available"
+      },
+      "primary": "Start Free Trial",
+      "secondary": "Talk to Sales",
+      "trial": "Free 14-day trial",
+      "noCard": "No credit card required",
+      "cancel": "Cancel anytime",
+      "setup": "Setup in 5 minutes",
+      "help": "Have questions? Our team is here to help.",
+      "getInTouch": "Get in touch",
+      "or": "or check out our",
+      "documentation": "documentation"
+    },
+    "footer": {
+      "description": "Making automation accessible and intuitive for everyone. Connect your favorite tools and build smart workflows in minutes, all without writing a single line of code.",
+      "sections": {
+        "solutions": "Solutions",
+        "product": "Product",
+        "resources": "Resources",
+        "company": "Company"
+      },
+      "solutions": {
+        "freelancers": "For Freelancers",
+        "business": "For Small Business",
+        "agencies": "For Agencies",
+        "developers": "For Developers"
+      },
+      "product": {
+        "features": "Features",
+        "integrations": "Integrations",
+        "templates": "Templates",
+        "api": "API",
+        "pricing": "Pricing"
+      },
+      "resources": {
+        "documentation": "Documentation",
+        "helpCenter": "Help Center",
+        "blog": "Blog",
+        "community": "Community",
+        "status": "Status"
+      },
+      "company": {
+        "about": "About",
+        "careers": "Careers",
+        "contact": "Contact",
+        "privacy": "Privacy",
+        "terms": "Terms"
+      },
+      "newsletter": {
+        "title": "Subscribe to our newsletter",
+        "description": "Get the latest updates, tips, and automation ideas delivered to your inbox.",
+        "emailLabel": "Email address",
+        "placeholder": "Enter your email",
+        "subscribe": "Subscribe"
+      },
+      "legal": {
+        "privacy": "Privacy Policy",
+        "terms": "Terms of Service",
+        "cookies": "Cookie Policy"
+      },
+      "copyright": "© 2024 Flowin. All rights reserved. Made with ❤️ for the Arab world."
+    }
   }
 }

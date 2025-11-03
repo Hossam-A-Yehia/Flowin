@@ -63,7 +63,6 @@ export function VerificationStatusSection() {
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-4">
-          {/* Email Verification */}
           <div className="p-4 border border-gray-200 rounded-lg bg-gray-50">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
