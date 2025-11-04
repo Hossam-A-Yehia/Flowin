@@ -9,6 +9,7 @@ import {
   FlowExecution,
 } from "@/types/flow";
 import { toast } from "sonner";
+import i18n from "@/il8n";
 
 // Query keys for cache management
 export const flowKeys = {
@@ -96,10 +97,10 @@ export function useCreateFlow() {
         return old ? [newFlow, ...old] : [newFlow];
       });
 
-      toast.success("Flow created successfully");
+      toast.success(i18n.t('flows.toast.createSuccess') || "Flow created successfully");
     },
     onError: (error: any) => {
-      toast.error(error.message || "Failed to create flow");
+      toast.error(error.message || i18n.t('flows.toast.createError') || "Failed to create flow");
     },
   });
 }
@@ -131,10 +132,10 @@ export function useUpdateFlow() {
           : [updatedFlow];
       });
 
-      toast.success("Flow updated successfully");
+      toast.success(i18n.t('flows.toast.updateSuccess') || "Flow updated successfully");
     },
     onError: (error: any) => {
-      toast.error(error.message || "Failed to update flow");
+      toast.error(error.message || i18n.t('flows.toast.updateError') || "Failed to update flow");
     },
   });
 }
@@ -156,10 +157,10 @@ export function useDeleteFlow() {
       // Remove detail cache
       queryClient.removeQueries({ queryKey: flowKeys.detail(deletedId) });
 
-      toast.success("Flow deleted successfully");
+      toast.success(i18n.t('flows.toast.deleteSuccess') || "Flow deleted successfully");
     },
     onError: (error: any) => {
-      toast.error(error.message || "Failed to delete flow");
+      toast.error(error.message || i18n.t('flows.toast.deleteError') || "Failed to delete flow");
     },
   });
 }
@@ -186,10 +187,10 @@ export function useActivateFlow() {
           : [updatedFlow];
       });
 
-      toast.success("Flow activated successfully");
+      toast.success(i18n.t('flows.toast.toggleActiveSuccess') || "Flow activated successfully");
     },
     onError: (error: any) => {
-      toast.error(error.message || "Failed to activate flow");
+      toast.error(error.message || i18n.t('flows.toast.toggleError') || "Failed to activate flow");
     },
   });
 }
@@ -216,10 +217,10 @@ export function useDeactivateFlow() {
           : [updatedFlow];
       });
 
-      toast.success("Flow deactivated successfully");
+      toast.success(i18n.t('flows.toast.togglePausedSuccess') || "Flow deactivated successfully");
     },
     onError: (error: any) => {
-      toast.error(error.message || "Failed to deactivate flow");
+      toast.error(error.message || i18n.t('flows.toast.toggleError') || "Failed to deactivate flow");
     },
   });
 }
@@ -237,10 +238,10 @@ export function useDuplicateFlow() {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: flowKeys.lists() });
 
-      toast.success("Flow duplicated successfully");
+      toast.success(i18n.t('flows.toast.duplicateSuccess') || "Flow duplicated successfully");
     },
     onError: (error: any) => {
-      toast.error(error.message || "Failed to duplicate flow");
+      toast.error(error.message || i18n.t('flows.toast.duplicateError') || "Failed to duplicate flow");
     },
   });
 }
@@ -257,10 +258,10 @@ export function useExecuteFlow() {
         queryKey: flowKeys.executions(variables.id),
       });
 
-      toast.success("Flow execution started");
+      toast.success(i18n.t('flows.toast.executeSuccess') || "Flow execution started");
     },
     onError: (error: any) => {
-      toast.error(error.message || "Failed to execute flow");
+      toast.error(error.message || i18n.t('flows.toast.executeError') || "Failed to execute flow");
     },
   });
 }
@@ -279,10 +280,10 @@ export function useRetryExecution() {
         queryKey: flowKeys.execution(executionId),
       });
 
-      toast.success("Execution retry started");
+      toast.success(i18n.t('flows.toast.retrySuccess') || "Execution retry started");
     },
     onError: (error: any) => {
-      toast.error(error.message || "Failed to retry execution");
+      toast.error(error.message || i18n.t('flows.toast.retryError') || "Failed to retry execution");
     },
   });
 }

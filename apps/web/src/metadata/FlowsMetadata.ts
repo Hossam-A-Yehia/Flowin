@@ -5,7 +5,7 @@ import {
   privateRobots,
 } from "./config";
 
-export const flowsMetadata: PageMetadata = {
+export const FlowsMetadata: PageMetadata = {
   en: {
     ...commonMetadata,
     title: "Flows - Flowin | Manage Your Automation Workflows",

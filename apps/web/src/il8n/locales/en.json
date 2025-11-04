@@ -509,6 +509,23 @@
       "loadFailed": "Failed to load flows. Please try again.",
       "retry": "Retry",
       "noMatch": "No flows match your filters. Try adjusting your search or filters."
+    },
+    "toast": {
+      "createSuccess": "Flow created successfully",
+      "createError": "Failed to create flow",
+      "updateSuccess": "Flow updated successfully",
+      "updateError": "Failed to update flow",
+      "executeSuccess": "Flow executed successfully",
+      "executeError": "Failed to execute flow",
+      "toggleActiveSuccess": "Flow activated successfully",
+      "togglePausedSuccess": "Flow paused successfully",
+      "toggleError": "Failed to update flow status",
+      "duplicateSuccess": "Flow duplicated successfully",
+      "duplicateError": "Failed to duplicate flow",
+      "deleteSuccess": "Flow deleted successfully",
+      "deleteError": "Failed to delete flow",
+      "retrySuccess": "Execution retry started",
+      "retryError": "Failed to retry execution"
     }
   }
 }

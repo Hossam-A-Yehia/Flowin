@@ -3,7 +3,7 @@ import i18n from '@/il8n';
 import { registerMetadata } from './RegisterMetadata';
 import { loginMetadata } from './LoginMetadata';
 import { dashboardMetadata } from './DashboardMetadata';
-import { flowsMetadata } from './FlowsMetadata';
+import { FlowsMetadata } from './FlowsMetadata';
 
 /**
  * Get the current locale from i18n
@@ -25,7 +25,7 @@ export function getMetadataForPage(
     register: registerMetadata,
     login: loginMetadata,
     dashboard: dashboardMetadata,
-    flows: flowsMetadata,
+    flows: FlowsMetadata,
   };
 
   return metadataMap[page][locale];
@@ -42,7 +42,7 @@ export function getPageMetadata(
     register: registerMetadata,
     login: loginMetadata,
     dashboard: dashboardMetadata,
-    flows: flowsMetadata,
+    flows: FlowsMetadata,
   };
 
   return metadataMap[page][locale];
@@ -62,7 +62,7 @@ export async function generateLocalizedMetadata(
     register: registerMetadata,
     login: loginMetadata,
     dashboard: dashboardMetadata,
-    flows: flowsMetadata,
+    flows: FlowsMetadata,
   };
 
   return metadataMap[page][currentLocale];

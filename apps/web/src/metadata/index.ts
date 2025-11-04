@@ -14,7 +14,7 @@ export { dashboardMetadata } from './DashboardMetadata';
 export { forgotPasswordMetadata } from './ForgotPasswordMetadata';
 export { resetPasswordMetadata } from './ResetPasswordMetadata';
 export { verifyEmailMetadata } from './VerifyEmailMetadata';
-export { flowsMetadata } from './FlowsMetadata';
+export { FlowsMetadata } from './FlowsMetadata';
 
 // Export utility functions
 export {

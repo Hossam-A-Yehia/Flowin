@@ -505,6 +505,23 @@
       "loadFailed": "فشل تحميل التدفقات. يرجى المحاولة مرة أخرى.",
       "retry": "إعادة المحاولة",
       "noMatch": "لا توجد تدفقات مطابقة للفلاتر. حاول تعديل البحث أو الفلاتر."
+    },
+    "toast": {
+      "createSuccess": "تم إنشاء التدفق بنجاح",
+      "createError": "فشل إنشاء التدفق",
+      "updateSuccess": "تم تحديث التدفق بنجاح",
+      "updateError": "فشل تحديث التدفق",
+      "executeSuccess": "تم تشغيل التدفق بنجاح",
+      "executeError": "فشل تشغيل التدفق",
+      "toggleActiveSuccess": "تم تفعيل التدفق بنجاح",
+      "togglePausedSuccess": "تم إيقاف التدفق بنجاح",
+      "toggleError": "فشل تحديث حالة التدفق",
+      "duplicateSuccess": "تم نسخ التدفق بنجاح",
+      "duplicateError": "فشل نسخ التدفق",
+      "deleteSuccess": "تم حذف التدفق بنجاح",
+      "deleteError": "فشل حذف التدفق",
+      "retrySuccess": "تم بدء إعادة المحاولة",
+      "retryError": "فشل إعادة المحاولة"
     }
   }
 }

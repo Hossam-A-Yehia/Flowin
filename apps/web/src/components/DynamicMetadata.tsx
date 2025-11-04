@@ -8,9 +8,10 @@ import { dashboardMetadata } from '@/metadata/DashboardMetadata';
 import { forgotPasswordMetadata } from '@/metadata/ForgotPasswordMetadata';
 import { resetPasswordMetadata } from '@/metadata/ResetPasswordMetadata';
 import { verifyEmailMetadata } from '@/metadata/VerifyEmailMetadata';
+import { FlowsMetadata } from '@/metadata/FlowsMetadata';
 
 interface DynamicMetadataProps {
-  page: 'register' | 'login' | 'dashboard' | 'forgot-password' | 'reset-password' | 'verify-email';
+  page: 'register' | 'login' | 'dashboard' | 'forgot-password' | 'reset-password' | 'verify-email' |'flows';
 }
 
 /**
@@ -30,6 +31,7 @@ export function DynamicMetadata({ page }: DynamicMetadataProps) {
       'forgot-password': forgotPasswordMetadata,
       'reset-password': resetPasswordMetadata,
       'verify-email': verifyEmailMetadata,
+      'flows': FlowsMetadata,
     };
 
     const metadata = metadataMap[page][locale];

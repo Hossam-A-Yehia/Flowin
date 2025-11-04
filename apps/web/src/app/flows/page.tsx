@@ -1,11 +1,15 @@
 import { Metadata } from "next";
-import { getPageMetadata } from "@/metadata";
 import { FlowsListClient } from "@/components/flows/FlowsList";
+import { DynamicMetadata } from "@/components/DynamicMetadata";
+import { FlowsMetadata } from "@/metadata/FlowsMetadata";
 
-export async function generateMetadata(): Promise<Metadata> {
-  return getPageMetadata('flows');
-}
+export const metadata: Metadata = FlowsMetadata.en;
 
 export default function FlowsPage() {
-  return <FlowsListClient />;
+  return (
+    <>
+      <DynamicMetadata page="flows" />
+      <FlowsListClient />
+    </>
+  );
 }

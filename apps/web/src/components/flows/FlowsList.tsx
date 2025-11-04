@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useFlows, useToggleFlowStatus, useDuplicateFlow, useDeleteFlow, useExecuteFlow } from "@/hooks/useFlows";
 import { FlowsHeader } from "@/components/flows/FlowsHeader";
@@ -8,8 +8,7 @@ import { FlowsStats } from "@/components/flows/FlowsStats";
 import { FlowCard } from "@/components/flows/FlowCard";
 import { FlowsEmptyState } from "@/components/flows/FlowsEmptyState";
 import { FlowFilters, parseTags } from "@/types/flow";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { AlertCircle, Loader2 } from "lucide-react";
+import {  Loader2 } from "lucide-react";
 import { DeleteDialog } from "@/components/ui/delete-dialog";
 import { Button } from "@/components/ui/button";
 
@@ -31,6 +30,13 @@ export function FlowsListClient() {
   const duplicateMutation = useDuplicateFlow();
   const deleteMutation = useDeleteFlow();
   const executeMutation = useExecuteFlow();
+
+  useEffect(() => {
+    if (deleteMutation.isSuccess) {
+      setDeleteDialogOpen(false);
+      setFlowToDelete(null);
+    }
+  }, [deleteMutation.isSuccess]);
 
   const filteredFlows = useMemo(() => {
     let result = [...flows];
@@ -96,12 +102,7 @@ export function FlowsListClient() {
 
   const handleDeleteConfirm = () => {
     if (flowToDelete) {
-      deleteMutation.mutate(flowToDelete, {
-        onSuccess: () => {
-          setDeleteDialogOpen(false);
-          setFlowToDelete(null);
-        },
-      });
+      deleteMutation.mutate(flowToDelete);
     }
   };
 
@@ -125,9 +126,8 @@ export function FlowsListClient() {
         totalFlows={filteredFlows.length}
       />
       {error && (
-        <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertDescription>
+        <div className="text-center py-16">
+          <p className="text-muted-foreground">
             {t('flows.errors.loadFailed')}
             <Button
               variant="link"
@@ -136,8 +136,8 @@ export function FlowsListClient() {
             >
               {t('flows.errors.retry')}
             </Button>
-          </AlertDescription>
-        </Alert>
+          </p>
+        </div>
       )}
 
       {isLoading && (
