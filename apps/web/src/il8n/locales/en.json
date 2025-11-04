@@ -4,7 +4,14 @@
     "language": "Language",
     "changeLanguage": "Change Language",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "deleteDialog": {
+      "title": "Delete Item",
+      "description": "Are you sure you want to delete this item ? This action cannot be undone. All execution history will be permanently removed.",
+      "confirm": "Delete",
+      "cancel": "Cancel",
+      "deleting": "Deleting..."
+    }
   },
   "auth": {
     "logout": "Logout",
@@ -426,6 +433,82 @@
         "cookies": "Cookie Policy"
       },
       "copyright": "© 2024 Flowin. All rights reserved. Made with ❤️ for the Arab world."
+    }
+  },
+  "flows": {
+    "title": "Flows",
+    "subtitle": "Manage and monitor your automation workflows",
+    "createFlow": "Create Flow",
+    "templates": "Templates",
+    "searchPlaceholder": "Search flows...",
+    "filter": "Filter",
+    "sort": "Sort",
+    "showing": "Showing",
+    "flow": "flow",
+    "flows": "flows",
+    "status": {
+      "active": "Active",
+      "paused": "Paused",
+      "all": "All Flows",
+      "activeOnly": "Active Only",
+      "pausedOnly": "Paused Only"
+    },
+    "triggerType": {
+      "label": "Trigger Type",
+      "all": "All Types",
+      "webhook": "Webhook",
+      "schedule": "Schedule",
+      "manual": "Manual"
+    },
+    "sortBy": {
+      "label": "Sort By",
+      "recentlyUpdated": "Recently Updated",
+      "recentlyCreated": "Recently Created",
+      "nameAZ": "Name (A-Z)",
+      "lastRun": "Last Run"
+    },
+    "card": {
+      "openMenu": "Open menu",
+      "editFlow": "Edit Flow",
+      "executeNow": "Execute Now",
+      "pauseFlow": "Pause Flow",
+      "activateFlow": "Activate Flow",
+      "duplicate": "Duplicate",
+      "delete": "Delete",
+      "totalRuns": "Total Runs",
+      "success": "Success",
+      "failed": "Failed",
+      "successRate": "Success Rate",
+      "created": "Created",
+      "lastRun": "Last run"
+    },
+    "stats": {
+      "totalFlows": "Total Flows",
+      "totalExecutions": "Total Executions",
+      "successful": "Successful",
+      "failed": "Failed",
+      "active": "active",
+      "paused": "paused",
+      "allTimeRuns": "All time runs",
+      "successRate": "success rate",
+      "needsAttention": "Needs attention"
+    },
+    "emptyState": {
+      "title": "No flows yet",
+      "description": "Get started by creating your first automation flow. Connect your apps and automate your workflows in minutes.",
+      "createFirst": "Create Your First Flow",
+      "browseTemplates": "Browse Templates",
+      "visualBuilder": "Visual Builder",
+      "visualBuilderDesc": "Drag and drop to create workflows",
+      "aiPowered": "AI-Powered",
+      "aiPoweredDesc": "Build flows with natural language",
+      "realTime": "Real-time",
+      "realTimeDesc": "Execute and monitor instantly"
+    },
+    "errors": {
+      "loadFailed": "Failed to load flows. Please try again.",
+      "retry": "Retry",
+      "noMatch": "No flows match your filters. Try adjusting your search or filters."
     }
   }
 }

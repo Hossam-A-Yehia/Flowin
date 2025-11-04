@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Flow } from "@/types/flow";
 import { Activity, CheckCircle2, XCircle, Workflow } from "lucide-react";
@@ -9,6 +10,7 @@ interface FlowsStatsProps {
 }
 
 export function FlowsStats({ flows }: FlowsStatsProps) {
+  const { t } = useTranslation();
   const stats = {
     total: flows.length,
     active: flows.filter((f) => f.isActive).length,
@@ -24,34 +26,34 @@ export function FlowsStats({ flows }: FlowsStatsProps) {
 
   const statCards = [
     {
-      label: "Total Flows",
+      label: t('flows.stats.totalFlows'),
       value: stats.total,
       icon: Workflow,
-      description: `${stats.active} active, ${stats.paused} paused`,
+      description: `${stats.active} ${t('flows.stats.active')}, ${stats.paused} ${t('flows.stats.paused')}`,
       color: "text-blue-500",
       bgColor: "bg-blue-500/10",
     },
     {
-      label: "Total Executions",
+      label: t('flows.stats.totalExecutions'),
       value: stats.totalExecutions,
       icon: Activity,
-      description: "All time runs",
+      description: t('flows.stats.allTimeRuns'),
       color: "text-purple-500",
       bgColor: "bg-purple-500/10",
     },
     {
-      label: "Successful",
+      label: t('flows.stats.successful'),
       value: stats.successfulExecutions,
       icon: CheckCircle2,
-      description: `${successRate}% success rate`,
+      description: `${successRate}% ${t('flows.stats.successRate')}`,
       color: "text-green-500",
       bgColor: "bg-green-500/10",
     },
     {
-      label: "Failed",
+      label: t('flows.stats.failed'),
       value: stats.failedExecutions,
       icon: XCircle,
-      description: "Needs attention",
+      description: t('flows.stats.needsAttention'),
       color: "text-destructive",
       bgColor: "bg-destructive/10",
     },

@@ -4,7 +4,14 @@
     "language": "اللغة",
     "changeLanguage": "تغيير اللغة",
     "openMenu": "فتح القائمة",
-    "closeMenu": "إغلاق القائمة"
+    "closeMenu": "إغلاق القائمة",
+    "deleteDialog": {
+      "title": "حذف العنصر",
+      "description": "هل أنت متأكد من حذف هذا العنصر؟ لا يمكن التراجع عن هذا العنصر. سيتم حذف جميع سجلات التنفيذ نهائياً.",
+      "confirm": "حذف",
+      "cancel": "إلغاء",
+      "deleting": "جاري الحذف..."
+    }
   },
   "auth": {
     "logout": "تسجيل خروج",
@@ -422,6 +429,82 @@
         "cookies": "سياسة ملفات تعريف الارتباط"
       },
       "copyright": " جميع الحقوق محفوظة. صنع بـ ❤️ للعالم العربي"
+    }
+  },
+  "flows": {
+    "title": "التدفقات",
+    "subtitle": "إدارة ومراقبة تدفقات العمل الخاصة بك",
+    "createFlow": "إنشاء تدفق",
+    "templates": "القوالب",
+    "searchPlaceholder": "البحث في التدفقات...",
+    "filter": "تصفية",
+    "sort": "ترتيب",
+    "showing": "عرض",
+    "flow": "تدفق",
+    "flows": "تدفقات",
+    "status": {
+      "active": "نشط",
+      "paused": "متوقف",
+      "all": "جميع التدفقات",
+      "activeOnly": "النشطة فقط",
+      "pausedOnly": "المتوقفة فقط"
+    },
+    "triggerType": {
+      "label": "نوع المشغل",
+      "all": "جميع الأنواع",
+      "webhook": "Webhook",
+      "schedule": "جدولة",
+      "manual": "يدوي"
+    },
+    "sortBy": {
+      "label": "ترتيب حسب",
+      "recentlyUpdated": "المحدثة مؤخراً",
+      "recentlyCreated": "المنشأة مؤخراً",
+      "nameAZ": "الاسم (أ-ي)",
+      "lastRun": "آخر تشغيل"
+    },
+    "card": {
+      "openMenu": "فتح القائمة",
+      "editFlow": "تعديل التدفق",
+      "executeNow": "تشغيل الآن",
+      "pauseFlow": "إيقاف التدفق",
+      "activateFlow": "تفعيل التدفق",
+      "duplicate": "نسخ",
+      "delete": "حذف",
+      "totalRuns": "إجمالي التشغيلات",
+      "success": "نجح",
+      "failed": "فشل",
+      "successRate": "معدل النجاح",
+      "created": "تم الإنشاء",
+      "lastRun": "آخر تشغيل"
+    },
+    "stats": {
+      "totalFlows": "إجمالي التدفقات",
+      "totalExecutions": "إجمالي التشغيلات",
+      "successful": "ناجح",
+      "failed": "فاشل",
+      "active": "نشط",
+      "paused": "متوقف",
+      "allTimeRuns": "جميع التشغيلات",
+      "successRate": "معدل النجاح",
+      "needsAttention": "يحتاج انتباه"
+    },
+    "emptyState": {
+      "title": "لا توجد تدفقات بعد",
+      "description": "ابدأ بإنشاء أول تدفق عمل لك. اربط تطبيقاتك وشغل مهامك تلقائياً في دقائق.",
+      "createFirst": "إنشاء أول تدفق",
+      "browseTemplates": "تصفح القوالب",
+      "visualBuilder": "منشئ مرئي",
+      "visualBuilderDesc": "اسحب وأفلت لإنشاء التدفقات",
+      "aiPowered": "مدعوم بالذكاء الاصطناعي",
+      "aiPoweredDesc": "أنشئ التدفقات باللغة الطبيعية",
+      "realTime": "فوري",
+      "realTimeDesc": "تنفيذ ومراقبة فورية"
+    },
+    "errors": {
+      "loadFailed": "فشل تحميل التدفقات. يرجى المحاولة مرة أخرى.",
+      "retry": "إعادة المحاولة",
+      "noMatch": "لا توجد تدفقات مطابقة للفلاتر. حاول تعديل البحث أو الفلاتر."
     }
   }
 }

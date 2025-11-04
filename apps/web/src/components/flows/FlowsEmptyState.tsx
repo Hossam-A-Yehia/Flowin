@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Workflow, Plus, Sparkles } from "lucide-react";
@@ -10,6 +11,7 @@ interface FlowsEmptyStateProps {
 }
 
 export function FlowsEmptyState({ onCreateFlow }: FlowsEmptyStateProps) {
+  const { t } = useTranslation();
   return (
     <Card className="border-dashed">
       <CardContent className="flex flex-col items-center justify-center py-16 px-4">
@@ -17,23 +19,23 @@ export function FlowsEmptyState({ onCreateFlow }: FlowsEmptyStateProps) {
           <Workflow className="h-12 w-12 text-primary" />
         </div>
         
-        <h3 className="text-2xl font-semibold mb-2">No flows yet</h3>
+        <h3 className="text-2xl font-semibold mb-2">{t('flows.emptyState.title')}</h3>
         <p className="text-muted-foreground text-center max-w-md mb-8">
-          Get started by creating your first automation flow. Connect your apps and automate your workflows in minutes.
+          {t('flows.emptyState.description')}
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3">
           <Button size="lg" onClick={onCreateFlow} asChild>
             <Link href="/flows/builder">
               <Plus className="mr-2 h-5 w-5" />
-              Create Your First Flow
+              {t('flows.emptyState.createFirst')}
             </Link>
           </Button>
           
           <Button size="lg" variant="outline" asChild>
             <Link href="/flows/templates">
               <Sparkles className="mr-2 h-5 w-5" />
-              Browse Templates
+              {t('flows.emptyState.browseTemplates')}
             </Link>
           </Button>
         </div>
@@ -41,25 +43,25 @@ export function FlowsEmptyState({ onCreateFlow }: FlowsEmptyStateProps) {
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-3xl">
           <div className="text-center">
             <div className="text-3xl mb-2">🎯</div>
-            <h4 className="font-medium mb-1">Visual Builder</h4>
+            <h4 className="font-medium mb-1">{t('flows.emptyState.visualBuilder')}</h4>
             <p className="text-sm text-muted-foreground">
-              Drag and drop to create workflows
+              {t('flows.emptyState.visualBuilderDesc')}
             </p>
           </div>
           
           <div className="text-center">
             <div className="text-3xl mb-2">🤖</div>
-            <h4 className="font-medium mb-1">AI-Powered</h4>
+            <h4 className="font-medium mb-1">{t('flows.emptyState.aiPowered')}</h4>
             <p className="text-sm text-muted-foreground">
-              Build flows with natural language
+              {t('flows.emptyState.aiPoweredDesc')}
             </p>
           </div>
           
           <div className="text-center">
             <div className="text-3xl mb-2">⚡</div>
-            <h4 className="font-medium mb-1">Real-time</h4>
+            <h4 className="font-medium mb-1">{t('flows.emptyState.realTime')}</h4>
             <p className="text-sm text-muted-foreground">
-              Execute and monitor instantly
+              {t('flows.emptyState.realTimeDesc')}
             </p>
           </div>
         </div>

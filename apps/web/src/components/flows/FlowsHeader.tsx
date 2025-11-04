@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -29,13 +30,15 @@ export function FlowsHeader({
   onFiltersChange,
   totalFlows,
 }: FlowsHeaderProps) {
+  const { t } = useTranslation();
+  
   return (
     <div className="space-y-4">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Flows</h1>
+          <h1 className="text-3xl font-bold tracking-tight">{t('flows.title')}</h1>
           <p className="text-muted-foreground">
-            Manage and monitor your automation workflows
+            {t('flows.subtitle')}
           </p>
         </div>
 
@@ -43,14 +46,14 @@ export function FlowsHeader({
           <Button variant="outline" asChild>
             <Link href="/flows/templates">
               <Sparkles className="mr-2 h-4 w-4" />
-              Templates
+              {t('flows.templates')}
             </Link>
           </Button>
           
           <Button asChild>
             <Link href="/flows/builder">
               <Plus className="mr-2 h-4 w-4" />
-              Create Flow
+              {t('flows.createFlow')}
             </Link>
           </Button>
         </div>
@@ -60,7 +63,7 @@ export function FlowsHeader({
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Search flows..."
+            placeholder={t('flows.searchPlaceholder')}
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             className="pl-9"
@@ -72,7 +75,7 @@ export function FlowsHeader({
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="default">
                 <Filter className="mr-2 h-4 w-4" />
-                Filter
+                {t('flows.filter')}
                 {(filters.status !== "all" || filters.triggerType !== "all") && (
                   <span className="ml-2 rounded-full bg-primary px-2 py-0.5 text-xs text-primary-foreground">
                     {[
@@ -84,58 +87,58 @@ export function FlowsHeader({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuLabel>Status</DropdownMenuLabel>
+              <DropdownMenuLabel>{t('flows.status.active')}</DropdownMenuLabel>
               <DropdownMenuItem
                 onClick={() => onFiltersChange({ ...filters, status: "all" })}
               >
                 <span className={filters.status === "all" ? "font-semibold" : ""}>
-                  All Flows
+                  {t('flows.status.all')}
                 </span>
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => onFiltersChange({ ...filters, status: "active" })}
               >
                 <span className={filters.status === "active" ? "font-semibold" : ""}>
-                  Active Only
+                  {t('flows.status.activeOnly')}
                 </span>
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => onFiltersChange({ ...filters, status: "paused" })}
               >
                 <span className={filters.status === "paused" ? "font-semibold" : ""}>
-                  Paused Only
+                  {t('flows.status.pausedOnly')}
                 </span>
               </DropdownMenuItem>
 
               <DropdownMenuSeparator />
 
-              <DropdownMenuLabel>Trigger Type</DropdownMenuLabel>
+              <DropdownMenuLabel>{t('flows.triggerType.label')}</DropdownMenuLabel>
               <DropdownMenuItem
                 onClick={() => onFiltersChange({ ...filters, triggerType: "all" })}
               >
                 <span className={filters.triggerType === "all" ? "font-semibold" : ""}>
-                  All Types
+                  {t('flows.triggerType.all')}
                 </span>
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => onFiltersChange({ ...filters, triggerType: "webhook" as any })}
               >
                 <span className={filters.triggerType === "webhook" ? "font-semibold" : ""}>
-                  Webhook
+                  {t('flows.triggerType.webhook')}
                 </span>
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => onFiltersChange({ ...filters, triggerType: "schedule" as any })}
               >
                 <span className={filters.triggerType === "schedule" ? "font-semibold" : ""}>
-                  Schedule
+                  {t('flows.triggerType.schedule')}
                 </span>
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => onFiltersChange({ ...filters, triggerType: "manual" as any })}
               >
                 <span className={filters.triggerType === "manual" ? "font-semibold" : ""}>
-                  Manual
+                  {t('flows.triggerType.manual')}
                 </span>
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -145,37 +148,37 @@ export function FlowsHeader({
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="default">
                 <SortAsc className="mr-2 h-4 w-4" />
-                Sort
+                {t('flows.sort')}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48">
-              <DropdownMenuLabel>Sort By</DropdownMenuLabel>
+              <DropdownMenuLabel>{t('flows.sortBy.label')}</DropdownMenuLabel>
               <DropdownMenuItem
                 onClick={() => onFiltersChange({ ...filters, sortBy: "updatedAt", sortOrder: "desc" })}
               >
                 <span className={filters.sortBy === "updatedAt" ? "font-semibold" : ""}>
-                  Recently Updated
+                  {t('flows.sortBy.recentlyUpdated')}
                 </span>
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => onFiltersChange({ ...filters, sortBy: "createdAt", sortOrder: "desc" })}
               >
                 <span className={filters.sortBy === "createdAt" ? "font-semibold" : ""}>
-                  Recently Created
+                  {t('flows.sortBy.recentlyCreated')}
                 </span>
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => onFiltersChange({ ...filters, sortBy: "name", sortOrder: "asc" })}
               >
                 <span className={filters.sortBy === "name" ? "font-semibold" : ""}>
-                  Name (A-Z)
+                  {t('flows.sortBy.nameAZ')}
                 </span>
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => onFiltersChange({ ...filters, sortBy: "lastRun", sortOrder: "desc" })}
               >
                 <span className={filters.sortBy === "lastRun" ? "font-semibold" : ""}>
-                  Last Run
+                  {t('flows.sortBy.lastRun')}
                 </span>
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -185,7 +188,7 @@ export function FlowsHeader({
 
       {totalFlows > 0 && (
         <div className="text-sm text-muted-foreground">
-          Showing {totalFlows} {totalFlows === 1 ? "flow" : "flows"}
+          {t('flows.showing')} {totalFlows} {totalFlows === 1 ? t('flows.flow') : t('flows.flows')}
         </div>
       )}
     </div>

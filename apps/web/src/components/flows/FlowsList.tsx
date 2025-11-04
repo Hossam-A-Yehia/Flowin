@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { useFlows, useToggleFlowStatus, useDuplicateFlow, useDeleteFlow, useExecuteFlow } from "@/hooks/useFlows";
 import { FlowsHeader } from "@/components/flows/FlowsHeader";
 import { FlowsStats } from "@/components/flows/FlowsStats";
@@ -13,6 +14,7 @@ import { DeleteDialog } from "@/components/ui/delete-dialog";
 import { Button } from "@/components/ui/button";
 
 export function FlowsListClient() {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState("");
   const [filters, setFilters] = useState<FlowFilters>({
     status: "all",
@@ -126,13 +128,13 @@ export function FlowsListClient() {
         <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />
           <AlertDescription>
-            Failed to load flows. Please try again.
+            {t('flows.errors.loadFailed')}
             <Button
               variant="link"
               className="ml-2 h-auto p-0"
               onClick={() => refetch()}
             >
-              Retry
+              {t('flows.errors.retry')}
             </Button>
           </AlertDescription>
         </Alert>
@@ -154,7 +156,7 @@ export function FlowsListClient() {
               {filteredFlows.length === 0 ? (
                 <div className="text-center py-16">
                   <p className="text-muted-foreground">
-                    No flows match your filters. Try adjusting your search or filters.
+                    {t('flows.errors.noMatch')}
                   </p>
                 </div>
               ) : (
@@ -181,8 +183,8 @@ export function FlowsListClient() {
         open={deleteDialogOpen}
         onOpenChange={setDeleteDialogOpen}
         onConfirm={handleDeleteConfirm}
-        title="Delete Flow"
-        description="Are you sure you want to delete this flow? This action cannot be undone. All execution history will be permanently removed."
+        title={t('common.deleteDialog.title')}
+        description={t('common.deleteDialog.description')}
         isLoading={deleteMutation.isPending}
       />
     </div>

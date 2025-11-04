@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslation } from "react-i18next";
 import { Flow, parseTags } from "@/types/flow";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -45,6 +46,7 @@ export function FlowCard({
   onExecute,
   isLoading = false,
 }: FlowCardProps) {
+  const { t } = useTranslation();
   const successRate = flow.totalRuns > 0 
     ? Math.round((flow.successfulRuns / flow.totalRuns) * 100) 
     : 0;
@@ -81,10 +83,10 @@ export function FlowCard({
               </CardTitle>
               {flow.isActive ? (
                 <Badge variant="default" className="bg-green-500/10 text-green-500 hover:bg-green-500/20">
-                  Active
+                  {t('flows.status.active')}
                 </Badge>
               ) : (
-                <Badge variant="secondary">Paused</Badge>
+                <Badge variant="secondary">{t('flows.status.paused')}</Badge>
               )}
             </div>
             {flow.description && (
@@ -103,14 +105,14 @@ export function FlowCard({
                 disabled={isLoading}
               >
                 <MoreVertical className="h-4 w-4" />
-                <span className="sr-only">Open menu</span>
+                <span className="sr-only">{t('flows.card.openMenu')}</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48">
               <DropdownMenuItem asChild>
                 <Link href={`/flows/${flow.id}`} className="cursor-pointer">
                   <Edit className="mr-2 h-4 w-4" />
-                  Edit Flow
+                  {t('flows.card.editFlow')}
                 </Link>
               </DropdownMenuItem>
               
@@ -120,7 +122,7 @@ export function FlowCard({
                   disabled={isLoading}
                 >
                   <Play className="mr-2 h-4 w-4" />
-                  Execute Now
+                  {t('flows.card.executeNow')}
                 </DropdownMenuItem>
               )}
 
@@ -132,12 +134,12 @@ export function FlowCard({
                   {flow.isActive ? (
                     <>
                       <Pause className="mr-2 h-4 w-4" />
-                      Pause Flow
+                      {t('flows.card.pauseFlow')}
                     </>
                   ) : (
                     <>
                       <Play className="mr-2 h-4 w-4" />
-                      Activate Flow
+                      {t('flows.card.activateFlow')}
                     </>
                   )}
                 </DropdownMenuItem>
@@ -149,7 +151,7 @@ export function FlowCard({
                   disabled={isLoading}
                 >
                   <Copy className="mr-2 h-4 w-4" />
-                  Duplicate
+                  {t('flows.card.duplicate')}
                 </DropdownMenuItem>
               )}
 
@@ -162,7 +164,7 @@ export function FlowCard({
                   className="text-destructive focus:text-destructive"
                 >
                   <Trash2 className="mr-2 h-4 w-4" />
-                  Delete
+                  {t('flows.card.delete')}
                 </DropdownMenuItem>
               )}
             </DropdownMenuContent>
@@ -184,7 +186,7 @@ export function FlowCard({
       <CardContent className="pb-3">
         <div className="grid grid-cols-3 gap-4 text-sm">
           <div className="flex flex-col">
-            <span className="text-muted-foreground text-xs mb-1">Total Runs</span>
+            <span className="text-muted-foreground text-xs mb-1">{t('flows.card.totalRuns')}</span>
             <div className="flex items-center gap-1">
               <Activity className="h-4 w-4 text-muted-foreground" />
               <span className="font-semibold">{flow.totalRuns}</span>
@@ -192,7 +194,7 @@ export function FlowCard({
           </div>
 
           <div className="flex flex-col">
-            <span className="text-muted-foreground text-xs mb-1">Success</span>
+            <span className="text-muted-foreground text-xs mb-1">{t('flows.card.success')}</span>
             <div className="flex items-center gap-1">
               <CheckCircle2 className="h-4 w-4 text-green-500" />
               <span className="font-semibold text-green-500">
@@ -202,7 +204,7 @@ export function FlowCard({
           </div>
 
           <div className="flex flex-col">
-            <span className="text-muted-foreground text-xs mb-1">Failed</span>
+            <span className="text-muted-foreground text-xs mb-1">{t('flows.card.failed')}</span>
             <div className="flex items-center gap-1">
               <XCircle className="h-4 w-4 text-destructive" />
               <span className="font-semibold text-destructive">
@@ -215,7 +217,7 @@ export function FlowCard({
         {flow.totalRuns > 0 && (
           <div className="mt-3">
             <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
-              <span>Success Rate</span>
+              <span>{t('flows.card.successRate')}</span>
               <span className="font-medium">{successRate}%</span>
             </div>
             <div className="h-2 bg-secondary rounded-full overflow-hidden">
@@ -233,14 +235,14 @@ export function FlowCard({
           <div className="flex items-center gap-1">
             <Calendar className="h-3 w-3" />
             <span>
-              Created {formatDistanceToNow(new Date(flow.createdAt), { addSuffix: true })}
+              {t('flows.card.created')} {formatDistanceToNow(new Date(flow.createdAt), { addSuffix: true })}
             </span>
           </div>
           {flow.lastRun && (
             <div className="flex items-center gap-1">
               <Clock className="h-3 w-3" />
               <span>
-                Last run {formatDistanceToNow(new Date(flow.lastRun), { addSuffix: true })}
+                {t('flows.card.lastRun')} {formatDistanceToNow(new Date(flow.lastRun), { addSuffix: true })}
               </span>
             </div>
           )}
