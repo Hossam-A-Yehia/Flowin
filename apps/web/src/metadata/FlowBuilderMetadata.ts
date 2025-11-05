@@ -1,0 +1,111 @@
+import {
+  PageMetadata,
+  BASE_URL,
+  commonMetadata,
+  privateRobots,
+} from "./config";
+
+export const FlowBuilderMetadata: PageMetadata = {
+  en: {
+    ...commonMetadata,
+    title: "Flow Builder - Flowin | Create Your Automation Workflow",
+    description: "Build powerful automation workflows with our intuitive visual flow builder. Drag and drop nodes, connect apps, and automate your work in minutes. No coding required.",
+    keywords: [
+      "flow builder",
+      "workflow builder",
+      "automation builder",
+      "visual workflow",
+      "drag and drop automation",
+      "no-code builder",
+      "workflow designer",
+      "automation designer",
+      "flow canvas",
+      "workflow canvas",
+      "visual automation",
+      "workflow creation",
+    ],
+    robots: privateRobots,
+    openGraph: {
+      type: "website",
+      locale: "en_US",
+      alternateLocale: ["ar_SA"],
+      url: `${BASE_URL}/flows/builder`,
+      title: "Flow Builder - Flowin | Create Your Automation Workflow",
+      description: "Build powerful automation workflows with our intuitive visual flow builder. Drag and drop nodes, connect apps, and automate your work in minutes.",
+      siteName: "Flowin",
+      images: [
+        {
+          url: "/og-flow-builder.png",
+          width: 1200,
+          height: 630,
+          alt: "Flowin Flow Builder - Visual Workflow Designer",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Flow Builder - Flowin | Create Your Automation Workflow",
+      description: "Build powerful automation workflows with our intuitive visual flow builder. Drag and drop nodes, connect apps, and automate your work in minutes.",
+      images: ["/og-flow-builder.png"],
+      creator: "@flowinapp",
+    },
+    alternates: {
+      canonical: `${BASE_URL}/flows/builder`,
+      languages: {
+        "en-US": `${BASE_URL}/flows/builder`,
+        "ar-AE": `${BASE_URL}/ar/flows/builder`,
+      },
+    },
+  },
+  ar: {
+    ...commonMetadata,
+    title: "منشئ التدفقات - Flowin | أنشئ سير عمل التشغيل التلقائي",
+    description: "أنشئ تدفقات عمل قوية باستخدام منشئنا المرئي البديهي. اسحب وأفلت العقد، اربط التطبيقات، وشغل عملك تلقائياً في دقائق. لا حاجة للبرمجة.",
+    keywords: [
+      "منشئ التدفقات",
+      "منشئ سير العمل",
+      "منشئ التشغيل التلقائي",
+      "سير عمل مرئي",
+      "تشغيل تلقائي بالسحب والإفلات",
+      "منشئ بدون كود",
+      "مصمم سير العمل",
+      "مصمم التشغيل التلقائي",
+      "لوحة التدفقات",
+      "لوحة سير العمل",
+      "تشغيل تلقائي مرئي",
+      "إنشاء سير العمل",
+    ],
+    robots: privateRobots,
+    openGraph: {
+      type: "website",
+      locale: "ar_AE",
+      alternateLocale: ["en_US"],
+      url: `${BASE_URL}/ar/flows/builder`,
+      title: "منشئ التدفقات - Flowin | أنشئ سير عمل التشغيل التلقائي",
+      description: "أنشئ تدفقات عمل قوية باستخدام منشئنا المرئي البديهي. اسحب وأفلت العقد، اربط التطبيقات، وشغل عملك تلقائياً في دقائق.",
+      siteName: "Flowin",
+      images: [
+        {
+          url: "/og-flow-builder.png",
+          width: 1200,
+          height: 630,
+          alt: "منشئ التدفقات Flowin - مصمم سير العمل المرئي",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "منشئ التدفقات - Flowin | أنشئ سير عمل التشغيل التلقائي",
+      description: "أنشئ تدفقات عمل قوية باستخدام منشئنا المرئي البديهي. اسحب وأفلت العقد، اربط التطبيقات، وشغل عملك تلقائياً في دقائق.",
+      images: ["/og-flow-builder.png"],
+      creator: "@flowinapp",
+    },
+    alternates: {
+      canonical: `${BASE_URL}/ar/flows/builder`,
+      languages: {
+        "en-US": `${BASE_URL}/flows/builder`,
+        "ar-AE": `${BASE_URL}/ar/flows/builder`,
+      },
+    },
+  },
+};

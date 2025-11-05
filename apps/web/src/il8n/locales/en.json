@@ -527,5 +527,155 @@
       "retrySuccess": "Execution retry started",
       "retryError": "Failed to retry execution"
     }
+  },
+  "flowBuilder": {
+    "title": "Flow Builder",
+    "subtitle": "Create your automation workflow",
+    "untitled": "Untitled Flow",
+    "toolbar": {
+      "save": "Save",
+      "saving": "Saving...",
+      "saved": "Saved",
+      "undo": "Undo",
+      "redo": "Redo",
+      "zoomIn": "Zoom In",
+      "zoomOut": "Zoom Out",
+      "fitView": "Fit View",
+      "testRun": "Test Run",
+      "settings": "Settings"
+    },
+    "sidebar": {
+      "nodes": "Nodes",
+      "properties": "Properties",
+      "searchNodes": "Search nodes...",
+      "noSelection": "Select a node to view properties",
+      "nodeTypes": {
+        "trigger": "Trigger",
+        "action": "Action",
+        "condition": "Condition",
+        "delay": "Delay",
+        "webhook": "Webhook",
+        "ai": "AI"
+      }
+    },
+    "canvas": {
+      "dropHere": "Drop nodes here to build your flow",
+      "emptyState": "Start by adding a trigger node",
+      "connecting": "Connecting...",
+      "deleteNode": "Delete Node",
+      "duplicateNode": "Duplicate Node",
+      "editNode": "Edit Node"
+    },
+    "nodes": {
+      "trigger": {
+        "title": "Trigger",
+        "description": "Start your flow when an event occurs",
+        "types": {
+          "webhook": "Webhook Trigger",
+          "schedule": "Schedule Trigger",
+          "manual": "Manual Trigger"
+        }
+      },
+      "action": {
+        "title": "Action",
+        "description": "Perform an action in your connected apps",
+        "selectIntegration": "Select Integration",
+        "selectAction": "Select Action",
+        "noIntegrations": "No integrations connected"
+      },
+      "condition": {
+        "title": "Condition",
+        "description": "Add if/else logic to your flow",
+        "if": "If",
+        "then": "Then",
+        "else": "Else",
+        "addCondition": "Add Condition"
+      },
+      "delay": {
+        "title": "Delay",
+        "description": "Wait before continuing",
+        "duration": "Duration",
+        "seconds": "Seconds",
+        "minutes": "Minutes",
+        "hours": "Hours",
+        "days": "Days"
+      },
+      "webhook": {
+        "title": "Webhook",
+        "description": "Receive data from external apps",
+        "url": "Webhook URL",
+        "copyUrl": "Copy URL",
+        "urlCopied": "URL copied to clipboard"
+      },
+      "ai": {
+        "title": "AI",
+        "description": "Use AI for text generation or decisions",
+        "prompt": "AI Prompt",
+        "model": "Model",
+        "temperature": "Temperature"
+      }
+    },
+    "properties": {
+      "nodeName": "Node Name",
+      "nodeDescription": "Description",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "configuration": "Configuration",
+      "advanced": "Advanced Settings"
+    },
+    "dialogs": {
+      "save": {
+        "title": "Save Flow",
+        "name": "Flow Name",
+        "description": "Description (optional)",
+        "tags": "Tags (optional)",
+        "triggerType": "Trigger Type",
+        "cancel": "Cancel",
+        "save": "Save Flow"
+      },
+      "testRun": {
+        "title": "Test Run",
+        "running": "Running test...",
+        "success": "Test completed successfully",
+        "failed": "Test failed",
+        "viewLogs": "View Logs",
+        "close": "Close"
+      },
+      "unsavedChanges": {
+        "title": "Unsaved Changes",
+        "message": "You have unsaved changes. Do you want to save before leaving?",
+        "save": "Save",
+        "discard": "Discard",
+        "cancel": "Cancel"
+      }
+    },
+    "validation": {
+      "nameRequired": "Flow name is required",
+      "nodesRequired": "Add at least one node",
+      "triggerRequired": "Add a trigger node",
+      "invalidConnection": "Invalid connection",
+      "circularDependency": "Circular dependency detected"
+    },
+    "toast": {
+      "saved": "Flow saved successfully",
+      "saveError": "Failed to save flow",
+      "testStarted": "Test run started",
+      "testSuccess": "Test completed successfully",
+      "testError": "Test run failed",
+      "nodeCopied": "Node copied",
+      "nodeDeleted": "Node deleted",
+      "invalidFlow": "Please fix validation errors"
+    },
+    "shortcuts": {
+      "title": "Keyboard Shortcuts",
+      "save": "Save",
+      "undo": "Undo",
+      "redo": "Redo",
+      "delete": "Delete selected",
+      "copy": "Copy",
+      "paste": "Paste",
+      "selectAll": "Select all",
+      "fitView": "Fit view"
+    }
   }
 }

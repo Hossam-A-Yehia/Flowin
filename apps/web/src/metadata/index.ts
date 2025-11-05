@@ -15,6 +15,7 @@ export { forgotPasswordMetadata } from './ForgotPasswordMetadata';
 export { resetPasswordMetadata } from './ResetPasswordMetadata';
 export { verifyEmailMetadata } from './VerifyEmailMetadata';
 export { FlowsMetadata } from './FlowsMetadata';
+export { FlowBuilderMetadata } from './FlowBuilderMetadata';
 
 // Export utility functions
 export {

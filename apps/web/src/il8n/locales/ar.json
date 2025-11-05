@@ -523,5 +523,155 @@
       "retrySuccess": "تم بدء إعادة المحاولة",
       "retryError": "فشل إعادة المحاولة"
     }
+  },
+  "flowBuilder": {
+    "title": "منشئ التدفقات",
+    "subtitle": "أنشئ سير عمل التشغيل التلقائي",
+    "untitled": "تدفق بدون عنوان",
+    "toolbar": {
+      "save": "حفظ",
+      "saving": "جاري الحفظ...",
+      "saved": "تم الحفظ",
+      "undo": "تراجع",
+      "redo": "إعادة",
+      "zoomIn": "تكبير",
+      "zoomOut": "تصغير",
+      "fitView": "ملاءمة العرض",
+      "testRun": "تشغيل تجريبي",
+      "settings": "الإعدادات"
+    },
+    "sidebar": {
+      "nodes": "العقد",
+      "properties": "الخصائص",
+      "searchNodes": "البحث في العقد...",
+      "noSelection": "اختر عقدة لعرض الخصائص",
+      "nodeTypes": {
+        "trigger": "مشغل",
+        "action": "إجراء",
+        "condition": "شرط",
+        "delay": "تأخير",
+        "webhook": "Webhook",
+        "ai": "ذكاء اصطناعي"
+      }
+    },
+    "canvas": {
+      "dropHere": "أفلت العقد هنا لبناء التدفق",
+      "emptyState": "ابدأ بإضافة عقدة مشغل",
+      "connecting": "جاري الربط...",
+      "deleteNode": "حذف العقدة",
+      "duplicateNode": "نسخ العقدة",
+      "editNode": "تعديل العقدة"
+    },
+    "nodes": {
+      "trigger": {
+        "title": "مشغل",
+        "description": "ابدأ التدفق عند حدوث حدث",
+        "types": {
+          "webhook": "مشغل Webhook",
+          "schedule": "مشغل جدولة",
+          "manual": "مشغل يدوي"
+        }
+      },
+      "action": {
+        "title": "إجراء",
+        "description": "نفذ إجراءً في تطبيقاتك المتصلة",
+        "selectIntegration": "اختر التكامل",
+        "selectAction": "اختر الإجراء",
+        "noIntegrations": "لا توجد تكاملات متصلة"
+      },
+      "condition": {
+        "title": "شرط",
+        "description": "أضف منطق if/else للتدفق",
+        "if": "إذا",
+        "then": "إذن",
+        "else": "وإلا",
+        "addCondition": "إضافة شرط"
+      },
+      "delay": {
+        "title": "تأخير",
+        "description": "انتظر قبل المتابعة",
+        "duration": "المدة",
+        "seconds": "ثواني",
+        "minutes": "دقائق",
+        "hours": "ساعات",
+        "days": "أيام"
+      },
+      "webhook": {
+        "title": "Webhook",
+        "description": "استقبل البيانات من التطبيقات الخارجية",
+        "url": "رابط Webhook",
+        "copyUrl": "نسخ الرابط",
+        "urlCopied": "تم نسخ الرابط"
+      },
+      "ai": {
+        "title": "ذكاء اصطناعي",
+        "description": "استخدم الذكاء الاصطناعي لتوليد النصوص أو القرارات",
+        "prompt": "أمر الذكاء الاصطناعي",
+        "model": "النموذج",
+        "temperature": "درجة الحرارة"
+      }
+    },
+    "properties": {
+      "nodeName": "اسم العقدة",
+      "nodeDescription": "الوصف",
+      "enabled": "مفعّل",
+      "disabled": "معطّل",
+      "configuration": "التكوين",
+      "advanced": "إعدادات متقدمة"
+    },
+    "dialogs": {
+      "save": {
+        "title": "حفظ التدفق",
+        "name": "اسم التدفق",
+        "description": "الوصف (اختياري)",
+        "tags": "الوسوم (اختياري)",
+        "triggerType": "نوع المشغل",
+        "cancel": "إلغاء",
+        "save": "حفظ التدفق"
+      },
+      "testRun": {
+        "title": "تشغيل تجريبي",
+        "running": "جاري التشغيل التجريبي...",
+        "success": "اكتمل الاختبار بنجاح",
+        "failed": "فشل الاختبار",
+        "viewLogs": "عرض السجلات",
+        "close": "إغلاق"
+      },
+      "unsavedChanges": {
+        "title": "تغييرات غير محفوظة",
+        "message": "لديك تغييرات غير محفوظة. هل تريد الحفظ قبل المغادرة؟",
+        "save": "حفظ",
+        "discard": "تجاهل",
+        "cancel": "إلغاء"
+      }
+    },
+    "validation": {
+      "nameRequired": "اسم التدفق مطلوب",
+      "nodesRequired": "أضف عقدة واحدة على الأقل",
+      "triggerRequired": "أضف عقدة مشغل",
+      "invalidConnection": "اتصال غير صالح",
+      "circularDependency": "تم اكتشاف تبعية دائرية"
+    },
+    "toast": {
+      "saved": "تم حفظ التدفق بنجاح",
+      "saveError": "فشل حفظ التدفق",
+      "testStarted": "بدأ التشغيل التجريبي",
+      "testSuccess": "اكتمل الاختبار بنجاح",
+      "testError": "فشل التشغيل التجريبي",
+      "nodeCopied": "تم نسخ العقدة",
+      "nodeDeleted": "تم حذف العقدة",
+      "invalidFlow": "يرجى إصلاح أخطاء التحقق"
+    },
+    "shortcuts": {
+      "title": "اختصارات لوحة المفاتيح",
+      "save": "حفظ",
+      "undo": "تراجع",
+      "redo": "إعادة",
+      "delete": "حذف المحدد",
+      "copy": "نسخ",
+      "paste": "لصق",
+      "selectAll": "تحديد الكل",
+      "fitView": "ملاءمة العرض"
+    }
   }
 }
