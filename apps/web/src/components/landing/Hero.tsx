@@ -139,6 +139,7 @@ export default function Hero() {
               return (
                 <div
                   key={index}
+                  role="listitem"
                   className={cn(
                     "flex items-center gap-3 px-4 py-3 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg",
                     item.bgColor,
@@ -269,9 +270,9 @@ export default function Hero() {
                     />
                   </div>
 
-                  <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-2">
+                  <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-2">
                     {t("landing.hero.preview.title")}
-                  </h3>
+                  </h2>
                   <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
                     {t("landing.hero.preview.subtitle")}
                   </p>
