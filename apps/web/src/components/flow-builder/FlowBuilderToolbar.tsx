@@ -22,12 +22,16 @@ interface FlowBuilderToolbarProps {
   onSave: () => void;
   isSaving: boolean;
   hasUnsavedChanges: boolean;
+  flowName?: string;
+  isEditMode?: boolean;
 }
 
 export function FlowBuilderToolbar({
   onSave,
   isSaving,
   hasUnsavedChanges,
+  flowName,
+  isEditMode = false,
 }: FlowBuilderToolbarProps) {
   const { t } = useTranslation();
   const { zoomIn, zoomOut, fitView } = useReactFlow();
@@ -44,9 +48,11 @@ export function FlowBuilderToolbar({
         <Separator orientation="vertical" className="h-8" />
         
         <div>
-          <h1 className="text-lg font-semibold">{t("flowBuilder.title")}</h1>
+          <h1 className="text-lg font-semibold">
+            {isEditMode && flowName ? flowName : t("flowBuilder.title")}
+          </h1>
           <p className="text-xs text-muted-foreground">
-            {t("flowBuilder.subtitle")}
+            {isEditMode ? t("flowEdit.subtitle") || "Edit your automation workflow" : t("flowBuilder.subtitle")}
           </p>
         </div>
       </div>

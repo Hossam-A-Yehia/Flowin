@@ -35,18 +35,21 @@ export function FlowBuilderProperties({
 
   const handleLabelChange = (value: string) => {
     onUpdateNode(selectedNode.id, {
+      ...selectedNode,
       data: { ...selectedNode.data, label: value },
     });
   };
 
   const handleDescriptionChange = (value: string) => {
     onUpdateNode(selectedNode.id, {
+      ...selectedNode,
       data: { ...selectedNode.data, description: value },
     });
   };
 
   const handleEnabledToggle = (checked: boolean) => {
     onUpdateNode(selectedNode.id, {
+      ...selectedNode,
       data: { ...selectedNode.data, isEnabled: checked },
     });
   };

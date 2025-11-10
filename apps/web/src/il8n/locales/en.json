@@ -677,5 +677,27 @@
       "selectAll": "Select all",
       "fitView": "Fit view"
     }
+  },
+  "flowEdit": {
+    "title": "Edit Flow",
+    "subtitle": "Edit your automation workflow",
+    "loading": "Loading flow...",
+    "notFound": {
+      "title": "Flow Not Found",
+      "description": "The flow you're looking for doesn't exist or has been deleted.",
+      "backToFlows": "Back to Flows",
+      "goHome": "Go Home"
+    },
+    "error": {
+      "title": "Failed to Load Flow",
+      "description": "We couldn't load your flow. Please try again.",
+      "initializationFailed": "Failed to load flow data",
+      "retry": "Try Again",
+      "backToFlows": "Back to Flows"
+    },
+    "toast": {
+      "saved": "Flow updated successfully",
+      "saveError": "Failed to update flow"
+    }
   }
 }

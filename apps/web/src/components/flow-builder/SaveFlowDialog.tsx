@@ -33,6 +33,13 @@ interface SaveFlowDialogProps {
     triggerType: "webhook" | "schedule" | "manual";
   }) => void;
   isLoading: boolean;
+  initialData?: {
+    name?: string;
+    description?: string;
+    tags?: string[];
+    triggerType?: "webhook" | "schedule" | "manual";
+  };
+  isEditMode?: boolean;
 }
 
 export function SaveFlowDialog({
@@ -40,14 +47,18 @@ export function SaveFlowDialog({
   onOpenChange,
   onSave,
   isLoading,
+  initialData,
+  isEditMode = false,
 }: SaveFlowDialogProps) {
   const { t } = useTranslation();
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [tags, setTags] = useState("");
+  const [name, setName] = useState(initialData?.name || "");
+  const [description, setDescription] = useState(initialData?.description || "");
+  const [tags, setTags] = useState(
+    initialData?.tags ? initialData.tags.join(", ") : ""
+  );
   const [triggerType, setTriggerType] = useState<
     "webhook" | "schedule" | "manual"
-  >("manual");
+  >(initialData?.triggerType || "manual");
 
   const handleSave = () => {
     if (!name.trim()) {
