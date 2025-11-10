@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Integration, UserIntegration } from "@/types/integration";
 import {
-  useConnectIntegration,
   useDisconnectIntegration,
   useTestIntegration,
 } from "@/hooks/useIntegrations";
+import { getLocalizedIntegration, getLocalizedCategory } from "@/utils/integrationLocalization";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -29,6 +29,7 @@ import {
   Loader2,
 } from "lucide-react";
 import Image from "next/image";
+import { ConnectIntegrationDialog } from "./ConnectIntegrationDialog";
 
 interface IntegrationCardProps {
   integration: Integration;
@@ -42,22 +43,19 @@ export function IntegrationCard({
   userIntegration,
 }: IntegrationCardProps) {
   const { t } = useTranslation();
-  const [isConnecting, setIsConnecting] = useState(false);
+  const [showConnectDialog, setShowConnectDialog] = useState(false);
 
-  const connectMutation = useConnectIntegration();
+  // Get localized integration data based on current language
+  const localizedIntegration = useMemo(
+    () => getLocalizedIntegration(integration, t),
+    [integration, t]
+  );
+
   const disconnectMutation = useDisconnectIntegration();
   const testMutation = useTestIntegration();
 
-  const handleConnect = async () => {
-    setIsConnecting(true);
-    try {
-      await connectMutation.mutateAsync({
-        integrationId: integration.id,
-        credentials: {},
-      });
-    } finally {
-      setIsConnecting(false);
-    }
+  const handleConnect = () => {
+    setShowConnectDialog(true);
   };
 
   const handleDisconnect = async () => {
@@ -71,12 +69,11 @@ export function IntegrationCard({
   };
 
   const isLoading =
-    isConnecting ||
-    connectMutation.isPending ||
     disconnectMutation.isPending ||
     testMutation.isPending;
 
   return (
+    <>
     <Card className="group hover:shadow-lg transition-shadow duration-200">
       <CardContent className="p-6">
         <div className="flex items-start justify-between mb-4">
@@ -85,23 +82,23 @@ export function IntegrationCard({
               {integration.iconUrl ? (
                 <Image
                   src={integration.iconUrl}
-                  alt={`${integration.displayName} icon`}
+                  alt={`${localizedIntegration.displayName} icon`}
                   width={48}
                   height={48}
                   className="object-contain"
                 />
               ) : (
                 <span className="text-2xl font-bold text-muted-foreground">
-                  {integration.displayName.charAt(0)}
+                  {localizedIntegration.displayName.charAt(0)}
                 </span>
               )}
             </div>
             <div>
               <h3 className="font-semibold text-lg">
-                {integration.displayName}
+                {localizedIntegration.displayName}
               </h3>
               <p className="text-sm text-muted-foreground">
-                {integration.category}
+                {getLocalizedCategory(integration.category, t)}
               </p>
             </div>
           </div>
@@ -177,9 +174,7 @@ export function IntegrationCard({
         </div>
 
         <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
-          {integration.description ||
-            t("integrations.card.noDescription") ||
-            "No description available"}
+          {localizedIntegration.description || t("integrations.card.noDescription") || "No description available"}
         </p>
 
         {isConnected && userIntegration && (
@@ -238,5 +233,12 @@ export function IntegrationCard({
         )}
       </CardFooter>
     </Card>
+
+    <ConnectIntegrationDialog
+      integration={integration}
+      open={showConnectDialog}
+      onOpenChange={setShowConnectDialog}
+    />
+    </>
   );
 }

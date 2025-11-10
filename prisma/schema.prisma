@@ -95,7 +95,7 @@ model ApiKey {
 model Integration {
   id          String @id @default(cuid())
   name        String @unique // "google_sheets", "notion", etc.
-  displayName String // "Google Sheets", "Notion"
+  displayName String // "Google Sheets", "Notion" (default/English)
   category    String // "Productivity", "Communication"
   
   // Configuration

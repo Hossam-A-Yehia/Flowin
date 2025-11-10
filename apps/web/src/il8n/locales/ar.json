@@ -5,6 +5,11 @@
     "changeLanguage": "تغيير اللغة",
     "openMenu": "فتح القائمة",
     "closeMenu": "إغلاق القائمة",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "close": "إغلاق",
     "deleteDialog": {
       "title": "حذف العنصر",
       "description": "هل أنت متأكد من حذف هذا العنصر؟ لا يمكن التراجع عن هذا العنصر. سيتم حذف جميع سجلات التنفيذ نهائياً.",
@@ -697,54 +702,203 @@
     }
   },
   "integrations": {
-    "title": "التكاملات",
-    "subtitle": "اربط تطبيقاتك المفضلة وأتمت سير عملك",
+    "title": "الربط مع التطبيقات",
+    "subtitle": "اربط تطبيقاتك المفضلة وأتمتة مهامك بسهولة",
+    "categories": {
+      "Communication": "التواصل",
+      "Email": "البريد الإلكتروني",
+      "Productivity": "الإنتاجية",
+      "E-commerce": "التجارة الإلكترونية",
+      "Social Media": "وسائل التواصل الاجتماعي",
+      "CRM": "إدارة علاقات العملاء",
+      "Developer Tools": "أدوات المطورين",
+      "Calendar": "التقويم",
+      "Forms": "النماذج",
+      "AI": "الذكاء الاصطناعي"
+    },
+    "items": {
+      "whatsapp": {
+        "displayName": "واتساب للأعمال",
+        "description": "راسل عملاءك تلقائيًا وأرسل الإشعارات والتحديثات عبر واتساب بزنس"
+      },
+      "slack": {
+        "displayName": "سلاك",
+        "description": "راسل فريقك وأرسل الإشعارات في قنوات سلاك أو الرسائل الخاصة"
+      },
+      "telegram": {
+        "displayName": "تيليجرام",
+        "description": "راسل المستخدمين تلقائيًا عبر بوت تيليجرام الخاص بك"
+      },
+      "discord": {
+        "displayName": "ديسكورد",
+        "description": "أرسل الرسائل والإشعارات لقنوات ديسكورد بشكل تلقائي"
+      },
+      "gmail": {
+        "displayName": "جيميل",
+        "description": "أرسل واستقبل الإيميلات وأتمتة البريد الإلكتروني بسهولة"
+      },
+      "outlook": {
+        "displayName": "أوتلوك",
+        "description": "أدر إيميلاتك ومواعيدك وجهات اتصالك من مكان واحد"
+      },
+      "sendgrid": {
+        "displayName": "سيند جريد",
+        "description": "أرسل آلاف الإيميلات التسويقية والتجارية بكفاءة عالية"
+      },
+      "google_sheets": {
+        "displayName": "جداول جوجل",
+        "description": "اقرأ وعدّل بياناتك في جداول جوجل تلقائيًا"
+      },
+      "google_drive": {
+        "displayName": "جوجل درايف",
+        "description": "ارفع وحمّل وأدر ملفاتك على جوجل درايف بسهولة"
+      },
+      "notion": {
+        "displayName": "نوشن",
+        "description": "أنشئ وعدّل صفحاتك وقواعد بياناتك في نوشن"
+      },
+      "airtable": {
+        "displayName": "إيرتيبل",
+        "description": "أدر بياناتك وجداولك في إيرتيبل بكل سهولة"
+      },
+      "trello": {
+        "displayName": "تريلو",
+        "description": "أنشئ المهام وأدر مشاريعك على تريلو تلقائيًا"
+      },
+      "shopify": {
+        "displayName": "شوبيفاي",
+        "description": "أدر متجرك الإلكتروني ومنتجاتك وطلباتك بسهولة"
+      },
+      "woocommerce": {
+        "displayName": "ووكوميرس",
+        "description": "أتمتة الطلبات والمخزون لمتجرك على ووردبريس"
+      },
+      "stripe": {
+        "displayName": "سترايب",
+        "description": "استقبل المدفوعات وأدر الاشتراكات والفواتير بأمان"
+      },
+      "instagram": {
+        "displayName": "إنستجرام",
+        "description": "انشر تلقائيًا وأدر تعليقاتك وتابع تفاعل جمهورك"
+      },
+      "twitter": {
+        "displayName": "تويتر (X)",
+        "description": "غرّد تلقائيًا وتابع الإشارات وأدر حسابك بذكاء"
+      },
+      "facebook": {
+        "displayName": "فيسبوك",
+        "description": "انشر على صفحتك وأدر تسويقك بشكل تلقائي"
+      },
+      "linkedin": {
+        "displayName": "لينكدإن",
+        "description": "شارك المحتوى المهني وأدر صفحة شركتك بسهولة"
+      },
+      "hubspot": {
+        "displayName": "هابسبوت",
+        "description": "أدر عملاءك وصفقاتك وأتمتة مبيعاتك بكفاءة"
+      },
+      "salesforce": {
+        "displayName": "سيلزفورس",
+        "description": "تابع عملاءك المحتملين وأدر فرصك التجارية بذكاء"
+      },
+      "github": {
+        "displayName": "جيتهاب",
+        "description": "أدر مشاريعك البرمجية وأتمتة سير عمل التطوير"
+      },
+      "gitlab": {
+        "displayName": "جيتلاب",
+        "description": "أتمتة النشر والاختبار وأدر مشاريعك بسهولة"
+      },
+      "google_calendar": {
+        "displayName": "تقويم جوجل",
+        "description": "أنشئ المواعيد وأدر تقويمك تلقائيًا"
+      },
+      "calendly": {
+        "displayName": "كاليندلي",
+        "description": "جدولة الاجتماعات وإدارة الحجوزات بكل سهولة"
+      },
+      "typeform": {
+        "displayName": "تايبفورم",
+        "description": "اجمع إجابات استبياناتك ونماذجك تلقائيًا"
+      },
+      "google_forms": {
+        "displayName": "نماذج جوجل",
+        "description": "اجمع وعالج ردود نماذجك من جوجل بسهولة"
+      },
+      "openai": {
+        "displayName": "أوبن إيه آي",
+        "description": "اكتب النصوص وحلل المحتوى بقوة الذكاء الاصطناعي"
+      }
+    },
     "stats": {
       "available": "متاحة",
       "connected": "متصلة",
       "categories": "الفئات"
     },
     "filters": {
-      "search": "البحث في التكاملات",
-      "searchPlaceholder": "ابحث عن التكاملات...",
-      "category": "تصفية حسب الفئة",
-      "allCategories": "جميع الفئات"
+      "search": "البحث",
+      "searchPlaceholder": "ابحث عن التطبيق...",
+      "category": "الفئة",
+      "allCategories": "كل الفئات"
     },
     "status": {
-      "connected": "متصل",
+      "connected": "مربوط",
       "available": "متاح",
-      "disconnected": "غير متصل"
+      "disconnected": "غير مربوط"
     },
     "card": {
-      "menu": "قائمة التكامل",
-      "connect": "اتصال",
-      "connecting": "جاري الاتصال...",
-      "disconnect": "قطع الاتصال",
-      "disconnecting": "جاري قطع الاتصال...",
+      "menu": "الخيارات",
+      "connect": "ربط",
+      "connecting": "جاري الربط...",
+      "disconnect": "فصل",
+      "disconnecting": "جاري الفصل...",
       "test": "اختبار الاتصال",
       "settings": "الإعدادات",
       "visitWebsite": "زيارة الموقع",
-      "noDescription": "لا يوجد وصف متاح",
-      "usageCount": "الاستخدام",
-      "lastSync": "آخر مزامنة"
+      "noDescription": "لا يوجد وصف",
+      "usageCount": "مرات الاستخدام",
+      "lastSync": "آخر تحديث"
     },
     "emptyState": {
-      "noResults": "لم يتم العثور على تكاملات. حاول تعديل البحث أو الفلاتر."
+      "noResults": "لم نجد أي تطبيق. جرّب تعديل البحث أو الفلتر"
     },
     "error": {
-      "title": "فشل تحميل التكاملات",
-      "description": "لم نتمكن من تحميل التكاملات. يرجى المحاولة مرة أخرى.",
-      "retry": "حاول مرة أخرى"
+      "title": "خطأ في التحميل",
+      "description": "حدث خطأ أثناء تحميل التطبيقات. حاول مرة أخرى",
+      "retry": "إعادة المحاولة"
     },
     "toast": {
-      "connectSuccess": "تم ربط التكامل بنجاح",
-      "connectError": "فشل ربط التكامل",
-      "disconnectSuccess": "تم قطع اتصال التكامل بنجاح",
-      "disconnectError": "فشل قطع اتصال التكامل",
-      "updateSuccess": "تم تحديث التكامل بنجاح",
-      "updateError": "فشل تحديث التكامل",
-      "testSuccess": "نجح اختبار الاتصال",
+      "connectSuccess": "تم الربط بنجاح",
+      "connectError": "فشل الربط",
+      "disconnectSuccess": "تم الفصل بنجاح",
+      "disconnectError": "فشل الفصل",
+      "updateSuccess": "تم التحديث بنجاح",
+      "updateError": "فشل التحديث",
+      "testSuccess": "الاتصال يعمل بنجاح",
       "testError": "فشل اختبار الاتصال"
+    },
+    "connect": "ربط",
+    "connecting": "جاري الربط...",
+    "form": {
+      "apiKey": "مفتاح API",
+      "apiKeyPlaceholder": "أدخل مفتاح API",
+      "apiSecret": "الرمز السري",
+      "apiSecretPlaceholder": "أدخل الرمز السري (اختياري)",
+      "optional": "اختياري",
+      "webhookUrl": "رابط Webhook",
+      "apiKeyHelp": "ستجد مفتاح API في إعدادات حسابك",
+      "getApiKey": "احصل على المفتاح",
+      "webhookHelp": "أنشئ webhook من إعدادات التطبيق وانسخ الرابط هنا",
+      "learnMore": "اعرف المزيد",
+      "oauthComingSoon": "الربط التلقائي قريبًا. حاليًا استخدم التطبيقات التي تدعم مفتاح API"
+    },
+    "errors": {
+      "apiKeyRequired": "المفتاح مطلوب",
+      "webhookUrlRequired": "الرابط مطلوب",
+      "invalidUrl": "الرابط غير صحيح",
+      "oauthNotImplemented": "الربط التلقائي غير متاح حاليًا",
+      "unsupportedAuthType": "طريقة الربط غير مدعومة",
+      "connectionFailed": "فشل الربط"
     }
   }
 }

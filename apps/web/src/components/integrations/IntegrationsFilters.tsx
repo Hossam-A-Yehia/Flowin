@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Search } from "lucide-react";
+import { getLocalizedCategory } from "@/utils/integrationLocalization";
 
 interface IntegrationsFiltersProps {
   searchQuery: string;
@@ -73,7 +74,7 @@ export function IntegrationsFilters({
             </SelectItem>
             {categories.map((category) => (
               <SelectItem key={category} value={category}>
-                {category}
+                {getLocalizedCategory(category, t)}
               </SelectItem>
             ))}
           </SelectContent>
