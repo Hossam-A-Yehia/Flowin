@@ -695,5 +695,56 @@
       "saved": "تم تحديث التدفق بنجاح",
       "saveError": "فشل تحديث التدفق"
     }
+  },
+  "integrations": {
+    "title": "التكاملات",
+    "subtitle": "اربط تطبيقاتك المفضلة وأتمت سير عملك",
+    "stats": {
+      "available": "متاحة",
+      "connected": "متصلة",
+      "categories": "الفئات"
+    },
+    "filters": {
+      "search": "البحث في التكاملات",
+      "searchPlaceholder": "ابحث عن التكاملات...",
+      "category": "تصفية حسب الفئة",
+      "allCategories": "جميع الفئات"
+    },
+    "status": {
+      "connected": "متصل",
+      "available": "متاح",
+      "disconnected": "غير متصل"
+    },
+    "card": {
+      "menu": "قائمة التكامل",
+      "connect": "اتصال",
+      "connecting": "جاري الاتصال...",
+      "disconnect": "قطع الاتصال",
+      "disconnecting": "جاري قطع الاتصال...",
+      "test": "اختبار الاتصال",
+      "settings": "الإعدادات",
+      "visitWebsite": "زيارة الموقع",
+      "noDescription": "لا يوجد وصف متاح",
+      "usageCount": "الاستخدام",
+      "lastSync": "آخر مزامنة"
+    },
+    "emptyState": {
+      "noResults": "لم يتم العثور على تكاملات. حاول تعديل البحث أو الفلاتر."
+    },
+    "error": {
+      "title": "فشل تحميل التكاملات",
+      "description": "لم نتمكن من تحميل التكاملات. يرجى المحاولة مرة أخرى.",
+      "retry": "حاول مرة أخرى"
+    },
+    "toast": {
+      "connectSuccess": "تم ربط التكامل بنجاح",
+      "connectError": "فشل ربط التكامل",
+      "disconnectSuccess": "تم قطع اتصال التكامل بنجاح",
+      "disconnectError": "فشل قطع اتصال التكامل",
+      "updateSuccess": "تم تحديث التكامل بنجاح",
+      "updateError": "فشل تحديث التكامل",
+      "testSuccess": "نجح اختبار الاتصال",
+      "testError": "فشل اختبار الاتصال"
+    }
   }
 }

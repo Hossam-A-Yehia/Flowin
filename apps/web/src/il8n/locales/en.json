@@ -699,5 +699,56 @@
       "saved": "Flow updated successfully",
       "saveError": "Failed to update flow"
     }
+  },
+  "integrations": {
+    "title": "Integrations",
+    "subtitle": "Connect your favorite apps and automate your workflows",
+    "stats": {
+      "available": "Available",
+      "connected": "Connected",
+      "categories": "Categories"
+    },
+    "filters": {
+      "search": "Search integrations",
+      "searchPlaceholder": "Search integrations...",
+      "category": "Filter by category",
+      "allCategories": "All Categories"
+    },
+    "status": {
+      "connected": "Connected",
+      "available": "Available",
+      "disconnected": "Disconnected"
+    },
+    "card": {
+      "menu": "Integration menu",
+      "connect": "Connect",
+      "connecting": "Connecting...",
+      "disconnect": "Disconnect",
+      "disconnecting": "Disconnecting...",
+      "test": "Test Connection",
+      "settings": "Settings",
+      "visitWebsite": "Visit Website",
+      "noDescription": "No description available",
+      "usageCount": "Usage",
+      "lastSync": "Last Sync"
+    },
+    "emptyState": {
+      "noResults": "No integrations found. Try adjusting your search or filters."
+    },
+    "error": {
+      "title": "Failed to Load Integrations",
+      "description": "We couldn't load the integrations. Please try again.",
+      "retry": "Try Again"
+    },
+    "toast": {
+      "connectSuccess": "Integration connected successfully",
+      "connectError": "Failed to connect integration",
+      "disconnectSuccess": "Integration disconnected successfully",
+      "disconnectError": "Failed to disconnect integration",
+      "updateSuccess": "Integration updated successfully",
+      "updateError": "Failed to update integration",
+      "testSuccess": "Connection test successful",
+      "testError": "Connection test failed"
+    }
   }
 }

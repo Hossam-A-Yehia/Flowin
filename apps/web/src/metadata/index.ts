@@ -17,6 +17,7 @@ export { verifyEmailMetadata } from './VerifyEmailMetadata';
 export { FlowsMetadata } from './FlowsMetadata';
 export { FlowBuilderMetadata } from './FlowBuilderMetadata';
 export { FlowEditMetadata } from './FlowEditMetadata';
+export { IntegrationsMetadata } from './IntegrationsMetadata';
 
 // Export utility functions
 export {
