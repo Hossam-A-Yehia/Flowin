@@ -11,6 +11,38 @@ import { IntegrationsFilters } from "./IntegrationsFilters";
 import { AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+// Order matches prisma/seed.ts exactly
+const SEED_ORDER = [
+  'whatsapp',
+  'slack',
+  'telegram',
+  'discord',
+  'gmail',
+  'outlook',
+  'sendgrid',
+  'google_sheets',
+  'google_drive',
+  'notion',
+  'airtable',
+  'trello',
+  'shopify',
+  'woocommerce',
+  'stripe',
+  'instagram',
+  'twitter',
+  'facebook',
+  'linkedin',
+  'hubspot',
+  'salesforce',
+  'github',
+  'gitlab',
+  'google_calendar',
+  'calendly',
+  'typeform',
+  'google_forms',
+  'openai',
+];
+
 export function IntegrationsClient() {
   const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState("");
@@ -43,7 +75,7 @@ export function IntegrationsClient() {
   const filteredIntegrations = useMemo(() => {
     if (!integrations) return [];
 
-    return integrations.filter((integration) => {
+    const filtered = integrations.filter((integration) => {
       const matchesSearch =
         integration.displayName
           .toLowerCase()
@@ -56,6 +88,24 @@ export function IntegrationsClient() {
         selectedCategory === "all" || integration.category === selectedCategory;
 
       return matchesSearch && matchesCategory && integration.isActive;
+    });
+
+    // Sort by seed order to match prisma/seed.ts
+    return filtered.sort((a, b) => {
+      const indexA = SEED_ORDER.indexOf(a.name);
+      const indexB = SEED_ORDER.indexOf(b.name);
+      
+      // If both are in the seed order, sort by that order
+      if (indexA !== -1 && indexB !== -1) {
+        return indexA - indexB;
+      }
+      
+      // If only one is in the seed order, prioritize it
+      if (indexA !== -1) return -1;
+      if (indexB !== -1) return 1;
+      
+      // If neither is in the seed order, maintain alphabetical order
+      return a.displayName.localeCompare(b.displayName);
     });
   }, [integrations, searchQuery, selectedCategory]);
 

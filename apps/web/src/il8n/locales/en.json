@@ -10,6 +10,8 @@
     "delete": "Delete",
     "edit": "Edit",
     "close": "Close",
+    "next": "Next",
+    "previous": "Previous",
     "deleteDialog": {
       "title": "Delete Item",
       "description": "Are you sure you want to delete this item ? This action cannot be undone. All execution history will be permanently removed.",
@@ -886,15 +888,288 @@
     "form": {
       "apiKey": "API Key",
       "apiKeyPlaceholder": "Enter your API key",
+      "apiKeyTooltip": "A unique identifier that authenticates your application with the service",
       "apiSecret": "API Secret",
       "apiSecretPlaceholder": "Enter your API secret (if required)",
+      "apiSecretTooltip": "An additional security credential used alongside your API key",
       "optional": "Optional",
       "webhookUrl": "Webhook URL",
-      "apiKeyHelp": "You can find your API key in your account settings.",
+      "webhookUrlTooltip": "A URL that receives real-time notifications from the service",
+      "apiKeyHelp": "Need help finding your credentials? Check our step-by-step guide.",
       "getApiKey": "Get API Key",
-      "webhookHelp": "Create a webhook in your app settings and paste the URL here.",
+      "viewGuide": "View Setup Guide",
+      "webhookHelp": "Not sure how to create a webhook? We'll walk you through it.",
       "learnMore": "Learn More",
       "oauthComingSoon": "OAuth2 authentication is coming soon. For now, please use API key-based integrations."
+    },
+    "setupGuide": {
+      "button": "Setup Guide",
+      "tooltip": "Step-by-step instructions to get your credentials",
+      "title": "Setup Guide:",
+      "description": "Follow these steps to connect your integration",
+      "prerequisites": "Before you begin",
+      "watchVideo": "Watch Video Tutorial",
+      "tips": "Pro Tips",
+      "troubleshooting": "Common Issues",
+      "stepProgress": "Step {{current}} of {{total}}",
+      "complete": "I'm Ready to Connect",
+      "difficulty": {
+        "easy": "Easy",
+        "medium": "Medium",
+        "advanced": "Advanced"
+      }
+    },
+    "guides": {
+      "telegram": {
+        "estimatedTime": "2 minutes",
+        "step1": {
+          "title": "Open Telegram and Find BotFather",
+          "description": "Search for @BotFather in Telegram and start a chat.",
+          "linkLabel": "Open BotFather"
+        },
+        "step2": {
+          "title": "Create a New Bot",
+          "description": "Send the command /newbot to BotFather and follow the instructions.",
+          "tip1": "Choose a unique name for your bot",
+          "tip2": "The username must end with 'bot'"
+        },
+        "step3": {
+          "title": "Copy Your API Token",
+          "description": "BotFather will send you an API token. Copy this token.",
+          "tip1": "The token looks like: 123456789:ABCdefGHIjklMNOpqrsTUVwxyz",
+          "tip2": "You can always get your token again by sending /token to BotFather"
+        }
+      },
+      "discord": {
+        "estimatedTime": "2 minutes",
+        "prerequisites": {
+          "0": "You need 'Manage Webhooks' permission in the server"
+        },
+        "step1": {
+          "title": "Open Your Discord Server",
+          "description": "Go to the Discord server where you want to add the webhook.",
+          "tip1": "You need 'Manage Webhooks' permission in the server"
+        },
+        "step2": {
+          "title": "Open Server Settings",
+          "description": "Click on the server name and select 'Server Settings' > 'Integrations'."
+        },
+        "step3": {
+          "title": "Create a Webhook",
+          "description": "Click 'Create Webhook', choose a channel, and give it a name.",
+          "tip1": "Choose the channel where you want messages to appear",
+          "tip2": "You can customize the webhook's name and avatar"
+        },
+        "step4": {
+          "title": "Copy Webhook URL",
+          "description": "Click 'Copy Webhook URL' and paste it in the setup form."
+        }
+      },
+      "sendgrid": {
+        "estimatedTime": "3 minutes",
+        "prerequisites": {
+          "0": "A SendGrid account (free tier available)"
+        },
+        "step1": {
+          "title": "Sign in to SendGrid",
+          "description": "Go to SendGrid and sign in to your account.",
+          "linkLabel": "Open SendGrid"
+        },
+        "step2": {
+          "title": "Navigate to API Keys",
+          "description": "Go to Settings > API Keys in the left sidebar."
+        },
+        "step3": {
+          "title": "Create API Key",
+          "description": "Click 'Create API Key', give it a name, and choose 'Full Access' permissions.",
+          "tip1": "For security, you can choose 'Restricted Access' and select only the permissions you need",
+          "tip2": "Give your key a descriptive name like 'Flowin Integration'"
+        },
+        "step4": {
+          "title": "Copy Your API Key",
+          "description": "Copy the API key immediately - you won't be able to see it again!",
+          "tip1": "Store the key securely",
+          "tip2": "If you lose it, you'll need to create a new one"
+        }
+      },
+      "stripe": {
+        "estimatedTime": "2 minutes",
+        "prerequisites": {
+          "0": "A Stripe account"
+        },
+        "step1": {
+          "title": "Sign in to Stripe Dashboard",
+          "description": "Go to the Stripe Dashboard and sign in.",
+          "linkLabel": "Open Stripe Dashboard"
+        },
+        "step2": {
+          "title": "Navigate to API Keys",
+          "description": "Click on 'Developers' in the top menu, then 'API keys'."
+        },
+        "step3": {
+          "title": "Copy Your Secret Key",
+          "description": "Copy the 'Secret key' (starts with sk_test_ for test mode or sk_live_ for live mode).",
+          "tip1": "Use test keys for development",
+          "tip2": "Never share your secret key publicly",
+          "tip3": "You can also use restricted keys for better security"
+        }
+      },
+      "openai": {
+        "estimatedTime": "2 minutes",
+        "prerequisites": {
+          "0": "An OpenAI account",
+          "1": "Payment method added (for API access)"
+        },
+        "step1": {
+          "title": "Sign in to OpenAI",
+          "description": "Go to the OpenAI platform and sign in.",
+          "linkLabel": "Open OpenAI Platform"
+        },
+        "step2": {
+          "title": "Navigate to API Keys",
+          "description": "Click on your profile icon and select 'API keys'."
+        },
+        "step3": {
+          "title": "Create New Secret Key",
+          "description": "Click 'Create new secret key', give it a name, and copy it immediately.",
+          "tip1": "You can only see the key once",
+          "tip2": "Set usage limits to control costs",
+          "tip3": "Monitor your usage in the dashboard"
+        }
+      },
+      "slack": {
+        "estimatedTime": "5 minutes",
+        "prerequisites": {
+          "0": "Admin access to your Slack workspace"
+        },
+        "step1": {
+          "title": "Create a Slack App",
+          "description": "Go to the Slack API website and create a new app.",
+          "linkLabel": "Open Slack API"
+        },
+        "step2": {
+          "title": "Configure OAuth & Permissions",
+          "description": "Go to 'OAuth & Permissions' and add the required scopes for your integration."
+        },
+        "step3": {
+          "title": "Install App to Workspace",
+          "description": "Click 'Install to Workspace' and authorize the app.",
+          "tip1": "Make sure you have admin permissions in the workspace",
+          "tip2": "You can always modify scopes later if needed"
+        },
+        "step4": {
+          "title": "Copy Bot User OAuth Token",
+          "description": "Copy the 'Bot User OAuth Token' that starts with 'xoxb-'.",
+          "tip1": "This token allows your app to act on behalf of your bot user"
+        }
+      },
+      "github": {
+        "estimatedTime": "3 minutes",
+        "prerequisites": {
+          "0": "A GitHub account"
+        },
+        "step1": {
+          "title": "Go to Personal Access Tokens",
+          "description": "Navigate to GitHub Settings > Developer settings > Personal access tokens.",
+          "linkLabel": "Open GitHub Tokens"
+        },
+        "step2": {
+          "title": "Generate New Token",
+          "description": "Click 'Generate new token (classic)' and give it a descriptive name.",
+          "tip1": "Choose 'classic' for broader compatibility",
+          "tip2": "Set an expiration date for security"
+        },
+        "step3": {
+          "title": "Select Scopes and Copy Token",
+          "description": "Select the required scopes for your integration and copy the generated token.",
+          "tip1": "Common scopes: repo, user, admin:org",
+          "tip2": "You can only see the token once - save it securely"
+        }
+      },
+      "notion": {
+        "estimatedTime": "4 minutes",
+        "prerequisites": {
+          "0": "A Notion account with workspace access"
+        },
+        "step1": {
+          "title": "Create a New Integration",
+          "description": "Go to Notion integrations page and create a new integration.",
+          "linkLabel": "Open Notion Integrations"
+        },
+        "step2": {
+          "title": "Configure Integration Settings",
+          "description": "Give your integration a name and select the workspace it can access."
+        },
+        "step3": {
+          "title": "Copy Internal Integration Token",
+          "description": "Copy the 'Internal Integration Token' from the integration settings.",
+          "tip1": "This token starts with 'secret_'",
+          "tip2": "Keep this token secure and never share it publicly"
+        },
+        "step4": {
+          "title": "Share Pages with Integration",
+          "description": "Go to the Notion pages you want to access and share them with your integration.",
+          "tip1": "You need to manually share each page or database with your integration"
+        }
+      },
+      "google_sheets": {
+        "estimatedTime": "8 minutes",
+        "prerequisites": {
+          "0": "A Google account",
+          "1": "Access to Google Cloud Console"
+        },
+        "step1": {
+          "title": "Create a Google Cloud Project",
+          "description": "Go to Google Cloud Console and create a new project or select an existing one.",
+          "linkLabel": "Open Google Cloud Console"
+        },
+        "step2": {
+          "title": "Enable Google Sheets API",
+          "description": "In the API Library, search for 'Google Sheets API' and enable it."
+        },
+        "step3": {
+          "title": "Create Service Account",
+          "description": "Go to 'IAM & Admin' > 'Service Accounts' and create a new service account.",
+          "tip1": "Give it a descriptive name like 'Flowin Integration'"
+        },
+        "step4": {
+          "title": "Generate Service Account Key",
+          "description": "Click on your service account, go to 'Keys' tab, and create a new JSON key."
+        },
+        "step5": {
+          "title": "Share Sheets with Service Account",
+          "description": "Share your Google Sheets with the service account email address.",
+          "tip1": "The service account email looks like: your-service@project.iam.gserviceaccount.com",
+          "tip2": "Give it 'Editor' access to allow reading and writing"
+        }
+      },
+      "shopify": {
+        "estimatedTime": "6 minutes",
+        "prerequisites": {
+          "0": "A Shopify store",
+          "1": "Admin access to your Shopify store"
+        },
+        "step1": {
+          "title": "Go to Shopify Admin",
+          "description": "Sign in to your Shopify admin panel.",
+          "linkLabel": "Open Shopify Admin"
+        },
+        "step2": {
+          "title": "Navigate to Apps and Sales Channels",
+          "description": "Go to 'Settings' > 'Apps and sales channels' > 'Develop apps'."
+        },
+        "step3": {
+          "title": "Create Private App",
+          "description": "Click 'Create an app' and give it a name and description.",
+          "tip1": "Choose a descriptive name like 'Flowin Integration'"
+        },
+        "step4": {
+          "title": "Configure API Access and Get Tokens",
+          "description": "Configure the required API scopes and copy the Admin API access token.",
+          "tip1": "Common scopes: read_products, write_products, read_orders",
+          "tip2": "Keep your API credentials secure and never share them publicly"
+        }
+      }
     },
     "errors": {
       "apiKeyRequired": "API Key is required",

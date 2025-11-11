@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Integration } from "@/types/integration";
 import { useConnectIntegration } from "@/hooks/useIntegrations";
 import { getLocalizedIntegration } from "@/utils/integrationLocalization";
+import { getIntegrationGuide, hasSetupGuide } from "@/data/integrationGuides";
 import {
   Dialog,
   DialogContent,
@@ -17,7 +18,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Loader2, ExternalLink, AlertCircle } from "lucide-react";
+import { Loader2, ExternalLink, AlertCircle, BookOpen, HelpCircle } from "lucide-react";
+import { SetupGuideDialog } from "./SetupGuideDialog";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface ConnectIntegrationDialogProps {
   integration: Integration;
@@ -43,6 +51,13 @@ export function ConnectIntegrationDialog({
   const [apiSecret, setApiSecret] = useState("");
   const [webhookUrl, setWebhookUrl] = useState("");
   const [error, setError] = useState("");
+  const [showSetupGuide, setShowSetupGuide] = useState(false);
+
+  const integrationGuide = useMemo(
+    () => getIntegrationGuide(integration.name),
+    [integration.name]
+  );
+  const hasGuide = hasSetupGuide(integration.name);
 
   const handleConnect = async () => {
     setError("");
@@ -107,28 +122,73 @@ export function ConnectIntegrationDialog({
     setApiSecret("");
     setWebhookUrl("");
     setError("");
+    setShowSetupGuide(false);
     onOpenChange(false);
   };
 
+  const handleOpenGuide = () => {
+    setShowSetupGuide(true);
+  };
+
+  const handleGuideComplete = () => {
+    setShowSetupGuide(false);
+    // Keep the main dialog open so user can enter credentials
+  };
+
   return (
-    <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-[500px]">
-        <DialogHeader>
-          <DialogTitle>
-            {t("integrations.connect")} {localizedIntegration.displayName}
-          </DialogTitle>
-          <DialogDescription>
-            {localizedIntegration.description}
-          </DialogDescription>
-        </DialogHeader>
+    <>
+      <Dialog open={open} onOpenChange={handleClose}>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center justify-between">
+              <span>
+                {t("integrations.connect")} {localizedIntegration.displayName}
+              </span>
+              {hasGuide && (
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={handleOpenGuide}
+                        className="h-8 gap-1"
+                      >
+                        <BookOpen className="h-4 w-4" />
+                        {t("integrations.setupGuide.button")}
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{t("integrations.setupGuide.tooltip")}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              )}
+            </DialogTitle>
+            <DialogDescription>
+              {localizedIntegration.description}
+            </DialogDescription>
+          </DialogHeader>
 
         <div className="space-y-4 py-4">
           {integration.authType === "API_KEY" && (
             <>
               <div className="space-y-2">
-                <Label htmlFor="apiKey">
-                  {t("integrations.form.apiKey")} *
-                </Label>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="apiKey">
+                    {t("integrations.form.apiKey")} *
+                  </Label>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <HelpCircle className="h-4 w-4 text-muted-foreground cursor-help" />
+                      </TooltipTrigger>
+                      <TooltipContent className="max-w-xs">
+                        <p>{t("integrations.form.apiKeyTooltip")}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
                 <Input
                   id="apiKey"
                   type="password"
@@ -140,12 +200,24 @@ export function ConnectIntegrationDialog({
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="apiSecret">
-                  {t("integrations.form.apiSecret")}{" "}
-                  <span className="text-muted-foreground">
-                    ({t("integrations.form.optional")})
-                  </span>
-                </Label>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="apiSecret">
+                    {t("integrations.form.apiSecret")}{" "}
+                    <span className="text-muted-foreground">
+                      ({t("integrations.form.optional")})
+                    </span>
+                  </Label>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <HelpCircle className="h-4 w-4 text-muted-foreground cursor-help" />
+                      </TooltipTrigger>
+                      <TooltipContent className="max-w-xs">
+                        <p>{t("integrations.form.apiSecretTooltip")}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
                 <Input
                   id="apiSecret"
                   type="password"
@@ -159,18 +231,33 @@ export function ConnectIntegrationDialog({
               <Alert>
                 <AlertCircle className="h-4 w-4" />
                 <AlertDescription>
-                  {t("integrations.form.apiKeyHelp")}
-                  {integration.websiteUrl && (
-                    <a
-                      href={integration.websiteUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 ml-1 text-primary hover:underline"
-                    >
-                      {t("integrations.form.getApiKey")}
-                      <ExternalLink className="h-3 w-3" />
-                    </a>
-                  )}
+                  <div className="space-y-2">
+                    <p>{t("integrations.form.apiKeyHelp")}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {hasGuide && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={handleOpenGuide}
+                          className="h-7 text-xs"
+                        >
+                          <BookOpen className="mr-1 h-3 w-3" />
+                          {t("integrations.form.viewGuide")}
+                        </Button>
+                      )}
+                      {integration.websiteUrl && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => window.open(integration.websiteUrl, '_blank')}
+                          className="h-7 text-xs"
+                        >
+                          <ExternalLink className="mr-1 h-3 w-3" />
+                          {t("integrations.form.getApiKey")}
+                        </Button>
+                      )}
+                    </div>
+                  </div>
                 </AlertDescription>
               </Alert>
             </>
@@ -178,9 +265,21 @@ export function ConnectIntegrationDialog({
           {integration.authType === "WEBHOOK" && (
             <>
               <div className="space-y-2">
-                <Label htmlFor="webhookUrl">
-                  {t("integrations.form.webhookUrl")} *
-                </Label>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="webhookUrl">
+                    {t("integrations.form.webhookUrl")} *
+                  </Label>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <HelpCircle className="h-4 w-4 text-muted-foreground cursor-help" />
+                      </TooltipTrigger>
+                      <TooltipContent className="max-w-xs">
+                        <p>{t("integrations.form.webhookUrlTooltip")}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
                 <Input
                   id="webhookUrl"
                   type="url"
@@ -194,18 +293,33 @@ export function ConnectIntegrationDialog({
               <Alert>
                 <AlertCircle className="h-4 w-4" />
                 <AlertDescription>
-                  {t("integrations.form.webhookHelp")}
-                  {integration.websiteUrl && (
-                    <a
-                      href={integration.websiteUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 ml-1 text-primary hover:underline"
-                    >
-                      {t("integrations.form.learnMore")}
-                      <ExternalLink className="h-3 w-3" />
-                    </a>
-                  )}
+                  <div className="space-y-2">
+                    <p>{t("integrations.form.webhookHelp")}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {hasGuide && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={handleOpenGuide}
+                          className="h-7 text-xs"
+                        >
+                          <BookOpen className="mr-1 h-3 w-3" />
+                          {t("integrations.form.viewGuide")}
+                        </Button>
+                      )}
+                      {integration.websiteUrl && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => window.open(integration.websiteUrl, '_blank')}
+                          className="h-7 text-xs"
+                        >
+                          <ExternalLink className="mr-1 h-3 w-3" />
+                          {t("integrations.form.learnMore")}
+                        </Button>
+                      )}
+                    </div>
+                  </div>
                 </AlertDescription>
               </Alert>
             </>
@@ -250,5 +364,17 @@ export function ConnectIntegrationDialog({
         </DialogFooter>
       </DialogContent>
     </Dialog>
+
+    {/* Setup Guide Dialog */}
+    {integrationGuide && (
+      <SetupGuideDialog
+        guide={integrationGuide}
+        integrationDisplayName={localizedIntegration.displayName}
+        open={showSetupGuide}
+        onOpenChange={setShowSetupGuide}
+        onComplete={handleGuideComplete}
+      />
+    )}
+    </>
   );
 }

@@ -10,6 +10,8 @@
     "delete": "حذف",
     "edit": "تعديل",
     "close": "إغلاق",
+    "next": "التالي",
+    "previous": "السابق",
     "deleteDialog": {
       "title": "حذف العنصر",
       "description": "هل أنت متأكد من حذف هذا العنصر؟ لا يمكن التراجع عن هذا العنصر. سيتم حذف جميع سجلات التنفيذ نهائياً.",
@@ -882,15 +884,288 @@
     "form": {
       "apiKey": "مفتاح API",
       "apiKeyPlaceholder": "أدخل مفتاح API",
+      "apiKeyTooltip": "معرّف فريد يستخدم لربط تطبيقك بالخدمة",
       "apiSecret": "الرمز السري",
       "apiSecretPlaceholder": "أدخل الرمز السري (اختياري)",
+      "apiSecretTooltip": "رمز أمان إضافي يُستخدم مع مفتاح API",
       "optional": "اختياري",
       "webhookUrl": "رابط Webhook",
-      "apiKeyHelp": "ستجد مفتاح API في إعدادات حسابك",
+      "webhookUrlTooltip": "رابط يستقبل الإشعارات الفورية من الخدمة",
+      "apiKeyHelp": "تحتاج مساعدة في إيجاد بيانات الربط؟ اطّلع على دليلنا خطوة بخطوة.",
       "getApiKey": "احصل على المفتاح",
-      "webhookHelp": "أنشئ webhook من إعدادات التطبيق وانسخ الرابط هنا",
+      "viewGuide": "شاهد دليل الإعداد",
+      "webhookHelp": "لست متأكداً كيف تنشئ webhook؟ سنرشدك خطوة بخطوة.",
       "learnMore": "اعرف المزيد",
       "oauthComingSoon": "الربط التلقائي قريبًا. حاليًا استخدم التطبيقات التي تدعم مفتاح API"
+    },
+    "setupGuide": {
+      "button": "دليل الإعداد",
+      "tooltip": "تعليمات خطوة بخطوة للحصول على بيانات الربط",
+      "title": "دليل الإعداد:",
+      "description": "اتبع هذه الخطوات لربط التطبيق",
+      "prerequisites": "قبل أن تبدأ",
+      "watchVideo": "شاهد الفيديو التعليمي",
+      "tips": "نصائح مفيدة",
+      "troubleshooting": "مشاكل شائعة",
+      "stepProgress": "الخطوة {{current}} من {{total}}",
+      "complete": "أنا جاهز للربط",
+      "difficulty": {
+        "easy": "سهل",
+        "medium": "متوسط",
+        "advanced": "متقدم"
+      }
+    },
+    "guides": {
+      "telegram": {
+        "estimatedTime": "دقيقتان",
+        "step1": {
+          "title": "افتح تيليجرام وابحث عن BotFather",
+          "description": "ابحث عن @BotFather في تيليجرام وابدأ محادثة.",
+          "linkLabel": "افتح BotFather"
+        },
+        "step2": {
+          "title": "أنشئ بوت جديد",
+          "description": "أرسل الأمر /newbot إلى BotFather واتبع التعليمات.",
+          "tip1": "اختر اسماً فريداً للبوت الخاص بك",
+          "tip2": "يجب أن ينتهي اسم المستخدم بكلمة 'bot'"
+        },
+        "step3": {
+          "title": "انسخ رمز API الخاص بك",
+          "description": "سيرسل لك BotFather رمز API. انسخ هذا الرمز.",
+          "tip1": "الرمز يبدو هكذا: 123456789:ABCdefGHIjklMNOpqrsTUVwxyz",
+          "tip2": "يمكنك دائماً الحصول على الرمز مرة أخرى بإرسال /token إلى BotFather"
+        }
+      },
+      "discord": {
+        "estimatedTime": "دقيقتان",
+        "prerequisites": {
+          "0": "تحتاج صلاحية 'Manage Webhooks' في السيرفر"
+        },
+        "step1": {
+          "title": "افتح سيرفر Discord الخاص بك",
+          "description": "اذهب إلى سيرفر Discord الذي تريد إضافة الـ webhook إليه.",
+          "tip1": "تحتاج صلاحية 'Manage Webhooks' في السيرفر"
+        },
+        "step2": {
+          "title": "افتح إعدادات السيرفر",
+          "description": "اضغط على اسم السيرفر واختر 'Server Settings' > 'Integrations'."
+        },
+        "step3": {
+          "title": "أنشئ Webhook",
+          "description": "اضغط 'Create Webhook'، اختر قناة، وأعطه اسماً.",
+          "tip1": "اختر القناة التي تريد ظهور الرسائل فيها",
+          "tip2": "يمكنك تخصيص اسم وصورة الـ webhook"
+        },
+        "step4": {
+          "title": "انسخ رابط Webhook",
+          "description": "اضغط 'Copy Webhook URL' والصقه في نموذج الإعداد."
+        }
+      },
+      "sendgrid": {
+        "estimatedTime": "3 دقائق",
+        "prerequisites": {
+          "0": "حساب SendGrid (يتوفر إصدار مجاني)"
+        },
+        "step1": {
+          "title": "سجّل الدخول إلى SendGrid",
+          "description": "اذهب إلى SendGrid وسجّل الدخول إلى حسابك.",
+          "linkLabel": "افتح SendGrid"
+        },
+        "step2": {
+          "title": "انتقل إلى API Keys",
+          "description": "اذهب إلى Settings > API Keys في القائمة الجانبية."
+        },
+        "step3": {
+          "title": "أنشئ مفتاح API",
+          "description": "اضغط 'Create API Key'، أعطه اسماً، واختر صلاحيات 'Full Access'.",
+          "tip1": "للأمان، يمكنك اختيار 'Restricted Access' وتحديد الصلاحيات التي تحتاجها فقط",
+          "tip2": "أعط المفتاح اسماً وصفياً مثل 'Flowin Integration'"
+        },
+        "step4": {
+          "title": "انسخ مفتاح API",
+          "description": "انسخ المفتاح فوراً - لن تتمكن من رؤيته مرة أخرى!",
+          "tip1": "احفظ المفتاح في مكان آمن",
+          "tip2": "إذا فقدته، ستحتاج لإنشاء مفتاح جديد"
+        }
+      },
+      "stripe": {
+        "estimatedTime": "دقيقتان",
+        "prerequisites": {
+          "0": "حساب Stripe"
+        },
+        "step1": {
+          "title": "سجّل الدخول إلى لوحة Stripe",
+          "description": "اذهب إلى لوحة Stripe وسجّل الدخول.",
+          "linkLabel": "افتح لوحة Stripe"
+        },
+        "step2": {
+          "title": "انتقل إلى API Keys",
+          "description": "اضغط على 'Developers' في القائمة العلوية، ثم 'API keys'."
+        },
+        "step3": {
+          "title": "انسخ المفتاح السري",
+          "description": "انسخ 'Secret key' (يبدأ بـ sk_test_ للوضع التجريبي أو sk_live_ للوضع الحقيقي).",
+          "tip1": "استخدم مفاتيح الاختبار للتطوير",
+          "tip2": "لا تشارك مفتاحك السري علناً أبداً",
+          "tip3": "يمكنك أيضاً استخدام مفاتيح محدودة الصلاحيات لأمان أفضل"
+        }
+      },
+      "openai": {
+        "estimatedTime": "دقيقتان",
+        "prerequisites": {
+          "0": "حساب OpenAI",
+          "1": "إضافة طريقة دفع (للوصول إلى API)"
+        },
+        "step1": {
+          "title": "سجّل الدخول إلى OpenAI",
+          "description": "اذهب إلى منصة OpenAI وسجّل الدخول.",
+          "linkLabel": "افتح منصة OpenAI"
+        },
+        "step2": {
+          "title": "انتقل إلى API Keys",
+          "description": "اضغط على أيقونة ملفك الشخصي واختر 'API keys'."
+        },
+        "step3": {
+          "title": "أنشئ مفتاح سري جديد",
+          "description": "اضغط 'Create new secret key'، أعطه اسماً، وانسخه فوراً.",
+          "tip1": "يمكنك رؤية المفتاح مرة واحدة فقط",
+          "tip2": "حدد حدود استخدام للتحكم في التكاليف",
+          "tip3": "راقب استخدامك في لوحة التحكم"
+        }
+      },
+      "slack": {
+        "estimatedTime": "5 دقائق",
+        "prerequisites": {
+          "0": "صلاحيات مدير في مساحة عمل Slack"
+        },
+        "step1": {
+          "title": "أنشئ تطبيق Slack",
+          "description": "اذهب إلى موقع Slack API وأنشئ تطبيقاً جديداً.",
+          "linkLabel": "افتح Slack API"
+        },
+        "step2": {
+          "title": "اضبط OAuth & Permissions",
+          "description": "اذهب إلى 'OAuth & Permissions' وأضف الصلاحيات المطلوبة للتكامل."
+        },
+        "step3": {
+          "title": "ثبّت التطبيق في مساحة العمل",
+          "description": "اضغط 'Install to Workspace' واسمح للتطبيق بالوصول.",
+          "tip1": "تأكد من أن لديك صلاحيات مدير في مساحة العمل",
+          "tip2": "يمكنك تعديل الصلاحيات لاحقاً إذا لزم الأمر"
+        },
+        "step4": {
+          "title": "انسخ Bot User OAuth Token",
+          "description": "انسخ 'Bot User OAuth Token' الذي يبدأ بـ 'xoxb-'.",
+          "tip1": "هذا الرمز يسمح لتطبيقك بالعمل نيابة عن البوت"
+        }
+      },
+      "github": {
+        "estimatedTime": "3 دقائق",
+        "prerequisites": {
+          "0": "حساب GitHub"
+        },
+        "step1": {
+          "title": "اذهب إلى Personal Access Tokens",
+          "description": "انتقل إلى GitHub Settings > Developer settings > Personal access tokens.",
+          "linkLabel": "افتح GitHub Tokens"
+        },
+        "step2": {
+          "title": "أنشئ رمز جديد",
+          "description": "اضغط 'Generate new token (classic)' وأعطه اسماً وصفياً.",
+          "tip1": "اختر 'classic' للحصول على توافق أوسع",
+          "tip2": "حدد تاريخ انتهاء صلاحية للأمان"
+        },
+        "step3": {
+          "title": "اختر الصلاحيات وانسخ الرمز",
+          "description": "اختر الصلاحيات المطلوبة للتكامل وانسخ الرمز المُنشأ.",
+          "tip1": "صلاحيات شائعة: repo, user, admin:org",
+          "tip2": "يمكنك رؤية الرمز مرة واحدة فقط - احفظه بأمان"
+        }
+      },
+      "notion": {
+        "estimatedTime": "4 دقائق",
+        "prerequisites": {
+          "0": "حساب Notion مع وصول لمساحة العمل"
+        },
+        "step1": {
+          "title": "أنشئ تكاملاً جديداً",
+          "description": "اذهب إلى صفحة تكاملات Notion وأنشئ تكاملاً جديداً.",
+          "linkLabel": "افتح Notion Integrations"
+        },
+        "step2": {
+          "title": "اضبط إعدادات التكامل",
+          "description": "أعط التكامل اسماً واختر مساحة العمل التي يمكنه الوصول إليها."
+        },
+        "step3": {
+          "title": "انسخ Internal Integration Token",
+          "description": "انسخ 'Internal Integration Token' من إعدادات التكامل.",
+          "tip1": "هذا الرمز يبدأ بـ 'secret_'",
+          "tip2": "احفظ هذا الرمز بأمان ولا تشاركه علناً"
+        },
+        "step4": {
+          "title": "شارك الصفحات مع التكامل",
+          "description": "اذهب إلى صفحات Notion التي تريد الوصول إليها وشاركها مع التكامل.",
+          "tip1": "تحتاج لمشاركة كل صفحة أو قاعدة بيانات يدوياً مع التكامل"
+        }
+      },
+      "google_sheets": {
+        "estimatedTime": "8 دقائق",
+        "prerequisites": {
+          "0": "حساب Google",
+          "1": "وصول إلى Google Cloud Console"
+        },
+        "step1": {
+          "title": "أنشئ مشروع Google Cloud",
+          "description": "اذهب إلى Google Cloud Console وأنشئ مشروعاً جديداً أو اختر موجوداً.",
+          "linkLabel": "افتح Google Cloud Console"
+        },
+        "step2": {
+          "title": "فعّل Google Sheets API",
+          "description": "في مكتبة API، ابحث عن 'Google Sheets API' وفعّله."
+        },
+        "step3": {
+          "title": "أنشئ Service Account",
+          "description": "اذهب إلى 'IAM & Admin' > 'Service Accounts' وأنشئ service account جديد.",
+          "tip1": "أعطه اسماً وصفياً مثل 'Flowin Integration'"
+        },
+        "step4": {
+          "title": "أنشئ مفتاح Service Account",
+          "description": "اضغط على service account، اذهب إلى تبويب 'Keys'، وأنشئ مفتاح JSON جديد."
+        },
+        "step5": {
+          "title": "شارك الجداول مع Service Account",
+          "description": "شارك جداول Google الخاصة بك مع عنوان بريد service account.",
+          "tip1": "عنوان service account يبدو هكذا: your-service@project.iam.gserviceaccount.com",
+          "tip2": "أعطه صلاحية 'Editor' للسماح بالقراءة والكتابة"
+        }
+      },
+      "shopify": {
+        "estimatedTime": "6 دقائق",
+        "prerequisites": {
+          "0": "متجر Shopify",
+          "1": "صلاحيات مدير في متجر Shopify"
+        },
+        "step1": {
+          "title": "اذهب إلى Shopify Admin",
+          "description": "سجّل الدخول إلى لوحة إدارة Shopify.",
+          "linkLabel": "افتح Shopify Admin"
+        },
+        "step2": {
+          "title": "انتقل إلى Apps and Sales Channels",
+          "description": "اذهب إلى 'Settings' > 'Apps and sales channels' > 'Develop apps'."
+        },
+        "step3": {
+          "title": "أنشئ تطبيقاً خاصاً",
+          "description": "اضغط 'Create an app' وأعطه اسماً ووصفاً.",
+          "tip1": "اختر اسماً وصفياً مثل 'Flowin Integration'"
+        },
+        "step4": {
+          "title": "اضبط وصول API واحصل على الرموز",
+          "description": "اضبط صلاحيات API المطلوبة وانسخ Admin API access token.",
+          "tip1": "صلاحيات شائعة: read_products, write_products, read_orders",
+          "tip2": "احفظ بيانات API بأمان ولا تشاركها علناً"
+        }
+      }
     },
     "errors": {
       "apiKeyRequired": "المفتاح مطلوب",
