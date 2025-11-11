@@ -107,45 +107,45 @@ export const integrationGuides: Record<string, IntegrationGuide> = {
     ],
   },
 
-  // Example: SendGrid (Easy setup)
-  sendgrid: {
-    integrationName: 'sendgrid',
-    difficulty: 'easy',
-    estimatedTimeKey: 'integrations.guides.sendgrid.estimatedTime',
-    prerequisitesKeys: [
-      'integrations.guides.sendgrid.prerequisites.0',
-    ],
-    steps: [
-      {
-        titleKey: 'integrations.guides.sendgrid.step1.title',
-        descriptionKey: 'integrations.guides.sendgrid.step1.description',
-        externalLink: {
-          url: 'https://app.sendgrid.com',
-          labelKey: 'integrations.guides.sendgrid.step1.linkLabel',
-        },
-      },
-      {
-        titleKey: 'integrations.guides.sendgrid.step2.title',
-        descriptionKey: 'integrations.guides.sendgrid.step2.description',
-      },
-      {
-        titleKey: 'integrations.guides.sendgrid.step3.title',
-        descriptionKey: 'integrations.guides.sendgrid.step3.description',
-        tipsKeys: [
-          'integrations.guides.sendgrid.step3.tip1',
-          'integrations.guides.sendgrid.step3.tip2',
-        ],
-      },
-      {
-        titleKey: 'integrations.guides.sendgrid.step4.title',
-        descriptionKey: 'integrations.guides.sendgrid.step4.description',
-        tipsKeys: [
-          'integrations.guides.sendgrid.step4.tip1',
-          'integrations.guides.sendgrid.step4.tip2',
-        ],
-      },
-    ],
-  },
+  // SendGrid - Commented out (not active in seed.ts)
+  // sendgrid: {
+  //   integrationName: 'sendgrid',
+  //   difficulty: 'easy',
+  //   estimatedTimeKey: 'integrations.guides.sendgrid.estimatedTime',
+  //   prerequisitesKeys: [
+  //     'integrations.guides.sendgrid.prerequisites.0',
+  //   ],
+  //   steps: [
+  //     {
+  //       titleKey: 'integrations.guides.sendgrid.step1.title',
+  //       descriptionKey: 'integrations.guides.sendgrid.step1.description',
+  //       externalLink: {
+  //         url: 'https://app.sendgrid.com',
+  //         labelKey: 'integrations.guides.sendgrid.step1.linkLabel',
+  //       },
+  //     },
+  //     {
+  //       titleKey: 'integrations.guides.sendgrid.step2.title',
+  //       descriptionKey: 'integrations.guides.sendgrid.step2.description',
+  //     },
+  //     {
+  //       titleKey: 'integrations.guides.sendgrid.step3.title',
+  //       descriptionKey: 'integrations.guides.sendgrid.step3.description',
+  //       tipsKeys: [
+  //         'integrations.guides.sendgrid.step3.tip1',
+  //         'integrations.guides.sendgrid.step3.tip2',
+  //       ],
+  //     },
+  //     {
+  //       titleKey: 'integrations.guides.sendgrid.step4.title',
+  //       descriptionKey: 'integrations.guides.sendgrid.step4.description',
+  //       tipsKeys: [
+  //         'integrations.guides.sendgrid.step4.tip1',
+  //         'integrations.guides.sendgrid.step4.tip2',
+  //       ],
+  //     },
+  //   ],
+  // },
 
   // Example: Stripe (Easy setup)
   stripe: {

@@ -19,7 +19,7 @@ const SEED_ORDER = [
   'discord',
   'gmail',
   'outlook',
-  'sendgrid',
+  // 'sendgrid', // Commented out in seed.ts
   'google_sheets',
   'google_drive',
   'notion',
@@ -38,7 +38,7 @@ const SEED_ORDER = [
   'gitlab',
   'google_calendar',
   'calendly',
-  'typeform',
+  // 'typeform', // Commented out in seed.ts
   'google_forms',
   'openai',
 ];

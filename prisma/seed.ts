@@ -15,7 +15,7 @@ async function main() {
       isActive: true,
       description:
         'Send automated messages, notifications, and updates to your customers via WhatsApp Business API.',
-      iconUrl: '/integrations/whatsapp.svg',
+      iconUrl: '/integrations/whatsapp-business-icon.svg',
       websiteUrl: 'https://developers.facebook.com/docs/whatsapp/getting-started',
     },
     {
@@ -26,7 +26,7 @@ async function main() {
       isActive: true,
       description:
         'Send messages, notifications, and updates to Slack channels and direct messages.',
-      iconUrl: '/integrations/slack.svg',
+      iconUrl: '/integrations/slack-icon.svg',
       websiteUrl: 'https://api.slack.com/apps',
     },
     {
@@ -37,7 +37,7 @@ async function main() {
       isActive: true,
       description:
         'Send automated messages and notifications through Telegram bots.',
-      iconUrl: '/integrations/telegram.svg',
+      iconUrl: '/integrations/telegram-icon.svg',
       websiteUrl: 'https://core.telegram.org/bots#how-do-i-create-a-bot',
     },
     {
@@ -48,7 +48,7 @@ async function main() {
       isActive: true,
       description:
         'Send messages and notifications to Discord channels via webhooks.',
-      iconUrl: '/integrations/discord.svg',
+      iconUrl: '/integrations/discord-round-color-icon.svg',
       websiteUrl: 'https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks',
     },
 
@@ -61,7 +61,7 @@ async function main() {
       isActive: true,
       description:
         'Send emails, read inbox, and automate email workflows with Gmail.',
-      iconUrl: '/integrations/gmail.svg',
+      iconUrl: '/integrations/gmail-icon.svg',
       websiteUrl: 'https://console.cloud.google.com/apis/library/gmail.googleapis.com',
     },
     {
@@ -72,7 +72,7 @@ async function main() {
       isActive: true,
       description:
         'Manage emails, calendar events, and contacts with Microsoft Outlook.',
-      iconUrl: '/integrations/outlook.svg',
+      iconUrl: '/integrations/microsoft-outlook-icon.svg',
       websiteUrl: 'https://learn.microsoft.com/en-us/graph/auth-register-app-v2',
     },
     // {
@@ -96,7 +96,7 @@ async function main() {
       isActive: true,
       description:
         'Read, write, and update data in Google Sheets spreadsheets.',
-      iconUrl: '/integrations/google-sheets.svg',
+      iconUrl: '/integrations/google-sheets-icon.svg',
       websiteUrl: 'https://console.cloud.google.com/apis/library/sheets.googleapis.com',
     },
     {
@@ -107,7 +107,7 @@ async function main() {
       isActive: true,
       description:
         'Upload, download, and manage files in Google Drive storage.',
-      iconUrl: '/integrations/google-drive.svg',
+      iconUrl: '/integrations/google-drive-color-icon.svg',
       websiteUrl: 'https://console.cloud.google.com/apis/library/drive.googleapis.com',
     },
     {
@@ -118,7 +118,7 @@ async function main() {
       isActive: true,
       description:
         'Create, update, and manage pages and databases in Notion workspace.',
-      iconUrl: '/integrations/notion.svg',
+      iconUrl: '/integrations/notion-icon.svg',
       websiteUrl: 'https://www.notion.so/my-integrations',
     },
     {
@@ -129,7 +129,7 @@ async function main() {
       isActive: true,
       description:
         'Manage records in Airtable bases and automate database workflows.',
-      iconUrl: '/integrations/airtable.svg',
+      iconUrl: '/integrations/airtable-icon.svg',
       websiteUrl: 'https://airtable.com/create/tokens',
     },
     {
@@ -140,7 +140,7 @@ async function main() {
       isActive: true,
       description:
         'Create cards, manage boards, and automate project workflows in Trello.',
-      iconUrl: '/integrations/trello.svg',
+      iconUrl: '/integrations/trello-logo-icon.svg',
       websiteUrl: 'https://trello.com/power-ups/admin',
     },
 
@@ -153,7 +153,7 @@ async function main() {
       isActive: true,
       description:
         'Manage products, orders, and customers in your Shopify store.',
-      iconUrl: '/integrations/shopify.svg',
+      iconUrl: '/integrations/shopify-icon.svg',
       websiteUrl: 'https://help.shopify.com/en/manual/apps/app-types/custom-apps',
     },
     {
@@ -164,7 +164,7 @@ async function main() {
       isActive: true,
       description:
         'Automate order processing and inventory management for WooCommerce stores.',
-      iconUrl: '/integrations/woocommerce.svg',
+      iconUrl: '/integrations/woocommerce-icon.svg',
       websiteUrl: 'https://woocommerce.github.io/woocommerce-rest-api-docs/#authentication',
     },
     {
@@ -175,7 +175,7 @@ async function main() {
       isActive: true,
       description:
         'Process payments, manage subscriptions, and handle invoices with Stripe.',
-      iconUrl: '/integrations/stripe.svg',
+      iconUrl: '/integrations/stripe-icon.svg',
       websiteUrl: 'https://dashboard.stripe.com/apikeys',
     },
 
@@ -188,7 +188,7 @@ async function main() {
       isActive: true,
       description:
         'Post content, manage comments, and analyze engagement on Instagram.',
-      iconUrl: '/integrations/instagram.svg',
+      iconUrl: '/integrations/ig-instagram-icon.svg',
       websiteUrl: 'https://developers.facebook.com/docs/instagram-api/getting-started',
     },
     {
@@ -199,7 +199,7 @@ async function main() {
       isActive: true,
       description:
         'Post tweets, monitor mentions, and automate social media workflows.',
-      iconUrl: '/integrations/twitter.svg',
+      iconUrl: '/integrations/x-social-media-black-icon.svg',
       websiteUrl: 'https://developer.twitter.com/en/portal/dashboard',
     },
     {
@@ -210,7 +210,7 @@ async function main() {
       isActive: true,
       description:
         'Post updates, manage pages, and automate Facebook marketing.',
-      iconUrl: '/integrations/facebook.svg',
+      iconUrl: '/integrations/facebook-round-color-icon.svg',
       websiteUrl: 'https://developers.facebook.com/apps',
     },
     {
@@ -221,7 +221,7 @@ async function main() {
       isActive: true,
       description:
         'Share content, manage company pages, and automate LinkedIn presence.',
-      iconUrl: '/integrations/linkedin.svg',
+      iconUrl: '/integrations/linkedin-app-icon.svg',
       websiteUrl: 'https://www.linkedin.com/developers/apps',
     },
 
@@ -234,7 +234,7 @@ async function main() {
       isActive: true,
       description:
         'Manage contacts, deals, and automate sales workflows in HubSpot CRM.',
-      iconUrl: '/integrations/hubspot.svg',
+      iconUrl: '/integrations/hubspot-icon.svg',
       websiteUrl: 'https://developers.hubspot.com/docs/api/overview',
     },
     {
@@ -245,7 +245,7 @@ async function main() {
       isActive: true,
       description:
         'Manage leads, opportunities, and customer data in Salesforce.',
-      iconUrl: '/integrations/salesforce.svg',
+      iconUrl: '/integrations/salesforce-icon.svg',
       websiteUrl: 'https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_understanding_authentication.htm',
     },
 
@@ -258,7 +258,7 @@ async function main() {
       isActive: true,
       description:
         'Manage repositories, issues, and automate development workflows.',
-      iconUrl: '/integrations/github.svg',
+      iconUrl: '/integrations/github-icon.svg',
       websiteUrl: 'https://github.com/settings/tokens',
     },
     {
@@ -269,7 +269,7 @@ async function main() {
       isActive: true,
       description:
         'Automate CI/CD pipelines and manage GitLab projects.',
-      iconUrl: '/integrations/gitlab.svg',
+      iconUrl: '/integrations/gitlab-icon.svg',
       websiteUrl: 'https://gitlab.com/-/profile/personal_access_tokens',
     },
 
@@ -282,7 +282,7 @@ async function main() {
       isActive: true,
       description:
         'Create events, manage calendars, and automate scheduling workflows.',
-      iconUrl: '/integrations/google-calendar.svg',
+      iconUrl: '/integrations/google-calendar-icon.svg',
       websiteUrl: 'https://console.cloud.google.com/apis/library/calendar-json.googleapis.com',
     },
     {
@@ -293,22 +293,22 @@ async function main() {
       isActive: true,
       description:
         'Automate meeting scheduling and manage Calendly bookings.',
-      iconUrl: '/integrations/calendly.svg',
+      iconUrl: '/integrations/calendly-icon.svg',
       websiteUrl: 'https://developer.calendly.com/getting-started',
     },
 
     // Forms & Surveys
-    {
-      name: 'typeform',
-      displayName: 'Typeform',
-      category: 'Forms',
-      authType: AuthType.API_KEY,
-      isActive: true,
-      description:
-        'Collect form responses and automate survey workflows.',
-      iconUrl: '/integrations/typeform.svg',
-      websiteUrl: 'https://developer.typeform.com/get-started/personal-access-token/',
-    },
+    // {
+    //   name: 'typeform',
+    //   displayName: 'Typeform',
+    //   category: 'Forms',
+    //   authType: AuthType.API_KEY,
+    //   isActive: true,
+    //   description:
+    //     'Collect form responses and automate survey workflows.',
+    //   iconUrl: '/integrations/typeform.svg',
+    //   websiteUrl: 'https://developer.typeform.com/get-started/personal-access-token/',
+    // },
     {
       name: 'google_forms',
       displayName: 'Google Forms',
@@ -317,7 +317,7 @@ async function main() {
       isActive: true,
       description:
         'Collect and process Google Forms responses automatically.',
-      iconUrl: '/integrations/google-forms.svg',
+      iconUrl: '/integrations/google-forms-icon.svg',
       websiteUrl: 'https://console.cloud.google.com/apis/library/forms.googleapis.com',
     },
 
@@ -330,7 +330,7 @@ async function main() {
       isActive: true,
       description:
         'Generate text, analyze content, and build AI-powered workflows with GPT.',
-      iconUrl: '/integrations/openai.svg',
+      iconUrl: '/integrations/openai-icon.svg',
       websiteUrl: 'https://platform.openai.com/api-keys',
     },
   ];

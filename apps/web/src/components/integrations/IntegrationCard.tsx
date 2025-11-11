@@ -78,7 +78,7 @@ export function IntegrationCard({
       <CardContent className="p-6">
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center gap-3">
-            <div className="relative h-12 w-12 rounded-lg bg-muted flex items-center justify-center overflow-hidden">
+            <div className="relative h-12 w-12 rounded-lg  flex items-center justify-center overflow-hidden">
               {integration.iconUrl ? (
                 <Image
                   src={integration.iconUrl}
